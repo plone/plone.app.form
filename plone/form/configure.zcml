@@ -5,7 +5,7 @@
 
   <adapter
       for="Products.Five.BrowserView"
-      factory=".defaultnamed.FiveNamedTemplateAdapter"
+      factory="plone.form.default_named_template_adapter"
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />

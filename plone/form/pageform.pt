@@ -9,6 +9,8 @@
 <body>
 <div metal:fill-slot="body">
 
+<p class="discreet">This page brought to you by plone.form</p>
+
 <div metal:define-macro="form">
 
 <form action="." metal:define-macro="master"
