@@ -1,0 +1,12 @@
+setup.cfg
+setup.py
+plone/__init__.py
+plone.form.egg-info/PKG-INFO
+plone.form.egg-info/SOURCES.txt
+plone.form.egg-info/entry_points.txt
+plone.form.egg-info/namespace_packages.txt
+plone.form.egg-info/paster_plugins.txt
+plone.form.egg-info/top_level.txt
+plone.form.egg-info/zip-safe
+plone/form/__init__.py
+plone/form/named.py

@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five">
+
+  <adapter
+      for="Products.Five.BrowserView"
+      factory=".defaultnamed.FiveNamedTemplateAdapter"
+      name="default"
+      provides="zope.formlib.namedtemplate.INamedTemplate"
+      />
+
+  <browser:page
+      for="*"
+      permission="zope.Public"
+      class=".visualtest.TestForm"
+      name="plone-form-test.html"
+      />
+
+  <five:traversable class="Products.CMFPlone.Portal.PloneSite" />
+
+</configure>
