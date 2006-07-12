@@ -9,8 +9,6 @@
 <body>
 <div metal:fill-slot="body">
 
-<p class="discreet">This page brought to you by plone.form</p>
-
 <div metal:define-macro="form">
 
 <form action="." metal:define-macro="master"
@@ -76,42 +74,33 @@
   <div metal:define-slot="extra_info" tal:replace="nothing">
   </div>
 
-  <table class="form-fields">
-    <tr class="row" metal:define-slot="extra_top" tal:replace="nothing">
-        <td class="label">Extra top</td>
-        <td class="label"><input type="text" /></td>
-    </tr>
-    <tbody metal:define-slot="formbody" tal:omit-tag="">
-      <tr tal:repeat="widget view/widgets">
-        <td class="label" tal:define="hint widget/hint"
-          metal:define-macro="labelcell">
+  <tal:block tal:repeat="widget view/widgets">
+    <div class="field"
+         tal:define="hint widget/hint;
+                     description widget/context/description|nothing">
           <label tal:condition="python:hint"
                  tal:attributes="for widget/name"
                  onmousedown="toggleFormFieldHelp(this,1)"
                  onmouseup="toggleFormFieldHelp(this,0)"
                  onmouseout="toggleFormFieldHelp(this,0)"
                  style="cursor: help">
-            <span class="required" tal:condition="widget/required"
-            >*</span><span i18n:translate=""
+<span i18n:translate=""
                            tal:content="widget/label">label</span>
           </label>
           <label tal:condition="python:not hint"
                  tal:attributes="for widget/name">
-            <span class="required" tal:condition="widget/required"
-            >*</span><span i18n:translate=""
+<span i18n:translate=""
                            tal:content="widget/label">label</span>
           </label>
-        </td>
-        <td class="field" tal:define="hint widget/hint"
-            metal:define-macro="widgetcell">
-          <div class="form-fields-help"
+          <span class="fieldRequired" title="Required" tal:condition="widget/required">
+            (Required)
+          </span>
+          
+          <div class="formHelp"
                i18n:translate=""
-               tal:content="hint"
-               tal:condition="hint"
-               tal:attributes="id string:field-help-for-${widget/name}"
-               onclick="this.style.visibility='hidden';"
-               style="visibility: hidden; position: absolute;"
-               >Title of this content object.</div>
+               tal:content="description"
+               tal:condition="description"
+               >field description</div>
           <div class="widget" tal:content="structure widget">
           <input type="text" /></div>
           <div class="error"
@@ -123,14 +112,9 @@
             -->
             <span tal:replace="structure widget/error">error</span>
           </div>
-        </td>
-      </tr>
-    </tbody>
-    <tr class="row" metal:define-slot="extra_bottom" tal:replace="nothing">
-      <td class="label">Extra bottom</td>
-      <td class="label"><input type="text" /></td>
-    </tr>
-  </table>
+    </div>
+</tal:block>
+
   <metal:block define-slot="above_buttons" />
 </div>
 <div id="actionsView">
@@ -153,4 +137,8 @@
     tal:condition="extra_script"
     tal:content="structure extra_script" />
 
-</div></div></body></html>
+
+</div>
+<p class="discreet">This page brought to you by plone.form</p>
+
+</div></body></html>
