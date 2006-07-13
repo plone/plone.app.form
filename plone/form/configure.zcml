@@ -15,6 +15,7 @@
       permission="zope.Public"
       class=".visualtest.TestForm"
       name="plone-form-test.html"
+      template="pageform.pt"
       />
 
   <five:traversable class="Products.CMFPlone.Portal.PloneSite" />
