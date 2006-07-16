@@ -12,7 +12,9 @@ Features
 
   - **Better integration with zope.formlib.**  The default templates
     distributed with zope.formlib are table-based and don't follow
-    common Plone UI patterns, plone.form addresses this.
+    common Plone UI patterns, plone.form addresses this.  Also,
+    plone.form patches zope.formlib so that the base classes from
+    there can be used as-is.
 
   - **Traditional portal_skins defineable custom templates.**  Currently
     this means that if a view component is defined with with
