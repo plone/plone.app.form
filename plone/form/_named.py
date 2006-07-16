@@ -73,13 +73,13 @@ from Products.PageTemplates.PageTemplate import PageTemplate
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
+    """A way to make a TTW created template work as a z3 style view template.
+    This opens a huge security hole and is just a preliminary
+    proof-of-concept.  DO NOT USE!!!"""
 
     def __init__(self, template, context):
         self._text = template._text
         self.context = context
-        # If it's cooked use it
-        if template._v_cooked:
-            self._v_cooked = template._v_cooked
 
     # A trivial _getContext method as we always know how we are wrapped
     def _getContext(self):
