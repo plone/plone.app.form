@@ -19,7 +19,7 @@ def proper_name(filename):
     
     return os.path.basename(name)
 
-class NamedTemplateAdapter(Acquisition.Explicit):
+class NamedTemplateAdapter(object):
     """A named template adapter implementation that has the ability
     to lookup the template portion from regular traversal (intended for
     being able to customize the template portion of a view component
@@ -30,7 +30,6 @@ class NamedTemplateAdapter(Acquisition.Explicit):
 
     def __init__(self, context):
         self.context = context
-        self._template = [self.default_template]
         
     def __call__(self, *args, **kwargs):
         view = self.context
@@ -49,26 +48,14 @@ class NamedTemplateAdapter(Acquisition.Explicit):
                     # so we fall back to the defined page template
                     template = index
                 else:
-                    template = template.aq_base.__of__(view.context)
-    
-                    # here we dynamically monkey a page template instance
-                    # so that we can insert the view variable into
-                    # the template's global namespace... evil, but its
-                    # what we do until we find a better way
-                    if isinstance(template, ZopePageTemplate.ZopePageTemplate):
-                        def _pt_context(view=view, 
-                                        template=template, 
-                                        orig_pt_getContext=template.pt_getContext):
-                            cdict = orig_pt_getContext()
-                            cdict['view'] = view
-                            return cdict
-                        template.pt_getContext = _pt_context
-                        cleanup.append('pt_getContext')
+                    template = ViewTemplateFromPageTemplate(template,
+                                                            view.context)
+                    template = template.__of__(view)
 
-        result = template(*args, **kwargs)
-        for x in cleanup:
-            template.__delattr__(x)
-        return result
+            result = template(*args, **kwargs)
+            return result
+        else:
+            return view(*args, **kwargs)
 
 def named_template_adapter(template):
     """Return a new named template adapter which defaults the to given
@@ -78,7 +65,29 @@ def named_template_adapter(template):
     new_class = new.classobj('GeneratedClass', 
                              (NamedTemplateAdapter,),
                              {})
-    new_class.default_template = [template]
-    
-    AccessControl.allow_class(new_class)
+    new_class.default_template = template
+
     return new_class
+
+from Products.PageTemplates.PageTemplate import PageTemplate
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+
+class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
+
+    def __init__(self, template, context):
+        self._text = template._text
+        self.context = context
+        # If it's cooked use it
+        if template._v_cooked:
+            self._v_cooked = template._v_cooked
+
+    # A trivial _getContext method as we always know how we are wrapped
+    def _getContext(self):
+        return getattr(self, 'aq_parent', None)
+
+    # Borrow from Five (the methods from PageTemplateFile are inherited from
+    # PageTemplate directly)
+    _cook = ZopeTwoPageTemplateFile._cook.im_func
+    pt_render = ZopeTwoPageTemplateFile.pt_render.im_func
+    _pt_getContext = ZopeTwoPageTemplateFile._pt_getContext.im_func
+    pt_getContext = ZopeTwoPageTemplateFile.pt_getContext.im_func
