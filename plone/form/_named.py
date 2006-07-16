@@ -5,18 +5,20 @@ import Acquisition
 from zope import interface
 from zope.formlib import namedtemplate
 from Products.Five.browser import metaconfigure
+from Products.Five.browser.ReuseUtils import rebindFunction
 from Products.PageTemplates import ZopePageTemplate
+from _expressions import getEngine
 
 def proper_name(filename):
     """Get the base name of a possibly full path and if it ends with
     .pt or .zpt, chop it off.
     """
-    
+
     basepath, ext = os.path.splitext(filename)
     name = basepath
     if ext and ext.lower() not in ('.pt', '.zpt'):
         name += ext
-    
+
     return os.path.basename(name)
 
 class NamedTemplateAdapter(object):
@@ -25,16 +27,16 @@ class NamedTemplateAdapter(object):
     being able to customize the template portion of a view component
     in the traditional portal_skins style).
     """
-    
+
     interface.implements(namedtemplate.INamedTemplate)
 
     def __init__(self, context):
         self.context = context
-        
+
     def __call__(self, *args, **kwargs):
         view = self.context
         cleanup = []
-        
+
         # basically this means we only do customized template lookups
         # for views defined with <browser:page template='foo'> 
         if isinstance(view, metaconfigure.ViewMixinForTemplates):
@@ -61,7 +63,7 @@ def named_template_adapter(template):
     """Return a new named template adapter which defaults the to given
     template.
     """
-    
+
     new_class = new.classobj('GeneratedClass', 
                              (NamedTemplateAdapter,),
                              {})
@@ -74,7 +76,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
     """A way to make a TTW created template work as a z3 style view template.
-    This opens a huge security hole and is just a preliminary
+    This opens a potential security hole and is just a preliminary
     proof-of-concept.  DO NOT USE!!!"""
 
     def __init__(self, template, context):
@@ -91,7 +93,22 @@ class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
 
     # Borrow from Five (the methods from PageTemplateFile are inherited from
     # PageTemplate directly)
-    _cook = ZopeTwoPageTemplateFile._cook.im_func
-    pt_render = ZopeTwoPageTemplateFile.pt_render.im_func
+    _cook = rebindFunction(PageTemplate._cook,
+                           getEngine=getEngine)
+    pt_render = rebindFunction(PageTemplate.pt_render,
+                           getEngine=getEngine)
     _pt_getContext = ZopeTwoPageTemplateFile._pt_getContext.im_func
     pt_getContext = ZopeTwoPageTemplateFile.pt_getContext.im_func
+
+    def getId(self):
+        return self.id
+
+    def __call__(self, *args, **kwargs):
+        """Add the zope user to the security context, as done in
+        PageTemplateFile"""
+        if not kwargs.has_key('args'):
+            kwargs['args'] = args
+        bound_names = {'options': kwargs}
+        security = AccessControl.getSecurityManager()
+        bound_names['user'] = security.getUser()
+        return self.pt_render(extra_context=bound_names)
