@@ -80,6 +80,10 @@ class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
     def __init__(self, template, context):
         self._text = template._text
         self.context = context
+        if hasattr(template, 'id'):
+            self.id = template.id
+        if hasattr(template, 'title'):
+            self.title = template.title
 
     # A trivial _getContext method as we always know how we are wrapped
     def _getContext(self):
