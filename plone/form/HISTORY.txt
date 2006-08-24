@@ -1,8 +1,8 @@
-Changelog for plone.form
+Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.form - 0.1 Unreleased
+plone.app.form - 0.1 Unreleased
 
     - Initial package structure.
       [zopeskel]

@@ -1,5 +1,5 @@
 from Products.Five.browser import pagetemplatefile
-from plone.form._named import named_template_adapter
+from plone.app.form._named import named_template_adapter
 from zope.formlib import namedtemplate, interfaces
 from zope import i18n
 

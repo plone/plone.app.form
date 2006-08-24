@@ -1,8 +1,8 @@
 Metadata-Version: 1.0
-Name: plone.form
-Version: 0.1dev
+Name: plone.app.form
+Version: 0.1dev-r10262
 Summary: UNKNOWN
-Home-page: http://svn.plone.org/svn/plone/plone.form
+Home-page: http://svn.plone.org/svn/plone/plone.app.form
 Author: Plone Foundation
 Author-email: plone-developers@lists.sourceforge.net
 License: GPL

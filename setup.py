@@ -3,7 +3,7 @@ import sys, os
 
 version = '0.1'
 
-setup(name='plone.form',
+setup(name='plone.app.form',
       version=version,
       description="",
       long_description="""\
@@ -12,7 +12,7 @@ setup(name='plone.form',
       keywords='',
       author='Plone Foundation',
       author_email='plone-developers@lists.sourceforge.net',
-      url='http://svn.plone.org/svn/plone/plone.form',
+      url='http://svn.plone.org/svn/plone/plone.app.form',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['plone'],

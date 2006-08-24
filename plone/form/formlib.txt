@@ -64,7 +64,7 @@ Plone-based formlib views need to extend the Five base classes.
 So what we do instead is patch zope.formlib to use the usable code
 from Five.
 
-  >>> from plone.form import _patches
+  >>> from plone.app.form import _patches
   >>> patched = _patches.apply_formlib_request_locale_patch()
 
 Now we see if we can use EditFormBase's apply action (we couldn't 

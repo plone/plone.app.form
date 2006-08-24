@@ -12,7 +12,7 @@
   
   <adapter
       for="zope.formlib.interfaces.IAction"
-      factory="plone.form.render_submit_button"
+      factory="plone.app.form.render_submit_button"
       name="render"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />

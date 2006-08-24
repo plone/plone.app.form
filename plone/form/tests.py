@@ -6,7 +6,7 @@ from zope.testing import doctestunit
 def test_suite():
     return unittest.TestSuite((
         doctestunit.DocFileSuite('formlib.txt',
-                                 package='plone.form',
+                                 package='plone.app.form',
                                  setUp=testing.setUp,
                                  tearDown=testing.tearDown),
         ))

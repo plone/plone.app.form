@@ -4,7 +4,7 @@
     xmlns:five="http://namespaces.zope.org/five">
 
   <class
-      class="plone.form._named.ViewTemplateFromPageTemplate">
+      class="plone.app.form._named.ViewTemplateFromPageTemplate">
     <allow
         attributes="getId id title"
         />
@@ -12,14 +12,14 @@
   
   <adapter
       for="Products.Five.BrowserView"
-      factory="plone.form.default_named_template_adapter"
+      factory="plone.app.form.default_named_template_adapter"
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
   
   <adapter
       for=".interfaces.IPloneSubPageForm"
-      factory="plone.form.default_subpage_template"
+      factory="plone.app.form.default_subpage_template"
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
