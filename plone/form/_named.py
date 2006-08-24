@@ -3,7 +3,8 @@ import new
 import AccessControl
 import Acquisition
 from zope import interface
-from zope.formlib import namedtemplate
+from zope import i18n
+from zope.formlib import interfaces, namedtemplate
 from Products.Five.browser import metaconfigure
 from Products.Five.browser.ReuseUtils import rebindFunction
 from Products.PageTemplates import ZopePageTemplate
@@ -57,7 +58,7 @@ class NamedTemplateAdapter(object):
             result = template(*args, **kwargs)
             return result
         else:
-            return view(*args, **kwargs)
+            return self.default_template.__of__(view)(*args, **kwargs)
 
 def named_template_adapter(template):
     """Return a new named template adapter which defaults the to given

@@ -16,6 +16,13 @@
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
+  
+  <adapter
+      for=".interfaces.IPloneSubPageForm"
+      factory="plone.form.default_subpage_template"
+      name="default"
+      provides="zope.formlib.namedtemplate.INamedTemplate"
+      />
 
   <browser:page
       for="*"
