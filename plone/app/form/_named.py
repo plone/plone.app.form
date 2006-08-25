@@ -6,9 +6,12 @@ from zope import interface
 from zope import i18n
 from zope.formlib import interfaces, namedtemplate
 from Products.Five.browser import metaconfigure
-from Products.Five.browser.ReuseUtils import rebindFunction
-from Products.PageTemplates import ZopePageTemplate
-from _expressions import getEngine
+try:
+    from Products.Five.browser.ReuseUtils import rebindFunction
+    from _expressions import getEngine
+    try_portal_skins = True
+except ImportError:
+    try_portal_skins = False
 
 def proper_name(filename):
     """Get the base name of a possibly full path and if it ends with
@@ -40,7 +43,8 @@ class NamedTemplateAdapter(object):
 
         # basically this means we only do customized template lookups
         # for views defined with <browser:page template='foo'> 
-        if isinstance(view, metaconfigure.ViewMixinForTemplates):
+        if isinstance(view, metaconfigure.ViewMixinForTemplates) and \
+               try_portal_skins:
             index = getattr(view, 'index', None)
             if index is not None:
                 name = proper_name(index.filename)
@@ -75,41 +79,42 @@ def named_template_adapter(template):
 from Products.PageTemplates.PageTemplate import PageTemplate
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
-class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
-    """A way to make a TTW created template work as a z3 style view template.
-    This opens a potential security hole and is just a preliminary
-    proof-of-concept.  DO NOT USE!!!"""
+if try_portal_skins:
+    class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
+        """A way to make a TTW created template work as a z3 style view template.
+        This opens a potential security hole and is just a preliminary
+        proof-of-concept.  DO NOT USE!!!"""
 
-    def __init__(self, template, context):
-        self._text = template._text
-        self.context = context
-        if hasattr(template, 'id'):
-            self.id = template.id
-        if hasattr(template, 'title'):
-            self.title = template.title
+        def __init__(self, template, context):
+            self._text = template._text
+            self.context = context
+            if hasattr(template, 'id'):
+                self.id = template.id
+                if hasattr(template, 'title'):
+                    self.title = template.title
 
-    # A trivial _getContext method as we always know how we are wrapped
-    def _getContext(self):
-        return getattr(self, 'aq_parent', None)
+        # A trivial _getContext method as we always know how we are wrapped
+        def _getContext(self):
+            return getattr(self, 'aq_parent', None)
 
-    # Borrow from Five (the methods from PageTemplateFile are inherited from
-    # PageTemplate directly)
-    _cook = rebindFunction(PageTemplate._cook,
-                           getEngine=getEngine)
-    pt_render = rebindFunction(PageTemplate.pt_render,
-                           getEngine=getEngine)
-    _pt_getContext = ZopeTwoPageTemplateFile._pt_getContext.im_func
-    pt_getContext = ZopeTwoPageTemplateFile.pt_getContext.im_func
+        # Borrow from Five (the methods from PageTemplateFile are inherited from
+        # PageTemplate directly)
+        _cook = rebindFunction(PageTemplate._cook,
+                               getEngine=getEngine)
+        pt_render = rebindFunction(PageTemplate.pt_render,
+                                   getEngine=getEngine)
+        _pt_getContext = ZopeTwoPageTemplateFile._pt_getContext.im_func
+        pt_getContext = ZopeTwoPageTemplateFile.pt_getContext.im_func
 
-    def getId(self):
-        return self.id
+        def getId(self):
+            return self.id
 
-    def __call__(self, *args, **kwargs):
-        """Add the zope user to the security context, as done in
-        PageTemplateFile"""
-        if not kwargs.has_key('args'):
-            kwargs['args'] = args
-        bound_names = {'options': kwargs}
-        security = AccessControl.getSecurityManager()
-        bound_names['user'] = security.getUser()
-        return self.pt_render(extra_context=bound_names)
+        def __call__(self, *args, **kwargs):
+            """Add the zope user to the security context, as done in
+            PageTemplateFile"""
+            if not kwargs.has_key('args'):
+                kwargs['args'] = args
+                bound_names = {'options': kwargs}
+                security = AccessControl.getSecurityManager()
+                bound_names['user'] = security.getUser()
+                return self.pt_render(extra_context=bound_names)
