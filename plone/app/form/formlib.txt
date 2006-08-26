@@ -18,11 +18,15 @@ would potentially over-shadow locale being provided by request.form
 (and possibly break many legacy applications in the process).
 
 Lets demonstrate the problem.  We begin by defining some interfaces
-and classes.
+and classes and of course make sure that the patch isn't already applied.
 
   >>> from zope import interface, schema
   >>> from zope.formlib import form
+  >>> from plone.app.form import _patches
   >>> from Products.Five import traversable
+
+  >>> patched = _patches.remove_formlib_request_locale_patch()
+
   >>> class IFoo(interface.Interface):
   ...     var1 = schema.TextLine(title=u'var1')
   ...     var2 = schema.Bool(title=u'var2')
@@ -64,8 +68,7 @@ Plone-based formlib views need to extend the Five base classes.
 So what we do instead is patch zope.formlib to use the usable code
 from Five.
 
-  >>> from plone.app.form import _patches
-  >>> patched = _patches.apply_formlib_request_locale_patch()
+  >>> discard = _patches.apply_formlib_request_locale_patch()
 
 Now we see if we can use EditFormBase's apply action (we couldn't 
 before).
@@ -81,7 +84,7 @@ before).
 
 Lets test the patch removal to make sure it works as advertised.
 
-  >>> _patches.remove_formlib_request_locale_patch()
+  >>> discard = _patches.remove_formlib_request_locale_patch()
   >>> bar = BarForm(foo, request)
   >>> bar.adapters = {}
   >>> action = bar.actions[u'form.actions.apply']

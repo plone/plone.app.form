@@ -1,7 +1,10 @@
 from Products.Five.browser import pagetemplatefile
 from plone.app.form._named import named_template_adapter
+from plone.app.form import _patches
 from zope.formlib import namedtemplate, interfaces
 from zope import i18n
+
+_patches.apply_formlib_request_locale_patch()
 
 @namedtemplate.implementation(interfaces.IAction)
 def render_submit_button(self):

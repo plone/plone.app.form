@@ -29,3 +29,5 @@ def remove_formlib_request_locale_patch():
         setattr(obj, attr_name, orig)
         delattr(obj, '_plone_form_patched')
         del patches['formlib_request_locale']
+        return True
+    return False
