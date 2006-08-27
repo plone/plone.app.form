@@ -38,7 +38,7 @@ class NamedTemplateAdapter(object):
         self.context = context
 
     def __call__(self, *args, **kwargs):
-        view = self.context
+        view = self.context.__of__(self.context.context)
         cleanup = []
 
         # basically this means we only do customized template lookups
