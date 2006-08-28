@@ -5,6 +5,7 @@ from zope.formlib import namedtemplate, interfaces
 from zope import i18n
 
 _patches.apply_formlib_request_locale_patch()
+_patches.apply_formlib_update_patch()
 
 @namedtemplate.implementation(interfaces.IAction)
 def render_submit_button(self):
