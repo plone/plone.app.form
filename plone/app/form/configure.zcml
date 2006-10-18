@@ -32,6 +32,13 @@
       template="pageform.pt"
       />
 
+  <browser:page
+      for="*"
+      permission="zope2.Public"
+      name="base-pageform.html"
+      template="pageform.pt"
+      />
+
   <five:traversable class="Products.CMFPlone.Portal.PloneSite" />
 
 </configure>
