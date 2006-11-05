@@ -6,6 +6,9 @@ from zope import interface
 from zope import i18n
 from zope.formlib import interfaces, namedtemplate
 from Products.Five.browser import metaconfigure
+from Products.PageTemplates.PageTemplate import PageTemplate
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+
 try:
     from Products.Five.browser.ReuseUtils import rebindFunction
     from _expressions import getEngine
@@ -55,9 +58,12 @@ class NamedTemplateAdapter(object):
                     # so we fall back to the defined page template
                     template = index
                 else:
-                    template = ViewTemplateFromPageTemplate(template,
-                                                            view.context)
-                    template = template.__of__(view)
+                    if isinstance(getattr(template, 'aq_base', object()), PageTemplate):
+                        template = ViewTemplateFromPageTemplate(template,
+                                                                view.context)
+                        template = template.__of__(view)
+                    else:
+                        template = index
 
             result = template(*args, **kwargs)
             return result
@@ -75,9 +81,6 @@ def named_template_adapter(template):
     new_class.default_template = template
 
     return new_class
-
-from Products.PageTemplates.PageTemplate import PageTemplate
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 if try_portal_skins:
     class ViewTemplateFromPageTemplate(PageTemplate, Acquisition.Explicit):
