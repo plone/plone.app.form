@@ -97,9 +97,6 @@
   </fieldset>
 </div>
 </form>
-<script type="text/javascript" metal:define-slot="trackChanges">
-  zc_trackChanges(document.getElementById('zc.page.browser_form'));
-</script>
 
 <script type="text/javascript"
     tal:define="extra_script view/extra_script | nothing"

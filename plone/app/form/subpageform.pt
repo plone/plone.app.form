@@ -1,4 +1,4 @@
-<div metal:define-macro="form"">
+<div metal:define-macro="form">
 
   <h1  i18n:translate=""
        tal:condition="view/label"
@@ -29,7 +29,7 @@
 
   <div metal:define-slot="extra_info" tal:replace="nothing">
   </div>
-
+  <fieldset>
   <tal:block tal:repeat="widget view/widgets">
     <div class="field"
          tal:define="description widget/hint;
@@ -58,29 +58,21 @@
             tal:replace="structure context/alert.gif" />
             -->
     </div>
-</tal:block>
+  </tal:block>
 
   <metal:block define-slot="above_buttons" />
-</div>
-<div id="actionsView">
-  <span class="actionButtons"
-        tal:condition="view/availableActions"
-        metal:define-slot="bottom_buttons">
-    <input tal:repeat="action view/actions"
-           tal:replace="structure action/render"
-           />
-  </span>
-</div>
-
-</form>
-<script type="text/javascript" metal:define-slot="trackChanges">
-  zc_trackChanges(document.getElementById('zc.page.browser_form'));
-</script>
-
-<script type="text/javascript"
-    tal:define="extra_script view/extra_script | nothing"
-    tal:condition="extra_script"
-    tal:content="structure extra_script" />
-
-
+  <div id="actionsView">
+    <span class="actionButtons"
+          tal:condition="view/availableActions"
+          metal:define-slot="bottom_buttons">
+      <input tal:repeat="action view/actions"
+             tal:replace="structure action/render"
+             />
+    </span>
+  </div>
+  </fieldset>
+  <script type="text/javascript"
+          tal:define="extra_script view/extra_script | nothing"
+          tal:condition="extra_script"
+          tal:content="structure extra_script" />
 </div>
