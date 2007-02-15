@@ -17,6 +17,13 @@
       id="zc.page.browser_form">
 
 <div id="viewspace" metal:define-slot="viewspace">
+    
+    <div class="portalMessage"
+       tal:define="status view/status"
+       tal:condition="status"
+       tal:content="status">
+       Error message goes here
+    </div>
 
   <h1  i18n:translate=""
        tal:condition="view/label"
@@ -32,8 +39,6 @@
       <div class="form-status"
        tal:define="status view/status"
        tal:condition="status">
-
-
 
           <div class="summary"
                i18n:translate=""
