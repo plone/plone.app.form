@@ -4,7 +4,8 @@ from plone.app.form import _patches
 from zope.formlib import namedtemplate, interfaces
 from zope import i18n
 
-_patches.apply_formlib_request_locale_patch()
+# XXX: Appears to be no longer relevant?
+# _patches.apply_formlib_request_locale_patch()
 _patches.apply_formlib_update_patch()
 
 @namedtemplate.implementation(interfaces.IAction)
@@ -13,7 +14,7 @@ def render_submit_button(self):
     if not self.available():
         return ''
     label = self.label
-    if isinstance(label, (i18n.Message, i18n.MessageID)):
+    if isinstance(label, i18n.Message):
         label = i18n.translate(self.label, context=self.form.request)
     return ('<input type="submit" id="%s" name="%s" value="%s"'
             ' class="context" />' %

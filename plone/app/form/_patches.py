@@ -4,7 +4,7 @@ patches = {}
 def apply_formlib_request_locale_patch():
     """Default zope.formlib EditFormBase tries to access the locale
     attribute on the request.  In the case of a Zope 2 request, this 
-    does not exist.  Lets fix that.
+    does not exist.  Let's fix that.
     """
 
     from zope.formlib import form
@@ -36,7 +36,7 @@ def apply_formlib_update_patch():
     """Formlib (and all of zope3's widget machinery) expects input
     values to already have been converted to unicode objects.  ZPublisher
     (zope2) doesn't take care of this so Five introduced a method in
-    its formlib overriding mixin to remedy this.  Lets make sure
+    its formlib overriding mixin to remedy this.  Let's make sure
     zope.formlib.FormBase has Five's update method.
     """
     
