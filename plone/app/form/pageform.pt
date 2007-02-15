@@ -28,8 +28,7 @@
 
   <metal:block define-macro="header">
 
-    <tal:block replace="nothing">
-           
+    <tal:block replace="nothing">  
       <div class="form-status"
        tal:define="status view/status"
        tal:condition="status">
