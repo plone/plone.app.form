@@ -7,4 +7,4 @@ def null_validator(*args, **kwargs):
     
     @form.action("Cancel", validator=null_validator)
     """
-    return {}
+    return ()
