@@ -16,6 +16,7 @@ plone/app/form/LICENSE.GPL
 plone/app/form/LICENSE.txt
 plone/app/form/README.txt
 plone/app/form/__init__.py
+plone/app/form/_named.py
 plone/app/form/_patches.py
 plone/app/form/configure.zcml
 plone/app/form/exception.py
@@ -25,4 +26,5 @@ plone/app/form/overrides.zcml
 plone/app/form/pageform.pt
 plone/app/form/subpageform.pt
 plone/app/form/tests.py
+plone/app/form/validators.py
 plone/app/form/visualtest.py
