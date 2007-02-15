@@ -7,7 +7,6 @@ keep this test to demonstrate that it continues to work.
 
   >>> from zope import interface, schema
   >>> from zope.formlib import form
-  >>> from plone.app.form import _patches
   >>> from Products.Five import traversable
 
   >>> class IFoo(interface.Interface):

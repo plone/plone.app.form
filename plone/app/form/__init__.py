@@ -4,8 +4,6 @@ from plone.app.form import _patches
 from zope.formlib import namedtemplate, interfaces
 from zope import i18n
 
-# XXX: Appears to be no longer relevant?
-# _patches.apply_formlib_request_locale_patch()
 _patches.apply_formlib_update_patch()
 
 @namedtemplate.implementation(interfaces.IAction)
