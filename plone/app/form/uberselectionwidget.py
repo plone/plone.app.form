@@ -1,7 +1,7 @@
 from zope import interface, schema
 from zope.formlib import form
 from zope.app.form import InputWidget
-from zope.app.form.browser.widget import BrowserWidget
+from zope.app.form.browser.widget import BrowserWidget, SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Products.CMFCore import utils as cmfutils
@@ -17,14 +17,11 @@ class ISearch(interface.Interface):
                                   required=False)
 
 
-class UberSelectionWidget(BrowserWidget, InputWidget):
+class UberSelectionWidget(SimpleInputWidget):
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
     def __call__(self):
         return self.template()
-
-    def hasInput(self):
-        return False
 
 
 class SearchForm(form.PageForm):

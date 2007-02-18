@@ -1,3 +1,4 @@
-<div>
-  Foo
-</div>
+<input type="text"
+       value=""
+       tal:attributes="name view/name;
+                       id view/name" />
