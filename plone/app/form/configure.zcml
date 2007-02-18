@@ -68,4 +68,11 @@
       permission="zope.Public"
       />
 
+  <adapter
+      for="Products.CMFPlone.Portal.PloneSite
+           .uberselectionwidget.ISearch.text"
+      factory=".uberselectionwidget.DummySearch"
+      provides=".uberselectionwidget.IResultFetcher"
+      />
+  
 </configure>

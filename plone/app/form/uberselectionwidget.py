@@ -1,11 +1,9 @@
 from zope import interface, schema
-from zope.i18n import translate
+from zope.component import getMultiAdapter
 from zope.formlib import form
 
-from zope.app.form import InputWidget
-from zope.app.form.browser.widget import BrowserWidget, SimpleInputWidget
+from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-from zope.app.i18n import ZopeMessageFactory as _
 
 from Products.CMFCore import utils as cmfutils
 from Products.Five.browser import pagetemplatefile
@@ -20,17 +18,38 @@ class ISearch(interface.Interface):
                                   required=True)
 
 
+class IResultFetcher(interface.Interface):
+    """ """
+
+    def __call__(query):
+        """ Returns results ((key, value), ...)"""
+
+
 class UberSelectionWidget(SimpleInputWidget):
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
     def __call__(self):
+        self._update()
         return self.template()
 
-    def searchButtonLabel(self):
-        button_label = _('Search')
-        button_label = translate(button_label, context=self.request,
-                                 default=button_label)
-        return button_label
+    def _update(self):
+        if self.hasInput():
+            query = self.request.form[self.name]
+            field = self.context
+            fetcher = getMultiAdapter((field.context, self.context), IResultFetcher)
+            results = fetcher(query)
+
+
+class DummySearch(object):
+    interface.implements(IResultFetcher)
+
+    def __init__(self, context, field):
+        self.context = context
+        self.field = field
+
+    def __call__(self, query):
+        print query
+        return ()
 
 
 class SearchForm(form.PageForm):

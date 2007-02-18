@@ -1,7 +1,9 @@
+<tal:widget i18n:domain="plone">
 <input type="text"
        value=""
        tal:attributes="name view/name;
                        id view/name" />
 <input type="submit" value="Search"
-       tal:attributes="name string:${view/name}.search;
-                       value view/searchButtonLabel" />
+       i18n:attributes="value label_search"
+       tal:attributes="name string:${view/name}.search" />
+</tal:widget>
