@@ -69,7 +69,7 @@
       />
 
   <adapter
-      for="Products.CMFPlone.Portal.PloneSite
+      for="Products.CMFCore.interfaces.ISiteRoot
            zope.publisher.interfaces.browser.IBrowserRequest"
       factory=".uberselectionwidget.DummySearch"
       provides=".uberselectionwidget.IResultFetcher"
