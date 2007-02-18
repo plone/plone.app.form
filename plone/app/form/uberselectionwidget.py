@@ -12,6 +12,10 @@ from Products.CMFCore import utils as cmfutils
 from Products.Five.browser import pagetemplatefile
 
 
+class IUberselectionDemoForm(interface.Interface):
+    text = schema.TextLine(title=u'Search Text',
+                           description=u'The text to search for',
+                           required=False)
 class MySource(object):
     interface.implements(schema.interfaces.ISource)
 
@@ -90,7 +94,7 @@ class UberSelectionWidget(SimpleInputWidget):
 
 
 class SearchForm(form.PageForm):
-    form_fields = form.FormFields(ISearch)
+    form_fields = form.FormFields(IUberselectionDemoForm)
     #form_fields['text'].custom_widget = UberSelectionWidget
 
     @form.action("search")
