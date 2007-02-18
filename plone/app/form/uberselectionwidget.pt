@@ -1,10 +1,30 @@
 <tal:widget i18n:domain="plone">
-<input type="text"
+
+<fieldset tal:define="fieldname python:view.name+'.query'">
+  
+  <legend>
+    <label for="fieldname" tal:content="view/label">choose</label>
+  </legend>
+
+  <input type="text"
        value=""
        tal:attributes="name string:${view/name}.query;
-                       id string:${view/name}.query" />
-<input type="submit" value="Search"
+                       id string:${view/name}.query;
+                       value request/fieldname | nothing" />
+
+  <input type="submit" value="Search"
        i18n:attributes="value label_search"
        tal:attributes="name string:${view/name}.search" />       
-<ul><li tal:repeat="key view/results" tal:content="key">key</li></ul>
+
+  <fieldset tal:condition="view/results">
+    <legend>results</legend>
+    <ul>
+      <li tal:repeat="key view/results">
+        <input type="checkbox" value="key" />
+        <span tal:replace="key">key</span>
+      </li>
+    </ul>
+  </fieldset>
+
+</fieldset>
 </tal:widget>
