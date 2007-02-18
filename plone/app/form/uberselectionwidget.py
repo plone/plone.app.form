@@ -19,7 +19,13 @@ class ISearch(interface.Interface):
 
 
 class IResultFetcher(interface.Interface):
-    """ """
+    """
+    This is stuff we care about.
+    
+        >>> from plone.app.form import adding
+        >>> adding
+        foo
+    """
 
     def __call__(name):
         """ Returns results ((key, value), ...)"""
