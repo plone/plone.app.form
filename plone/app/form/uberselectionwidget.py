@@ -71,7 +71,7 @@ provideAdapter(
 )
 
 
-class ISearch(interface.Interface):
+class IUberSelectionDemoForm(interface.Interface):
     text = schema.Choice(title=u'Search Text',
                          description=u'The text to search for',
                          required=False,
@@ -93,8 +93,8 @@ class UberSelectionWidget(SimpleInputWidget):
             self.results = fetcher(self.name)
 
 
-class SearchForm(form.PageForm):
-    form_fields = form.FormFields(IUberselectionDemoForm)
+class UberSelectionDemoForm(form.PageForm):
+    form_fields = form.FormFields(IUberSelectionDemoForm)
     #form_fields['text'].custom_widget = UberSelectionWidget
 
     @form.action("search")
