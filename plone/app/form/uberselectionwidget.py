@@ -12,7 +12,7 @@ class ISearch(interface.Interface):
     text = schema.TextLine(title=u'Search Text',
                            description=u'The text to search for',
                            required=False)
-    
+
     description = schema.TextLine(title=u'Description',
                                   required=False)
 
@@ -35,13 +35,13 @@ class SearchForm(form.PageForm):
     @form.action("search")
     def action_search(self, action, data):
         catalog = cmfutils.getToolByName(self.context, 'portal_catalog')
-    
+
         kwargs = {}
         if data['text']:
             kwargs['SearchableText'] = data['text']
         if data['description']:
             kwargs['description'] = data['description']
-    
+
         self.search_results = catalog(**kwargs)
         self.search_results_count = len(self.search_results)
         return self.result_template()
