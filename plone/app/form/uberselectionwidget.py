@@ -65,6 +65,7 @@ class QuerySchemaSearchView(object):
         return None
 
     def results(self, name):
+        print "results", self.request.form
         if not name+".search":
             return None
         query_fieldname = name+".query"
@@ -93,6 +94,48 @@ class IUberSelectionDemoForm(interface.Interface):
 class UberSelectionWidget(SourceListInputWidget):
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
+    def _input_value(self):
+        tokens = self.request.form.get(self.name)
+        for name, queryview in self.queryviews:
+                newtokens = self.request.form.get(name+'.selection')
+                if newtokens:
+                    if tokens:
+                        tokens = tokens + newtokens
+                    else:
+                        tokens = newtokens
+
+        if tokens:
+            remove = self.request.form.get(self.name+'.checked')
+            if remove and (self.name+'.remove' in self.request):
+                tokens = [token
+                          for token in tokens
+                          if token not in remove
+                          ]
+            value = []
+            for token in tokens:
+                try:
+                    v = self.terms.getValue(str(token))
+                except LookupError:
+                    pass # skip invalid tokens (shrug)
+                else:
+                    value.append(v)
+        else:
+            if self.name+'.displayed' in self.request:
+                value = []
+            else:
+                value = self.context.missing_value
+
+        if value:
+            r = []
+            seen = {}
+            for s in value:
+                if s not in seen:
+                    r.append(s)
+                    seen[s] = 1
+            value = r
+
+        return value
+
     def queryviews(self):  
         return [
                     (self.name,
@@ -106,6 +149,7 @@ class UberSelectionWidget(SourceListInputWidget):
     queryviews = property(queryviews)
             
     def __call__(self):
+        print "__call__", self.request.form
         value = self._value()
         if value is None:
             value = []

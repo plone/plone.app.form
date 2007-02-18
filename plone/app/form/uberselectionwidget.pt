@@ -1,9 +1,5 @@
 <tal:widget i18n:domain="plone">
 
-<div tal:repeat="term options/value">
-  <span tal:content="term/title" />
-</div>
-
 <fieldset tal:define="fieldname string:${options/name}.query">
   
   <legend>
@@ -20,6 +16,14 @@
          value="Search"
          i18n:attributes="value label_search"
          tal:attributes="name string:${options/name}.search" />
+
+  <div tal:repeat="term options/value">
+    <input type="checkbox"
+           checked="checked"
+           tal:attributes="name string:${options/name}.selection:list;
+                           value term/token" />
+    <span tal:content="term/title" />
+  </div>
 
   <fieldset tal:condition="options/results | nothing">
     <legend>results</legend>
