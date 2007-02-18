@@ -2,7 +2,7 @@ from zope import interface, schema
 from zope.component import getMultiAdapter
 from zope.formlib import form
 
-from zope.app.form.browser.source import SourceListInputWidget
+from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Products.CMFCore import utils as cmfutils
@@ -25,17 +25,19 @@ class IResultFetcher(interface.Interface):
         """ Returns results ((key, value), ...)"""
 
 
-class UberSelectionWidget(SourceListInputWidget):
+class UberSelectionWidget(SimpleInputWidget):
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
     def __call__(self):
+        self._update()
         return self.template()
 
     def _update(self):
-        if self.hasInput():
+        self.results = ()
+        if self.name+".query" in self.request.form:
             field = self.context
             fetcher = getMultiAdapter((field.context, self.request), IResultFetcher)
-            results = fetcher(self.name)
+            self.results = fetcher(self.name)
 
 
 class DummySearch(object):
@@ -46,16 +48,9 @@ class DummySearch(object):
         self.request = request
 
     def __call__(self, name):
-        query = self.request.form[name]
+        query = self.request.form[name+'.query']
         print query
-        return ()
-
-    def render(self, name):
-        return 'spam'
-
-    def results(self, name):
-        return ('spam','spam','spam','ham','eggs')
-
+        return ('spam', 'spam', 'spam', 'ham', 'eggs')
 
 
 class SearchForm(form.PageForm):
