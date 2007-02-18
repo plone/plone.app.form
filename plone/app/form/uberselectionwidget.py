@@ -1,8 +1,11 @@
 from zope import interface, schema
+from zope.i18n import translate
 from zope.formlib import form
+
 from zope.app.form import InputWidget
 from zope.app.form.browser.widget import BrowserWidget, SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.app.i18n import ZopeMessageFactory as _
 
 from Products.CMFCore import utils as cmfutils
 from Products.Five.browser import pagetemplatefile
@@ -14,7 +17,7 @@ class ISearch(interface.Interface):
                            required=False)
 
     description = schema.TextLine(title=u'Description',
-                                  required=False)
+                                  required=True)
 
 
 class UberSelectionWidget(SimpleInputWidget):
@@ -22,6 +25,12 @@ class UberSelectionWidget(SimpleInputWidget):
 
     def __call__(self):
         return self.template()
+
+    def searchButtonLabel(self):
+        button_label = _('Search')
+        button_label = translate(button_label, context=self.request,
+                                 default=button_label)
+        return button_label
 
 
 class SearchForm(form.PageForm):
@@ -32,12 +41,4 @@ class SearchForm(form.PageForm):
     def action_search(self, action, data):
         catalog = cmfutils.getToolByName(self.context, 'portal_catalog')
 
-        kwargs = {}
-        if data['text']:
-            kwargs['SearchableText'] = data['text']
-        if data['description']:
-            kwargs['description'] = data['description']
-
-        self.search_results = catalog(**kwargs)
-        self.search_results_count = len(self.search_results)
-        return repr(self.search_results)
+        return repr(data)

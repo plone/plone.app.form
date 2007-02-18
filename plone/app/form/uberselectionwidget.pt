@@ -2,3 +2,6 @@
        value=""
        tal:attributes="name view/name;
                        id view/name" />
+<input type="submit" value="Search"
+       tal:attributes="name string:${view/name}.search;
+                       value view/searchButtonLabel" />
