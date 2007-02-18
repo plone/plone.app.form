@@ -4,8 +4,7 @@ from zope.formlib import form
 from zope.publisher.interfaces.browser import IBrowserRequest
 
 from zope.app.form.browser.interfaces import ISourceQueryView, ITerms
-from zope.app.form.browser.widget import SimpleInputWidget
-from zope.app.form.browser.source import SourceInputWidget
+from zope.app.form.browser.source import SourceListInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Products.CMFCore import utils as cmfutils
@@ -24,10 +23,10 @@ class UberSelect(schema.Choice):
 class MySource(object):
     interface.implements(schema.interfaces.ISource)
 
-    def __contains__(value):
+    def __contains__(self, value):
         """Return whether the value is available in this source
         """
-        return False
+        return True
 
 
 class MyTerms(object):
@@ -91,7 +90,7 @@ class IUberSelectionDemoForm(interface.Interface):
                          source=MySource())
 
 
-class UberSelectionWidget(SourceInputWidget):
+class UberSelectionWidget(SourceListInputWidget):
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
     def queryviews(self):  
@@ -108,6 +107,10 @@ class UberSelectionWidget(SourceInputWidget):
             
     def __call__(self):
         value = self._value()
+        if value is None:
+            value = []
+        value = [self.terms.getTerm(x) for x in value]
+        print repr(value)
         field = self.context
         results = []
         for name, queryview in self.queryviews:
@@ -115,7 +118,7 @@ class UberSelectionWidget(SourceInputWidget):
             if qresults is not None:
                 for item in qresults:
                     results.append(self.terms.getTerm(item))
-        return self.template(field=field, results=results, name=self.name)
+        return self.template(field=field, results=results, name=self.name, value=value)
 
 
 class UberSelectionDemoForm(form.PageForm):

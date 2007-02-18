@@ -1,5 +1,9 @@
 <tal:widget i18n:domain="plone">
 
+<div tal:repeat="term options/value">
+  <span tal:content="term/title" />
+</div>
+
 <fieldset tal:define="fieldname string:${options/name}.query">
   
   <legend>
@@ -17,19 +21,22 @@
          i18n:attributes="value label_search"
          tal:attributes="name string:${options/name}.search" />
 
-  <div tal:content="options/results" />
-
-<!--
-  <fieldset tal:condition="view/results">
+  <fieldset tal:condition="options/results | nothing">
     <legend>results</legend>
     <ul>
-      <li tal:repeat="key view/results">
-        <input type="checkbox" value="key" />
-        <span tal:replace="key">key</span>
+      <li tal:repeat="term options/results">
+        <input type="checkbox"
+               tal:attributes="name string:${options/name}.selection:list;
+                               value term/token" />
+        <span tal:replace="term/title">title</span>
       </li>
     </ul>
+  <input type="submit"
+         value="Apply"
+         tal:attributes="name string:${options/name}.apply" />
   </fieldset>
--->
 
+  <input type="hidden" value="y"
+         tal:attributes="name string:${options/name}.displayed" />
 </fieldset>
 </tal:widget>
