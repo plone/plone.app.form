@@ -22,7 +22,7 @@ class ISearch(interface.Interface):
 class IResultFetcher(interface.Interface):
     """ """
 
-    def __call__(query):
+    def __call__(name):
         """ Returns results ((key, value), ...)"""
 
 
@@ -32,15 +32,24 @@ class UberSelectionWidget(SourceListInputWidget):
     def __call__(self):
         return self.template()
 
+    def _update(self):
+        if self.hasInput():
+            field = self.context
+            fetcher = getMultiAdapter((field.context, self.request), IResultFetcher)
+            results = fetcher(self.name)
 
 class DummyQuery(object):
     interface.implements(ISourceQueryView)
+
+class DummySearch(object):
+    interface.implements(IResultFetcher)
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
-    def __call__(self, query):
+    def __call__(self, name):
+        query = self.request.form[name]
         print query
         return ()
 
