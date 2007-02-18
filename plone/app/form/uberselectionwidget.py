@@ -3,6 +3,7 @@ from zope.component import getMultiAdapter
 from zope.formlib import form
 
 from zope.app.form.browser.source import SourceListInputWidget
+from zope.app.form.browser.interfaces import ISourceQueryView
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Products.CMFCore import utils as cmfutils
@@ -32,18 +33,23 @@ class UberSelectionWidget(SourceListInputWidget):
         return self.template()
 
 
+class DummyQuery(object):
+    interface.implements(ISourceQueryView)
 
-
-class DummySearch(object):
-    interface.implements(IResultFetcher)
-
-    def __init__(self, context, field):
+    def __init__(self, context, request):
         self.context = context
-        self.field = field
+        self.request = request
 
     def __call__(self, query):
         print query
         return ()
+
+    def render(self, name):
+        return 'spam'
+
+    def results(self, name):
+        return ('spam','spam','spam','ham','eggs')
+
 
 
 class SearchForm(form.PageForm):
