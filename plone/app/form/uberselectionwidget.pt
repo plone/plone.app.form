@@ -5,5 +5,6 @@
                        id string:${view/name}.query" />
 <input type="submit" value="Search"
        i18n:attributes="value label_search"
-       tal:attributes="name string:${view/name}.search" />
+       tal:attributes="name string:${view/name}.search" />       
+<ul><li tal:repeat="key view/results" tal:content="key">key</li></ul>
 </tal:widget>
