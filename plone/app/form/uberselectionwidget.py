@@ -47,14 +47,18 @@ provideAdapter(
 class QuerySchemaSearchView(object):
     interface.implements(ISourceQueryView)
 
+    template = ViewPageTemplateFile('uberselectionwidget.pt')
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
     def render(self, name):
-        return "Foo"
+        return self.template(name=name)
 
     def results(self, name):
+        # if name in self.request.form:
+        #     
         return ('spam', 'spam', 'spam', 'ham', 'eggs')
 
 provideAdapter(

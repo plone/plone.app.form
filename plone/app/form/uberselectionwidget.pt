@@ -1,21 +1,22 @@
 <tal:widget i18n:domain="plone">
 
-<fieldset tal:define="fieldname python:view.name+'.query'">
+<fieldset tal:define="fieldname string:${options/name}.query">
   
   <legend>
-    <label for="fieldname" tal:content="view/label">choose</label>
+    <label for="fieldname" tal:content="options/label | nothing">choose</label>
   </legend>
 
   <input type="text"
        value=""
-       tal:attributes="name string:${view/name}.query;
-                       id string:${view/name}.query;
-                       value request/fieldname | nothing" />
+       tal:attributes="name string:${options/name}.query;
+                       id string:${options/name}.query;
+                       value request/fieldname | nothing" />
 
   <input type="submit" value="Search"
        i18n:attributes="value label_search"
-       tal:attributes="name string:${view/name}.search" />       
+       tal:attributes="name string:${options/name}.search" />       
 
+<!--
   <fieldset tal:condition="view/results">
     <legend>results</legend>
     <ul>
@@ -25,6 +26,7 @@
       </li>
     </ul>
   </fieldset>
+-->
 
 </fieldset>
 </tal:widget>
