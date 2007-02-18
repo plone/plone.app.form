@@ -61,4 +61,11 @@
       />
   -->
 
+  <browser:page
+      name="uberselectionwidget.html"
+      for="Products.CMFPlone.Portal.PloneSite"
+      class=".uberselectionwidget.SearchForm"
+      permission="zope.Public"
+      />
+
 </configure>

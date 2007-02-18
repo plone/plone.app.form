@@ -18,7 +18,7 @@ class ISearch(interface.Interface):
 
 
 class UberSelectionWidget(BrowserWidget, InputWidget):
-    template = ViewPageTemplateFile('selectionwidget.pt')
+    template = ViewPageTemplateFile('uberselectionwidget.pt')
 
     def __call__(self):
         return self.template()
@@ -30,7 +30,6 @@ class UberSelectionWidget(BrowserWidget, InputWidget):
 class SearchForm(form.PageForm):
     form_fields = form.FormFields(ISearch)
     form_fields['text'].custom_widget = UberSelectionWidget
-    result_template = pagetemplatefile.ViewPageTemplateFile('search-results.pt')
 
     @form.action("search")
     def action_search(self, action, data):
@@ -44,4 +43,4 @@ class SearchForm(form.PageForm):
 
         self.search_results = catalog(**kwargs)
         self.search_results_count = len(self.search_results)
-        return self.result_template()
+        return repr(self.search_results)
