@@ -3,18 +3,21 @@
 <fieldset tal:define="fieldname string:${options/name}.query">
   
   <legend>
-    <label for="fieldname" tal:content="options/label | nothing">choose</label>
+    <label for="fieldname" tal:content="options/label | fieldname | nothing">choose</label>
   </legend>
 
   <input type="text"
        value=""
-       tal:attributes="name string:${options/name}.query;
-                       id string:${options/name}.query;
+       tal:attributes="name fieldname;
+                       id fieldname;
                        value request/fieldname | nothing" />
 
-  <input type="submit" value="Search"
-       i18n:attributes="value label_search"
-       tal:attributes="name string:${options/name}.search" />       
+  <input type="submit"
+         value="Search"
+         i18n:attributes="value label_search"
+         tal:attributes="name string:${options/name}.search" />
+
+  <div tal:content="options/results" />
 
 <!--
   <fieldset tal:condition="view/results">

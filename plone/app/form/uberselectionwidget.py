@@ -11,11 +11,16 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore import utils as cmfutils
 from Products.Five.browser import pagetemplatefile
 
+from pprint import pprint
 
-class IUberselectionDemoForm(interface.Interface):
-    text = schema.TextLine(title=u'Search Text',
-                           description=u'The text to search for',
-                           required=False)
+class IUberSelect(interface.Interface):
+    pass
+
+
+class UberSelect(schema.Choice):
+    interface.implements(IUberSelect)
+
+
 class MySource(object):
     interface.implements(schema.interfaces.ISource)
 
@@ -58,12 +63,20 @@ class QuerySchemaSearchView(object):
         self.request = request
 
     def render(self, name):
-        return self.template(name=name)
+        return None
 
     def results(self, name):
-        # if name in self.request.form:
-        #     
-        return ('spam', 'spam', 'spam', 'ham', 'eggs')
+        if not name+".search":
+            return None
+        query_fieldname = name+".query"
+        if query_fieldname in self.request.form:
+            query = self.request.form[query_fieldname]
+            if query != '':
+                return ('spam', 'spam', 'spam', 'ham', 'eggs')
+            else:
+                return None
+        else:
+            return None
 
 provideAdapter(
     QuerySchemaSearchView,
@@ -72,32 +85,43 @@ provideAdapter(
 
 
 class IUberSelectionDemoForm(interface.Interface):
-    text = schema.Choice(title=u'Search Text',
+    text = UberSelect(title=u'Search Text',
                          description=u'The text to search for',
                          required=False,
                          source=MySource())
 
 
-class UberSelectionWidget(SimpleInputWidget):
+class UberSelectionWidget(SourceInputWidget):
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
-    def __call__(self):
-        self._update()
-        return self.template()
+    def queryviews(self):  
+        return [
+                    (self.name,
+                     getMultiAdapter(
+                        (self.source, self.request),
+                        ISourceQueryView,
+                     )
+                    )
+               ]
 
-    def _update(self):
-        self.results = ()
-        if self.name+".query" in self.request.form:
-            factory_name = self.context.results_fetcher
-            fetcher = getUtility(IResultFetcherFactory, factory_name)
-            self.results = fetcher(self.name)
+    queryviews = property(queryviews)
+            
+    def __call__(self):
+        value = self._value()
+        field = self.context
+        results = []
+        for name, queryview in self.queryviews:
+            qresults = queryview.results(name)
+            if qresults is not None:
+                for item in qresults:
+                    results.append(self.terms.getTerm(item))
+        return self.template(field=field, results=results, name=self.name)
 
 
 class UberSelectionDemoForm(form.PageForm):
     form_fields = form.FormFields(IUberSelectionDemoForm)
-    #form_fields['text'].custom_widget = UberSelectionWidget
 
-    @form.action("search")
+    @form.action("dskljfhsd")
     def action_search(self, action, data):
         catalog = cmfutils.getToolByName(self.context, 'portal_catalog')
 

@@ -65,7 +65,16 @@
       name="uberselectionwidget.html"
       for="Products.CMFPlone.Portal.PloneSite"
       class=".uberselectionwidget.UberSelectionDemoForm"
-      permission="zope.Public"
+      permission="zope2.View"
+      />
+
+  <adapter
+      for=".uberselectionwidget.IUberSelect
+           zope.schema.interfaces.ISource
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory=".uberselectionwidget.UberSelectionWidget"
+      permission="zope2.View"
       />
 
 </configure>
