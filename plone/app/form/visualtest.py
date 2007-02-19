@@ -1,4 +1,5 @@
 from zope import interface, schema
+from Products.Five.formlib import formbase
 from zope.formlib import form
 
 class ITestSchema(interface.Interface):
@@ -6,7 +7,7 @@ class ITestSchema(interface.Interface):
                           description=u'Some Random Description')
     bar = schema.Bool(title=u'Bar')
 
-class TestForm(form.FormBase):
+class TestForm(formbase.FormBase):
     """foo
     """
     

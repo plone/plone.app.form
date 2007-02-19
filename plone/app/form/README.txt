@@ -12,6 +12,4 @@ Features
 
   - **Better integration with zope.formlib.**  The default templates
     distributed with zope.formlib are table-based and don't follow
-    common Plone UI patterns, plone.app.form addresses this.  Also,
-    plone.app.form patches zope.formlib so that the base classes from
-    there can be used as-is.
+    common Plone UI patterns, plone.app.form addresses this.

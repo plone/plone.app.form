@@ -1,9 +1,9 @@
 Plone zope.formlib Integration
 ==============================
 
-plone.app.form used to apply a patch to formlib to ensure it could be
-used from Zope 2. It appears this patch is no longer necessary, however. We
-keep this test to demonstrate that it continues to work.
+plone.app.form used to apply a patch to formlib to add 'locale' to the
+request, which seems to be no longer needed to have it work with Zope
+2.  These tests demonstrate that it still works:
 
   >>> from zope import interface, schema
   >>> from zope.formlib import form
