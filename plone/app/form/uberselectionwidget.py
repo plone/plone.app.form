@@ -12,21 +12,6 @@ from Products.Five.browser import pagetemplatefile
 
 from pprint import pprint
 
-class IUberSelect(interface.Interface):
-    pass
-
-
-class UberSelect(schema.Choice):
-    interface.implements(IUberSelect)
-
-
-class IUberMultiSelect(interface.Interface):
-    pass
-
-
-class UberMultiSelect(schema.Choice):
-    interface.implements(IUberMultiSelect)
-
 
 class MySource(object):
     interface.implements(schema.interfaces.ISource)
@@ -49,11 +34,6 @@ class MyTerms(object):
 
     def getValue(self, token):
         return token
-
-provideAdapter(
-    MyTerms,
-    (MySource, IBrowserRequest)
-)
 
 
 class QuerySchemaSearchView(object):
@@ -81,22 +61,17 @@ class QuerySchemaSearchView(object):
         else:
             return None
 
-provideAdapter(
-    QuerySchemaSearchView,
-    (MySource, IBrowserRequest)
-)
-
 
 class UberSelectionWidget(SimpleInputWidget):
     _error = None
 
     template = ViewPageTemplateFile('uberselectionwidget.pt')
 
-    def __init__(self, field, source, request):
+    def __init__(self, field, request):
         SimpleInputWidget.__init__(self, field, request)
-        self.source = source
-        self.terms = getMultiAdapter((source, self.request), ITerms)
-        self.queryview = getMultiAdapter((source, self.request), ISourceQueryView)
+        self.source = field.source
+        self.terms = getMultiAdapter((field.source, self.request), ITerms)
+        self.queryview = getMultiAdapter((field.source, self.request), ISourceQueryView)
 
     def _value(self):
         if self._renderedValueSet():
@@ -226,12 +201,12 @@ class UberMultiSelectionWidget(UberSelectionWidget):
 
 
 class IUberSelectionDemoForm(interface.Interface):
-    selection = UberSelect(title=u'Single select',
+    selection = schema.Choice(title=u'Single select',
                          description=u'Select just one item',
                          required=False,
                          source=MySource())
 
-    multiselection = UberMultiSelect(title=u'Multi select',
+    multiselection = schema.Choice(title=u'Multi select',
                          description=u'Select multiple items',
                          required=False,
                          source=MySource())
@@ -239,6 +214,8 @@ class IUberSelectionDemoForm(interface.Interface):
 
 class UberSelectionDemoForm(form.PageForm):
     form_fields = form.FormFields(IUberSelectionDemoForm)
+    form_fields['selection'].custom_widget = UberSelectionWidget
+    form_fields['multiselection'].custom_widget = UberMultiSelectionWidget
 
     @form.action("dskljfhsd")
     def action_search(self, action, data):

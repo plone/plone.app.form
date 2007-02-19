@@ -69,21 +69,15 @@
       />
 
   <adapter
-      for=".uberselectionwidget.IUberSelect
-           zope.schema.interfaces.ISource
+      for=".uberselectionwidget.MySource
            zope.publisher.interfaces.browser.IBrowserRequest"
-      provides="zope.app.form.interfaces.IInputWidget"
-      factory=".uberselectionwidget.UberSelectionWidget"
-      permission="zope2.View"
+      factory=".uberselectionwidget.MyTerms"
       />
 
   <adapter
-      for=".uberselectionwidget.IUberMultiSelect
-           zope.schema.interfaces.ISource
+      for=".uberselectionwidget.MySource
            zope.publisher.interfaces.browser.IBrowserRequest"
-      provides="zope.app.form.interfaces.IInputWidget"
-      factory=".uberselectionwidget.UberMultiSelectionWidget"
-      permission="zope2.View"
+      factory=".uberselectionwidget.QuerySchemaSearchView"
       />
 
 </configure>
