@@ -5,12 +5,13 @@ from zope.formlib import form
 import zope.event
 import zope.lifecycleevent
 
+from Products.Five.formlib import formbase
 from Products.CMFPlone import PloneMessageFactory as _
 
 from plone.app.form.interfaces import IPlonePageForm
 from plone.app.form.validators import null_validator
 
-class AddForm(form.AddForm):
+class AddForm(formbase.AddForm):
     """An add form with standard Save and Cancel buttons
     """
     
@@ -25,7 +26,7 @@ class AddForm(form.AddForm):
         self.request.response.redirect(self.nextURL())
 
 
-class EditForm(form.EditForm):
+class EditForm(formbase.EditForm):
     """An edit form with standard Save and Cancel buttons
     """
     
