@@ -3,19 +3,36 @@
 <fieldset tal:define="fieldname string:${options/name}.query">
   
   <legend>
-    <label for="fieldname" tal:content="options/label | fieldname | nothing">choose</label>
+    <label for="fieldname" tal:content="view/label">choose</label>
   </legend>
 
+  <p class="discreet" tal:content="view/hint"></p>
+
   <input type="text"
-       value=""
-       tal:attributes="name fieldname;
-                       id fieldname;
-                       value request/fieldname | nothing" />
+         value=""
+         tal:attributes="name string:${options/name}.query;
+                         id string:${options/name}.query;
+                         value request/fieldname | nothing" />
 
   <input type="submit"
          value="Search"
-         i18n:attributes="value label_search"
+         i18n:attributes="value"
          tal:attributes="name string:${options/name}.search" />
+
+  <fieldset tal:condition="options/results | nothing">
+    <legend>Search results</legend>
+    <ul>
+      <li tal:repeat="term options/results">
+        <input type="checkbox"
+               tal:attributes="name string:${options/name}.selection:list;
+                               value term/token" />
+        <span tal:replace="term/title">title</span>
+      </li>
+    </ul>
+    <input type="submit"
+           value="Apply"
+           tal:attributes="name string:${options/name}.apply" />
+  </fieldset>
 
   <div tal:repeat="term options/value">
     <input type="checkbox"
@@ -25,22 +42,9 @@
     <span tal:content="term/title" />
   </div>
 
-  <fieldset tal:condition="options/results | nothing">
-    <legend>results</legend>
-    <ul>
-      <li tal:repeat="term options/results">
-        <input type="checkbox"
-               tal:attributes="name string:${options/name}.selection:list;
-                               value term/token" />
-        <span tal:replace="term/title">title</span>
-      </li>
-    </ul>
-  <input type="submit"
-         value="Apply"
-         tal:attributes="name string:${options/name}.apply" />
-  </fieldset>
-
   <input type="hidden" value="y"
          tal:attributes="name string:${options/name}.displayed" />
+
 </fieldset>
+
 </tal:widget>
