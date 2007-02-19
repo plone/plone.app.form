@@ -69,7 +69,6 @@ class QuerySchemaSearchView(object):
         return None
 
     def results(self, name):
-        print "results", self.request.form
         if not name+".search":
             return None
         query_fieldname = name+".query"
@@ -106,6 +105,8 @@ class UberSelectionWidget(SimpleInputWidget):
             token = self.request.form.get(self.name)
 
             if token is not None:
+                if not isinstance(token, basestring):
+                    token = token[-1]
                 try:
                     value = self.terms.getValue(str(token))
                 except LookupError:
@@ -113,6 +114,12 @@ class UberSelectionWidget(SimpleInputWidget):
             else:
                 value = self.context.missing_value
 
+        return value
+
+    def _getRenderValue(self):
+        value = self._value()
+        if value is not None:
+            value = self.terms.getTerm(value)
         return value
 
     def hidden(self):
@@ -136,9 +143,7 @@ class UberSelectionWidget(SimpleInputWidget):
         return ""
 
     def __call__(self):
-        value = self._value()
-        if value is not None:
-            value = [self.terms.getTerm(x) for x in value]
+        value = self._getRenderValue()
         field = self.context
         results = []
         qresults = self.queryview.results(self.name)
@@ -213,10 +218,21 @@ class UberMultiSelectionWidget(UberSelectionWidget):
 
         return value
 
+    def _getRenderValue(self):
+        value = self._value()
+        if value is not None:
+            value = [self.terms.getTerm(x) for x in value]
+        return value
+
 
 class IUberSelectionDemoForm(interface.Interface):
-    text = UberMultiSelect(title=u'Search Text',
-                         description=u'The text to search for',
+    selection = UberSelect(title=u'Single select',
+                         description=u'Select just one item',
+                         required=False,
+                         source=MySource())
+
+    multiselection = UberMultiSelect(title=u'Multi select',
+                         description=u'Select multiple items',
                          required=False,
                          source=MySource())
 

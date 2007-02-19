@@ -8,6 +8,17 @@
 
   <p class="discreet" tal:content="view/hint"></p>
 
+  <fieldset tal:condition="options/value | nothing">
+    <legend>Current selection</legend>
+    <div tal:define="term options/value">
+      <input type="checkbox"
+             checked="checked"
+             tal:attributes="name string:${options/name};
+                             value term/token" />
+      <span tal:content="term/title" />
+    </div>
+  </fieldset>
+
   <input type="text"
          value=""
          tal:attributes="name string:${options/name}.query;
@@ -22,30 +33,21 @@
   <fieldset tal:condition="options/results | nothing">
     <legend>Search results</legend>
     <div tal:repeat="term options/results">
-      <input type="checkbox"
-             tal:attributes="name string:${options/name}:list;
+      <input type="radio"
+             tal:attributes="name string:${options/name};
                              value term/token" />
       <span tal:replace="term/title">title</span>
     </div>
   </fieldset>
 
-  <fieldset tal:condition="options/value | nothing">
-    <legend>Current selection</legend>
-    <div tal:repeat="term options/value">
-      <input type="checkbox"
-             checked="checked"
-             tal:attributes="name string:${options/name}:list;
-                             value term/token" />
-      <span tal:content="term/title" />
-    </div>
-  </fieldset>
+  <div>
+    <input type="hidden" value="y"
+           tal:attributes="name string:${options/name}.displayed" />
 
-  <input type="hidden" value="y"
-         tal:attributes="name string:${options/name}.displayed" />
-
-  <input type="submit"
-         value="Update"
-         tal:attributes="name string:${options/name}.update" />
+    <input type="submit"
+           value="Update"
+           tal:attributes="name string:${options/name}.update" />
+  </div>
 
 </fieldset>
 
