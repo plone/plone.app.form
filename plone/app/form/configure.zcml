@@ -77,4 +77,13 @@
       permission="zope2.View"
       />
 
+  <adapter
+      for=".uberselectionwidget.IUberMultiSelect
+           zope.schema.interfaces.ISource
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory=".uberselectionwidget.UberMultiSelectionWidget"
+      permission="zope2.View"
+      />
+
 </configure>
