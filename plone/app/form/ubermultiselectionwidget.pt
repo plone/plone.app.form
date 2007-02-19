@@ -21,9 +21,10 @@
 
   <input type="text"
          value=""
-         tal:attributes="name string:${options/name}.query;
-                         id string:${options/name}.query;
-                         value request/fieldname | nothing" />
+         tal:define="name string:${options/name}.query" 
+         tal:attributes="name name;
+                         id name;
+                         value request/?name | default" />
 
   <input type="submit"
          value="Search"
