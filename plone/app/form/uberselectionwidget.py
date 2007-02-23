@@ -3,7 +3,9 @@ from zope.component import getMultiAdapter, provideAdapter
 from zope.formlib import form
 from zope.publisher.interfaces.browser import IBrowserRequest
 
-from zope.app.form.browser.interfaces import ISourceQueryView, ITerms
+from zope.app.form.interfaces import WidgetInputError, MissingInputError
+from zope.app.form.browser.interfaces import \
+    ISourceQueryView, ITerms, IWidgetInputErrorView
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
@@ -19,24 +21,42 @@ class MySource(object):
 
     def __init__(self, context):
         self.context = context
+        self.catalog = cmfutils.getToolByName(context, "portal_catalog")
 
     def __contains__(self, value):
         """Return whether the value is available in this source
         """
+        if self.catalog.getrid(value) is None:
+            return False
         return True
+
+    def search(self, query):
+        context = self.context
+        for char in '?-+*()':
+            query = query.replace(char, ' ')
+        query = query.split()
+        query = " AND ".join(x+"*" for x in query)
+        return (x.getPath() for x in self.catalog(SearchableText=query))
 
 
 class MyTerms(object):
     interface.implements(ITerms)
 
     def __init__(self, source, request):
-        pass # We don't actually need the source or the request :)
+        self.source = source
+        self.request = request
 
     def getTerm(self, value):
-        title = unicode(value)
-        return schema.vocabulary.SimpleTerm(value, token=value, title=title)
+        rid = self.source.catalog.getrid(value)
+        brain = self.source.catalog._catalog[rid]
+        title = brain.Title
+        token = value
+        return schema.vocabulary.SimpleTerm(value, token=token, title=title)
 
     def getValue(self, token):
+        if token not in self.source:
+            LookupError(token)
+
         return token
 
 
@@ -54,11 +74,7 @@ class QueryMySourceView(object):
         if query_fieldname in self.request.form:
             query = self.request.form[query_fieldname]
             if query != '':
-                return tuple(('spam%i' % (i+1)) for i in range(200))
-            else:
-                return None
-        else:
-            return None
+                return self.context.search(query)
 
 
 class UberSelectionWidget(SimpleInputWidget):
@@ -69,8 +85,8 @@ class UberSelectionWidget(SimpleInputWidget):
     def __init__(self, field, request):
         SimpleInputWidget.__init__(self, field, request)
         self.source = field.source
-        self.terms = getMultiAdapter((field.source, self.request), ITerms)
-        self.queryview = getMultiAdapter((field.source, self.request), ISourceQueryView)
+        self.terms = getMultiAdapter((self.source, self.request), ITerms)
+        self.queryview = getMultiAdapter((self.source, self.request), ISourceQueryView)
 
     def _value(self):
         if self._renderedValueSet():
@@ -135,30 +151,16 @@ class UberSelectionWidget(SimpleInputWidget):
                              value=value)
 
     def getInputValue(self):
-        token = self.request.get(self.name)
+        value = self._value()
 
         field = self.context
-
-        if token is None:
-            if field.required:
-                raise zope.app.form.interfaces.MissingInputError(
-                    field.__name__, self.label,
-                    )
-            return field.missing_value
-
-        try:
-            value = self.terms.getValue(str(token))
-        except LookupError:
-            err = zope.schema.interfaces.ValidationError(
-                "Invalid value id", token)
-            raise WidgetInputError(field.__name__, self.label, err)
 
         # Remaining code copied from SimpleInputWidget
 
         # value must be valid per the field constraints
         try:
             field.validate(value)
-        except ValidationError, err:
+        except schema.interfaces.ValidationError, err:
             self._error = WidgetInputError(field.__name__, self.label, err)
             raise self._error
 
@@ -176,6 +178,12 @@ class UberSelectionWidget(SimpleInputWidget):
 
 class UberMultiSelectionWidget(UberSelectionWidget):
     template = ViewPageTemplateFile('ubermultiselectionwidget.pt')
+
+    def __init__(self, field, request):
+        SimpleInputWidget.__init__(self, field, request)
+        self.source = field.value_type.source
+        self.terms = getMultiAdapter((self.source, self.request), ITerms)
+        self.queryview = getMultiAdapter((self.source, self.request), ISourceQueryView)
 
     def _value(self):
         if self._renderedValueSet():
@@ -213,10 +221,10 @@ class IUberSelectionDemoForm(interface.Interface):
                          required=False,
                          source=MySource)
 
-    multiselection = schema.Choice(title=u'Multi select',
+    multiselection = schema.List(title=u'Multi select',
                          description=u'Select multiple items',
                          required=False,
-                         source=MySource)
+                         value_type=schema.Choice(source=MySource))
 
 
 class UberSelectionDemoForm(form.PageForm):
