@@ -73,7 +73,7 @@
     
     <subscriber 
         for="plone.locking.interfaces.ITTWLockable
-             .interfaces.IEditCancelledEvent"
+             .interfaces.IEditFinishedEvent"
         handler="plone.locking.events.unlockAfterModification"
         />
 

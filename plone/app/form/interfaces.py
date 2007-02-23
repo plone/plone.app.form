@@ -24,6 +24,14 @@ class IEditBegunEvent(IObjectEvent):
     """An event signalling that editing has begun on an object
     """
     
-class IEditCancelledEvent(IObjectEvent):
+class IEditFinishedEvent(IObjectEvent):
+    """Base event signalling that an edit operation has completed
+    """
+    
+class IEditCancelledEvent(IEditFinishedEvent):
     """An event signalling that editing was cancelled on the given object
+    """
+    
+class IEditSavedEvent(IEditFinishedEvent):
+    """An event signalling that editing was complated on the given object
     """

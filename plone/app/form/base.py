@@ -13,7 +13,7 @@ from plone.locking.interfaces import ILockable
 from plone.app.form.interfaces import IPlonePageForm
 from plone.app.form.interfaces import IEditForm
 from plone.app.form.validators import null_validator
-from plone.app.form.events import EditBegunEvent, EditCancelledEvent
+from plone.app.form.events import EditBegunEvent, EditCancelledEvent, EditSavedEvent
 
 class AddForm(formbase.AddForm):
     """An add form with standard Save and Cancel buttons
@@ -52,6 +52,7 @@ class EditForm(formbase.EditForm):
     def handle_save_action(self, action, data):
         if form.applyChanges(self.context, self.form_fields, data, self.adapters):
             zope.event.notify(zope.lifecycleevent.ObjectModifiedEvent(self.context))
+            zope.event.notify(EditSavedEvent(self.context))
             self.status = "Changes saved"
         else:
             zope.event.notify(EditCancelledEvent(self.context))
