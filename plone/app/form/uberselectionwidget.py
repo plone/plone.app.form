@@ -16,10 +16,19 @@ from pprint import pprint
 class MySource(object):
     interface.implements(schema.interfaces.ISource)
 
+    def __init__(self, context):
+        self.context = context
+
     def __contains__(self, value):
         """Return whether the value is available in this source
         """
         return True
+
+class MySourceFactory(object):
+    interface.implements(schema.interfaces.IContextSourceBinder)
+
+    def __call__(self, context):
+        return MySource(context)
 
 
 class MyTerms(object):
@@ -49,7 +58,7 @@ class QuerySchemaSearchView(object):
         return None
 
     def results(self, name):
-        if not name+".search":
+        if not name+".search" in self.request.form:
             return None
         query_fieldname = name+".query"
         if query_fieldname in self.request.form:
@@ -204,12 +213,12 @@ class IUberSelectionDemoForm(interface.Interface):
     selection = schema.Choice(title=u'Single select',
                          description=u'Select just one item',
                          required=False,
-                         source=MySource())
+                         source=MySourceFactory())
 
     multiselection = schema.Choice(title=u'Multi select',
                          description=u'Select multiple items',
                          required=False,
-                         source=MySource())
+                         source=MySourceFactory())
 
 
 class UberSelectionDemoForm(form.PageForm):
