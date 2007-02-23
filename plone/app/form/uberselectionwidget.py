@@ -15,7 +15,7 @@ from Products.Five.browser import pagetemplatefile
 from pprint import pprint
 
 
-class MySource(object):
+class SearchableTextSource(object):
     interface.implements(schema.interfaces.ISource)
     interface.classProvides(schema.interfaces.IContextSourceBinder)
 
@@ -39,33 +39,31 @@ class MySource(object):
         return (x.getPath() for x in self.catalog(SearchableText=query))
 
 
-class MyTerms(object):
-    interface.implements(ITerms)
+class QuerySearchableTextSourceView(object):
+    interface.implements(ITerms,
+                         ISourceQueryView)
 
-    def __init__(self, source, request):
-        self.source = source
+    template = ViewPageTemplateFile('searchabletextsource.pt')
+
+    def __init__(self, context, request):
+        self.context = context
         self.request = request
 
     def getTerm(self, value):
-        rid = self.source.catalog.getrid(value)
-        brain = self.source.catalog._catalog[rid]
+        rid = self.context.catalog.getrid(value)
+        brain = self.context.catalog._catalog[rid]
         title = brain.Title
         token = value
         return schema.vocabulary.SimpleTerm(value, token=token, title=title)
 
     def getValue(self, token):
-        if token not in self.source:
+        if token not in self.context:
             LookupError(token)
 
         return token
 
-
-class QueryMySourceView(object):
-    interface.implements(ISourceQueryView)
-
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
+    def render(self, name):
+        return self.template(name=name)
 
     def results(self, name):
         if not name+".search" in self.request.form:
@@ -227,12 +225,12 @@ class IUberSelectionDemoForm(interface.Interface):
     selection = schema.Choice(title=u'Single select',
                          description=u'Select just one item',
                          required=False,
-                         source=MySource)
+                         source=SearchableTextSource)
 
     multiselection = schema.List(title=u'Multi select',
                          description=u'Select multiple items',
                          required=False,
-                         value_type=schema.Choice(source=MySource))
+                         value_type=schema.Choice(source=SearchableTextSource))
 
 
 class UberSelectionDemoForm(form.PageForm):
