@@ -40,17 +40,12 @@ class MyTerms(object):
         return token
 
 
-class QuerySchemaSearchView(object):
+class QueryMySourceView(object):
     interface.implements(ISourceQueryView)
-
-    template = ViewPageTemplateFile('uberselectionwidget.pt')
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
-    def render(self, name):
-        return None
 
     def results(self, name):
         if not name+".search" in self.request.form:
@@ -59,7 +54,7 @@ class QuerySchemaSearchView(object):
         if query_fieldname in self.request.form:
             query = self.request.form[query_fieldname]
             if query != '':
-                return ('spam', 'spam', 'spam', 'ham', 'eggs')
+                return tuple(('spam%i' % (i+1)) for i in range(200))
             else:
                 return None
         else:
@@ -125,11 +120,19 @@ class UberSelectionWidget(SimpleInputWidget):
         value = self._getRenderValue()
         field = self.context
         results = []
+        results_truncated = False
         qresults = self.queryview.results(self.name)
         if qresults is not None:
-            for item in qresults:
+            for index, item in enumerate(qresults):
+                if index >= 20:
+                    results_truncated = True
+                    break
                 results.append(self.terms.getTerm(item))
-        return self.template(field=field, results=results, name=self.name, value=value)
+        return self.template(field=field,
+                             results=results,
+                             results_truncated=results_truncated,
+                             name=self.name,
+                             value=value)
 
     def getInputValue(self):
         token = self.request.get(self.name)

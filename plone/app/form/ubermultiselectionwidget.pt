@@ -39,6 +39,10 @@
                              value term/token" />
       <span tal:replace="term/title">title</span>
     </div>
+    <div tal:condition="options/results_truncated"
+         i18n:translate="">
+      There are more search results, narrow your search.
+    </div>
   </fieldset>
 
   <div>

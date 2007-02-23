@@ -77,7 +77,7 @@
   <adapter
       for=".uberselectionwidget.MySource
            zope.publisher.interfaces.browser.IBrowserRequest"
-      factory=".uberselectionwidget.QuerySchemaSearchView"
+      factory=".uberselectionwidget.QueryMySourceView"
       />
 
 </configure>
