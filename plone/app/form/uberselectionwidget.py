@@ -15,6 +15,7 @@ from pprint import pprint
 
 class MySource(object):
     interface.implements(schema.interfaces.ISource)
+    interface.classProvides(schema.interfaces.IContextSourceBinder)
 
     def __init__(self, context):
         self.context = context
@@ -23,12 +24,6 @@ class MySource(object):
         """Return whether the value is available in this source
         """
         return True
-
-class MySourceFactory(object):
-    interface.implements(schema.interfaces.IContextSourceBinder)
-
-    def __call__(self, context):
-        return MySource(context)
 
 
 class MyTerms(object):
@@ -213,12 +208,12 @@ class IUberSelectionDemoForm(interface.Interface):
     selection = schema.Choice(title=u'Single select',
                          description=u'Select just one item',
                          required=False,
-                         source=MySourceFactory())
+                         source=MySource)
 
     multiselection = schema.Choice(title=u'Multi select',
                          description=u'Select multiple items',
                          required=False,
-                         source=MySourceFactory())
+                         source=MySource)
 
 
 class UberSelectionDemoForm(form.PageForm):
