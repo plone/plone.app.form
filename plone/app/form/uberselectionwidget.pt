@@ -38,6 +38,15 @@
              tal:attributes="name string:${options/name};
                              value term/token" />
       <span tal:replace="term/title">title</span>
+      <input type="submit"
+             value="Parent"
+             i18n:attributes="value"
+             tal:define="path python:'/'.join(term.token.split('/')[:-2])"
+             tal:attributes="name string:${options/name}.browse.${path}" />
+      <input type="submit"
+             value="Browse"
+             i18n:attributes="value"
+             tal:attributes="name string:${options/name}.browse.${term/token}" />
     </div>
     <p tal:condition="options/results_truncated"
          i18n:translate="">
