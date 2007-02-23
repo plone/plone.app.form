@@ -200,6 +200,14 @@ class UberMultiSelectionWidget(UberSelectionWidget):
                         pass # skip invalid values
                     else:
                         value.append(v)
+                # only keep unique items
+                r = []
+                seen = {}
+                for s in value:
+                    if s not in seen:
+                        r.append(s)
+                        seen[s] = 1
+                value = r
             else:
                 if self.name+'.displayed' in self.request:
                     value = []
