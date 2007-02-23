@@ -9,70 +9,12 @@ from zope.app.form.browser.interfaces import \
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
+from plone.app.vocabularies.catalog import SearchableTextSource
+
 from Products.CMFCore import utils as cmfutils
 from Products.Five.browser import pagetemplatefile
 
 from pprint import pprint
-
-
-class SearchableTextSource(object):
-    interface.implements(schema.interfaces.ISource)
-    interface.classProvides(schema.interfaces.IContextSourceBinder)
-
-    def __init__(self, context):
-        self.context = context
-        self.catalog = cmfutils.getToolByName(context, "portal_catalog")
-
-    def __contains__(self, value):
-        """Return whether the value is available in this source
-        """
-        if self.catalog.getrid(value) is None:
-            return False
-        return True
-
-    def search(self, query):
-        context = self.context
-        for char in '?-+*()':
-            query = query.replace(char, ' ')
-        query = query.split()
-        query = " AND ".join(x+"*" for x in query)
-        return (x.getPath() for x in self.catalog(SearchableText=query))
-
-
-class QuerySearchableTextSourceView(object):
-    interface.implements(ITerms,
-                         ISourceQueryView)
-
-    template = ViewPageTemplateFile('searchabletextsource.pt')
-
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def getTerm(self, value):
-        rid = self.context.catalog.getrid(value)
-        brain = self.context.catalog._catalog[rid]
-        title = brain.Title
-        token = value
-        return schema.vocabulary.SimpleTerm(value, token=token, title=title)
-
-    def getValue(self, token):
-        if token not in self.context:
-            LookupError(token)
-
-        return token
-
-    def render(self, name):
-        return self.template(name=name)
-
-    def results(self, name):
-        if not name+".search" in self.request.form:
-            return None
-        query_fieldname = name+".query"
-        if query_fieldname in self.request.form:
-            query = self.request.form[query_fieldname]
-            if query != '':
-                return self.context.search(query)
 
 
 class UberSelectionWidget(SimpleInputWidget):

@@ -68,18 +68,4 @@
       permission="zope2.View"
       />
 
-  <adapter
-      for=".uberselectionwidget.SearchableTextSource
-           zope.publisher.interfaces.browser.IBrowserRequest"
-      factory=".uberselectionwidget.QuerySearchableTextSourceView"
-      provides="zope.app.form.browser.interfaces.ITerms"
-      />
-
-  <adapter
-      for=".uberselectionwidget.SearchableTextSource
-           zope.publisher.interfaces.browser.IBrowserRequest"
-      factory=".uberselectionwidget.QuerySearchableTextSourceView"
-      provides="zope.app.form.browser.interfaces.ISourceQueryView"
-      />
-
 </configure>
