@@ -60,5 +60,21 @@
       template="pageform.pt"
       />
   -->
+  
+  <!-- Support locking on content that is marked to support it and
+   which uses plone.app.form.base.EditForm
+   -->
+    
+    <subscriber 
+        for="plone.locking.interfaces.ITTWLockable
+             .interfaces.IEditBegunEvent"
+        handler="plone.locking.events.lockOnEditBegins" 
+        />
+    
+    <subscriber 
+        for="plone.locking.interfaces.ITTWLockable
+             .interfaces.IEditCancelledEvent"
+        handler="plone.locking.events.unlockAfterModification"
+        />
 
 </configure>
