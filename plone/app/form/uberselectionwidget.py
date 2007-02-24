@@ -9,6 +9,7 @@ from zope.app.form.browser.interfaces import \
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
+from plone.app.vocabularies.interfaces import IBrowsableTerm
 from plone.app.vocabularies.catalog import SearchableTextSource
 
 from Products.CMFCore import utils as cmfutils

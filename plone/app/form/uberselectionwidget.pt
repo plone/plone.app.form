@@ -41,16 +41,18 @@
       <input type="radio"
              tal:attributes="name string:${options/name};
                              value term/token" />
-      <span tal:replace="term/title">title</span>
       <input type="submit"
              value="Parent"
+             tal:define="parent_token term/parent_token | nothing"
+             tal:condition="python: parent_token is not None"
              i18n:attributes="value label_parent;"
-             tal:define="path python:'/'.join(term.token.split('/')[:-2])"
-             tal:attributes="name string:${options/name}.browse.${path}" />
+             tal:attributes="name string:${options/name}.browse.${parent_token}" />
+      <span tal:replace="term/title">title</span>
       <input type="submit"
              value="Browse"
+             tal:condition="term/browse_token|nothing"
              i18n:attributes="value label_browse;"
-             tal:attributes="name string:${options/name}.browse.${term/token}" />
+             tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
     </div>
     <p tal:condition="options/results_truncated"
          i18n:translate="">
