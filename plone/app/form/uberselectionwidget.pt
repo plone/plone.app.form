@@ -1,7 +1,11 @@
-<tal:widget i18n:domain="plone">
+<fieldset lang="en"
+          xml:lang="en"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="plone">
 
-<fieldset>
-  
   <legend>
     <label for="fieldname" tal:content="view/label">choose</label>
   </legend>
@@ -9,7 +13,7 @@
   <p class="discreet" tal:content="view/hint"></p>
 
   <fieldset tal:condition="options/value | nothing">
-    <legend>Current selection</legend>
+    <legend i18n:translate="label_currentselection">Current selection</legend>
     <div tal:define="term options/value">
       <input type="checkbox"
              checked="checked"
@@ -28,11 +32,11 @@
 
   <input type="submit"
          value="Search"
-         i18n:attributes="value"
+         i18n:attributes="value label_search;"
          tal:attributes="name string:${options/name}.search" />
 
   <fieldset tal:condition="options/results | nothing">
-    <legend>Search results</legend>
+    <legend i18n:translate="label_searchresults">Search results</legend>
     <div tal:repeat="term options/results">
       <input type="radio"
              tal:attributes="name string:${options/name};
@@ -40,12 +44,12 @@
       <span tal:replace="term/title">title</span>
       <input type="submit"
              value="Parent"
-             i18n:attributes="value"
+             i18n:attributes="value label_parent;"
              tal:define="path python:'/'.join(term.token.split('/')[:-2])"
              tal:attributes="name string:${options/name}.browse.${path}" />
       <input type="submit"
              value="Browse"
-             i18n:attributes="value"
+             i18n:attributes="value label_browse;"
              tal:attributes="name string:${options/name}.browse.${term/token}" />
     </div>
     <p tal:condition="options/results_truncated"
@@ -60,9 +64,8 @@
 
     <input type="submit"
            value="Update"
+           i18n:attributes="value label_update;"
            tal:attributes="name string:${options/name}.update" />
   </div>
 
 </fieldset>
-
-</tal:widget>
