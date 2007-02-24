@@ -1,0 +1,122 @@
+
+  >>> from zope.interface import Interface, implements
+  >>> from zope.component import provideAdapter, adapts
+  >>> from zope.schema import Choice, List
+  >>> from zope.schema.interfaces import IIterableSource
+  >>> from plone.app.vocabularies.catalog import SearchableTextSource
+  >>> from zope.publisher.interfaces.browser import IBrowserRequest
+  >>> from zope.app.form.browser.interfaces import ITerms
+  >>> from zope.schema.vocabulary import SimpleTerm
+
+  >>> class ListTerms:
+  ...
+  ...     implements(ITerms)
+  ...
+  ...     def __init__(self, source, request):
+  ...         pass # We don't actually need the source or the request :)
+  ...
+  ...     def getTerm(self, value):
+  ...         title = unicode(value)
+  ...         try:
+  ...             token = title.encode('base64').strip()
+  ...         except binascii.Error:
+  ...             raise LookupError(token)
+  ...         return SimpleTerm(value, token=token, title=title)
+  ...
+  ...     def getValue(self, token):
+  ...         return token.decode('base64')
+
+  >>> class SourceList(list):
+  ...     implements(IIterableSource)
+
+  >>> provideAdapter(
+  ...     ListTerms,
+  ...     (SourceList, IBrowserRequest))
+
+  >>> from zope.app.form.browser.interfaces import ISourceQueryView
+
+  >>> class ListQueryView:
+  ...
+  ...     implements(ISourceQueryView)
+  ...     adapts(
+  ...         SourceList,
+  ...         IBrowserRequest,
+  ...         )
+  ...
+  ...     def __init__(self, source, request):
+  ...         self.source = source
+  ...         self.request = request
+  ...
+  ...     def render(self, name):
+  ...         return (
+  ...             '<input name="%s.string">\n'
+  ...             '<input type="submit" name="%s" value="Search">'
+  ...             % (name, name)
+  ...             )
+  ...
+  ...     def results(self, name):
+  ...         if name in self.request:
+  ...             search_string = self.request.get(name+'.string')
+  ...             if search_string is not None:
+  ...                 return [value
+  ...                         for value in self.source
+  ...                         if search_string in value
+  ...                         ]
+  ...         return None
+
+  >>> provideAdapter(ListQueryView)
+
+
+
+
+  >>> from zope.publisher.browser import TestRequest
+  >>> from plone.app.form.uberselectionwidget import UberSelectionWidget, UberMultiSelectionWidget
+
+  >>> request = TestRequest()
+  >>> field = Choice(__name__='field',
+  ...                title=u'Single select',
+  ...                source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie']))
+
+  >> widget = UberSelectionWidget(field, request)
+  >> widget()
+
+
+
+
+  >>> class IDemo(Interface):
+  ...     selection = Choice(title=u'Single select',
+  ...                        description=u'Select just one item',
+  ...                        required=False,
+  ...                        source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie']))
+  ... 
+  ...     multiselection = List(title=u'Multi select',
+  ...                           description=u'Select multiple items',
+  ...                           required=False,
+  ...                           value_type=Choice(source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie'])))
+  ... 
+
+  >>> class Demo(object):
+  ...     implements(IDemo)
+  ...     selection = ''
+  ...     multiselection = []
+
+  >>> from zope.formlib.form import PageForm, FormFields, action
+
+  >>> class DemoForm(PageForm):
+  ...     form_fields = FormFields(IDemo)
+  ...     form_fields['selection'].custom_widget = UberSelectionWidget
+  ...     form_fields['multiselection'].custom_widget = UberMultiSelectionWidget
+  ... 
+  ...     @action("Submit")
+  ...     def action_search(self, action, data):
+  ...         catalog = cmfutils.getToolByName(self.context, 'portal_catalog')
+  ... 
+  ...         return repr(data)
+
+
+
+
+  >>> demo = Demo()
+  >>> request = TestRequest()
+  >>> demoform = DemoForm(demo, request)
+  >>> demoform.render()

@@ -1,21 +1,13 @@
-from zope import interface, schema
-from zope.component import getMultiAdapter, provideAdapter
-from zope.formlib import form
-from zope.publisher.interfaces.browser import IBrowserRequest
+from zope.schema.interfaces import ValidationError
+from zope.component import getMultiAdapter
 
-from zope.app.form.interfaces import WidgetInputError, MissingInputError
+from zope.app.form.interfaces import WidgetInputError
 from zope.app.form.browser.interfaces import \
     ISourceQueryView, ITerms, IWidgetInputErrorView
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from plone.app.vocabularies.interfaces import IBrowsableTerm
-from plone.app.vocabularies.catalog import SearchableTextSource
-
-from Products.CMFCore import utils as cmfutils
-from Products.Five.browser import pagetemplatefile
-
-from pprint import pprint
 
 
 class UberSelectionWidget(SimpleInputWidget):
@@ -101,7 +93,7 @@ class UberSelectionWidget(SimpleInputWidget):
         # value must be valid per the field constraints
         try:
             field.validate(value)
-        except schema.interfaces.ValidationError, err:
+        except ValidationError, err:
             self._error = WidgetInputError(field.__name__, self.label, err)
             raise self._error
 
@@ -164,6 +156,12 @@ class UberMultiSelectionWidget(UberSelectionWidget):
         return value
 
 
+# for testing:
+
+from zope import interface, schema
+from zope.formlib import form
+from plone.app.vocabularies.catalog import SearchableTextSource
+
 class IUberSelectionDemoForm(interface.Interface):
     selection = schema.Choice(title=u'Single select',
                          description=u'Select just one item',
@@ -181,8 +179,6 @@ class UberSelectionDemoForm(form.PageForm):
     form_fields['selection'].custom_widget = UberSelectionWidget
     form_fields['multiselection'].custom_widget = UberMultiSelectionWidget
 
-    @form.action("dskljfhsd")
+    @form.action("Submit")
     def action_search(self, action, data):
-        catalog = cmfutils.getToolByName(self.context, 'portal_catalog')
-
         return repr(data)
