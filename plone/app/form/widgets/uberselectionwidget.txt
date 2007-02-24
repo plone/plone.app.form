@@ -79,7 +79,7 @@ An adapter to ISourceQueryView to make the source searchable.
 Then we can start to test the widget.
 
   >>> from zope.publisher.browser import TestRequest
-  >>> from plone.app.form.uberselectionwidget import UberSelectionWidget, UberMultiSelectionWidget
+  >>> from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget, UberMultiSelectionWidget
   >>> from xml.dom.minidom import parseString
 
 We need a request.

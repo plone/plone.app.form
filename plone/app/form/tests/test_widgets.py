@@ -18,7 +18,7 @@ def tearDown(test):
 
 def test_suite():
     return unittest.TestSuite([
-        doctest.DocFileSuite('uberselectionwidget.txt',
+        doctest.DocFileSuite('widgets/uberselectionwidget.txt',
                              package='plone.app.form',
                              setUp=setUp,
                              tearDown=tearDown,
