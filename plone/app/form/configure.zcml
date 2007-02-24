@@ -42,14 +42,6 @@
         />
       
   </configure>
-  
-  <!-- Make a more sensible default adding view -->
-  <browser:view
-      for="Products.CMFCore.interfaces.IFolderish"
-      name="+"
-      class=".adding.CMFAdding"
-      permission="cmf.AddPortalContent"
-      />
       
   <!--
         <browser:page
