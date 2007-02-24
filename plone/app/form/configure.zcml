@@ -42,16 +42,6 @@
         />
       
   </configure>
-      
-  <!--
-        <browser:page
-      for="*"
-      permission="zope2.View"
-      class=".visualtest.TestForm"
-      name="plone-form-test.html"
-      template="pageform.pt"
-      />
-  -->
   
   <!-- Support locking on content that is marked to support it and
    which uses plone.app.form.base.EditForm
