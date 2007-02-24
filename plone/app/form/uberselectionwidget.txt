@@ -1,3 +1,7 @@
+UberSelectionWidget
+===================
+
+First we need to prepare some things. For this we need some imports.
 
   >>> from zope.interface import Interface, implements
   >>> from zope.component import provideAdapter, adapts
@@ -7,6 +11,13 @@
   >>> from zope.publisher.interfaces.browser import IBrowserRequest
   >>> from zope.app.form.browser.interfaces import ITerms
   >>> from zope.schema.vocabulary import SimpleTerm
+
+The source itself.
+
+  >>> class SourceList(list):
+  ...     implements(IIterableSource)
+
+An adapter to ITerms.
 
   >>> class ListTerms:
   ...
@@ -26,12 +37,11 @@
   ...     def getValue(self, token):
   ...         return token.decode('base64')
 
-  >>> class SourceList(list):
-  ...     implements(IIterableSource)
-
   >>> provideAdapter(
   ...     ListTerms,
   ...     (SourceList, IBrowserRequest))
+
+An adapter to ISourceQueryView to make the source searchable.
 
   >>> from zope.app.form.browser.interfaces import ISourceQueryView
 
@@ -55,8 +65,8 @@
   ...             )
   ...
   ...     def results(self, name):
-  ...         if name in self.request:
-  ...             search_string = self.request.get(name+'.string')
+  ...         if name+".search" in self.request:
+  ...             search_string = self.request.get(name+'.query')
   ...             if search_string is not None:
   ...                 return [value
   ...                         for value in self.source
@@ -66,57 +76,53 @@
 
   >>> provideAdapter(ListQueryView)
 
-
-
+Then we can start to test the widget.
 
   >>> from zope.publisher.browser import TestRequest
   >>> from plone.app.form.uberselectionwidget import UberSelectionWidget, UberMultiSelectionWidget
+  >>> from xml.dom.minidom import parseString
+
+We need a request.
 
   >>> request = TestRequest()
-  >>> field = Choice(__name__='field',
+
+A choice field with the source.
+
+  >>> selection = Choice(__name__='selection',
   ...                title=u'Single select',
   ...                source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie']))
 
-  >>> widget = UberSelectionWidget(field, request)
-  >>> print widget()
+And the widget itself.
 
+  >>> widget = UberSelectionWidget(selection, request)
 
+Now we can render the widget and inspect it.
 
+  >>> dom = parseString(widget())
+  >>> inputs = dom.getElementsByTagName('input')
+  >>> inputs[0].getAttributeNode('name').value
+  u'field.selection.query'
+  >>> inputs[1].getAttributeNode('name').value
+  u'field.selection.search'
+  >>> dom.unlink()
 
-  >>> class IDemo(Interface):
-  ...     selection = Choice(title=u'Single select',
-  ...                        description=u'Select just one item',
-  ...                        required=False,
-  ...                        source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie']))
-  ... 
-  ...     multiselection = List(title=u'Multi select',
-  ...                           description=u'Select multiple items',
-  ...                           required=False,
-  ...                           value_type=Choice(source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie'])))
-  ... 
+Now we want to make a query and see whether we get selectable results.
 
-  >>> class Demo(object):
-  ...     implements(IDemo)
-  ...     selection = ''
-  ...     multiselection = []
+  >>> request.form['field.selection.query'] = u'o'
+  >>> request.form['field.selection.search'] = u'Search'
+  >>> dom = parseString(widget())
+  >>> inputs = [x for x in dom.getElementsByTagName('input')
+  ...           if u'type="radio"' in x.toxml()]
+  >>> len(inputs)
+  2
+  >>> u'c3BvdA==' in inputs[0].toxml()
+  True
+  >>> u'spot' in inputs[0].nextSibling.toxml()
+  True
+  >>> u'Ym93c2Vy' in inputs[1].toxml()
+  True
+  >>> u'bowser' in inputs[1].nextSibling.toxml()
+  True
+  >>> dom.unlink()
 
-  >>> from zope.formlib.form import PageForm, FormFields, action
-
-  >>> class DemoForm(PageForm):
-  ...     form_fields = FormFields(IDemo)
-  ...     form_fields['selection'].custom_widget = UberSelectionWidget
-  ...     form_fields['multiselection'].custom_widget = UberMultiSelectionWidget
-  ... 
-  ...     @action("Submit")
-  ...     def action_search(self, action, data):
-  ...         catalog = cmfutils.getToolByName(self.context, 'portal_catalog')
-  ... 
-  ...         return repr(data)
-
-
-
-
-  >>> demo = Demo()
-  >>> request = TestRequest()
-  >>> demoform = DemoForm(demo, request)
-  >>> demoform.render()
+Fine, so far everything works!

@@ -66,11 +66,4 @@
         handler="plone.locking.events.unlockAfterModification"
         />
 
-  <browser:page
-      name="uberselectionwidget.html"
-      for="Products.CMFPlone.Portal.PloneSite"
-      class=".uberselectionwidget.UberSelectionDemoForm"
-      permission="zope2.View"
-      />
-
 </configure>

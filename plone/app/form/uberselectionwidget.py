@@ -154,31 +154,3 @@ class UberMultiSelectionWidget(UberSelectionWidget):
         if value is not None:
             value = [self.terms.getTerm(x) for x in value]
         return value
-
-
-# for testing:
-
-from zope import interface, schema
-from zope.formlib import form
-from plone.app.vocabularies.catalog import SearchableTextSource
-
-class IUberSelectionDemoForm(interface.Interface):
-    selection = schema.Choice(title=u'Single select',
-                         description=u'Select just one item',
-                         required=False,
-                         source=SearchableTextSource)
-
-    multiselection = schema.List(title=u'Multi select',
-                         description=u'Select multiple items',
-                         required=False,
-                         value_type=schema.Choice(source=SearchableTextSource))
-
-
-class UberSelectionDemoForm(form.PageForm):
-    form_fields = form.FormFields(IUberSelectionDemoForm)
-    form_fields['selection'].custom_widget = UberSelectionWidget
-    form_fields['multiselection'].custom_widget = UberMultiSelectionWidget
-
-    @form.action("Submit")
-    def action_search(self, action, data):
-        return repr(data)
