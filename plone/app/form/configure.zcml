@@ -16,6 +16,13 @@
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
+      
+  <adapter
+      for="zope.formlib.interfaces.IAddFormCustomization"
+      factory="plone.app.form.adding_named_template_adapter"
+      name="default"
+      provides="zope.formlib.namedtemplate.INamedTemplate"
+      />
 
   <browser:page
       for="*"
@@ -43,23 +50,21 @@
       
   </configure>
   
-  <!-- Make a more sensible default adding view -->
-  <browser:view
-      for="Products.CMFCore.interfaces.IFolderish"
-      name="+"
-      class=".adding.CMFAdding"
-      permission="cmf.AddPortalContent"
-      />
-      
-  <!--
-        <browser:page
-      for="*"
-      permission="zope2.View"
-      class=".visualtest.TestForm"
-      name="plone-form-test.html"
-      template="pageform.pt"
-      />
-  -->
+  <!-- Support locking on content that is marked to support it and
+   which uses plone.app.form.base.EditForm
+   -->
+    
+    <subscriber 
+        for="plone.locking.interfaces.ITTWLockable
+             .interfaces.IEditBegunEvent"
+        handler="plone.locking.events.lockOnEditBegins" 
+        />
+    
+    <subscriber 
+        for="plone.locking.interfaces.ITTWLockable
+             .interfaces.IEditFinishedEvent"
+        handler="plone.locking.events.unlockAfterModification"
+        />
 
   <browser:page
       name="uberselectionwidget.html"
