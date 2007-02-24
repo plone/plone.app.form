@@ -16,6 +16,13 @@
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
+      
+  <adapter
+      for="zope.formlib.interfaces.IAddFormCustomization"
+      factory="plone.app.form.adding_named_template_adapter"
+      name="default"
+      provides="zope.formlib.namedtemplate.INamedTemplate"
+      />
 
   <browser:page
       for="*"
