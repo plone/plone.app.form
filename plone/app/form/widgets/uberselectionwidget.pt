@@ -1,0 +1,73 @@
+<fieldset lang="en"
+          xml:lang="en"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="plone">
+
+  <legend>
+    <label for="fieldname" tal:content="view/label">choose</label>
+  </legend>
+
+  <p class="discreet" tal:content="view/hint"></p>
+
+  <fieldset tal:condition="options/value | nothing">
+    <legend i18n:translate="label_currentselection">Current selection</legend>
+    <div tal:define="term options/value">
+      <input type="checkbox"
+             checked="checked"
+             tal:attributes="name string:${options/name};
+                             value term/token" />
+      <span tal:content="term/title" />
+    </div>
+  </fieldset>
+
+  <input type="text"
+         value=""
+         tal:define="name string:${options/name}.query" 
+         tal:attributes="name name;
+                         id name;
+                         value request/?name | default" />
+
+  <input type="submit"
+         value="Search"
+         i18n:attributes="value label_search;"
+         tal:attributes="name string:${options/name}.search" />
+
+  <fieldset tal:condition="options/results | nothing">
+    <legend i18n:translate="label_searchresults">Search results</legend>
+    <div tal:repeat="term options/results">
+      <input type="radio"
+             tal:attributes="name string:${options/name};
+                             value term/token" />
+      <input type="submit"
+             value="Parent"
+             tal:define="parent_token term/parent_token | nothing"
+             tal:condition="python: parent_token is not None"
+             i18n:attributes="value label_parent;"
+             tal:attributes="name string:${options/name}.browse.${parent_token}" />
+      <span tal:replace="term/title">title</span>
+      <input type="submit"
+             value="Browse"
+             tal:condition="term/browse_token|nothing"
+             i18n:attributes="value label_browse;"
+             tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
+    </div>
+    <p tal:condition="options/results_truncated"
+         i18n:translate="">
+      There are more search results, narrow your search.
+    </p>
+  </fieldset>
+
+  <div>
+    <input type="hidden" value="y"
+           tal:attributes="name string:${options/name}.displayed" />
+
+    <input type="submit"
+           value="Update"
+           i18n:attributes="value label_update;"
+           tal:attributes="name string:${options/name}.update" />
+  </div>
+
+</fieldset>

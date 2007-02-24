@@ -7,7 +7,7 @@ request, which seems to be no longer needed to have it work with Zope
 
   >>> from zope import interface, schema
   >>> from zope.formlib import form
-  >>> from Products.Five import traversable
+  >>> from zope.publisher.browser import TestRequest
 
   >>> class IFoo(interface.Interface):
   ...     var1 = schema.TextLine(title=u'var1')
@@ -19,7 +19,7 @@ request, which seems to be no longer needed to have it work with Zope
   >>> class BarForm(form.EditForm):
   ...     form_fields = form.FormFields(IFoo)
 
-  >>> request = traversable.FakeRequest()
+  >>> request = TestRequest()
   >>> foo = Foo()
   >>> bar = BarForm(foo, request)
   >>> bar.adapters = {}
