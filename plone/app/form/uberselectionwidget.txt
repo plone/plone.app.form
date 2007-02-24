@@ -77,8 +77,8 @@
   ...                title=u'Single select',
   ...                source=SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie']))
 
-  >> widget = UberSelectionWidget(field, request)
-  >> widget()
+  >>> widget = UberSelectionWidget(field, request)
+  >>> print widget()
 
 
 
