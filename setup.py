@@ -11,7 +11,12 @@ This package enables zope.formlib forms to work in Zope 2 code, styled to
 look like Plone forms. Note that developers should use zope.formlib directly,
 not Products.Five.formlib.
 """,
-      classifiers=['Framework :: Zope2'],
+      classifiers=[
+        "Framework :: Plone",
+        "Framework :: Zope2",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
+        "Programming Language :: Python",
+        ],
       keywords='',
       author='Plone Foundation',
       author_email='plone-developers@lists.sourceforge.net',
