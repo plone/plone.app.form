@@ -104,6 +104,13 @@ class DateComponents(BrowserView):
         else:
             max_year = ending_year
 
+        # keeps the existing date if it's out of range
+        if not default:
+            if min_year > date.year():
+                min_year = date.year()
+            if max_year < date.year():
+                max_year = date.year()
+
         year=int(date.strftime('%Y'))
 
         if min_year != max_year:
