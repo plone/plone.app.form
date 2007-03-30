@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five">
+
+    <!-- Edit widgets -->
+
+    <view
+      type="zope.publisher.interfaces.browser.IBrowserRequest"
+      for="zope.schema.interfaces.IBool"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory=".CheckBoxPloneWidget"
+      permission="zope.Public"
+      />
+
+</configure>

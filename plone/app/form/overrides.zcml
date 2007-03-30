@@ -2,6 +2,8 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
 
+  <include package=".widgets" file="overrides.zcml" />
+
   <view
       type="zope.publisher.interfaces.browser.IBrowserRequest"
       for="zope.app.form.interfaces.IWidgetInputError"
