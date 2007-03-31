@@ -9,7 +9,7 @@
       type="zope.publisher.interfaces.browser.IBrowserRequest"
       for="zope.schema.interfaces.IBool"
       provides="zope.app.form.interfaces.IInputWidget"
-      factory=".CheckBoxPloneWidget"
+      factory=".CheckBoxWidget"
       permission="zope.Public"
       />
 

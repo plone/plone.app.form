@@ -1,11 +1,11 @@
-from zope.app.form.browser import CheckBoxWidget
 from zope.app.form.browser.widget import renderElement, SimpleInputWidget
 from zope.i18nmessageid import MessageFactory
 from zope.i18n import translate
+from zope.app.form.browser import CheckBoxWidget as BaseWidget
 
 _ = MessageFactory('plone')
 
-class CheckBoxPloneWidget(CheckBoxWidget):
+class CheckBoxWidget(BaseWidget):
     """ Plone specific widget that is going to show the checkbox widget on the left of the label
         in order to do that we remove the title / label / required
     """

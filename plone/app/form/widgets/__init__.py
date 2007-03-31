@@ -1,2 +1,2 @@
 #
-from checkboxplonewidget import CheckBoxPloneWidget
+from checkboxwidget import CheckBoxWidget
