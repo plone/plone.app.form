@@ -10,28 +10,30 @@ class CheckBoxWidget(BaseWidget):
         in order to do that we remove the title / label / required
     """
 
-    def name( self ):
-        return ""
+    def __init__(self, context, request):
+        BaseWidget.__init__(self, context, request)
+        self.__required = self.required
+        self.required = False
+        self.__name = self.name
+        self.name = ""
 
-    def label( self ):
-        return ""
+    label = property(lambda self: "")
 
-    def error( self ):
-        return ""
+    hint = property(lambda self: "")
 
-    def hint( self ):
+    def error(self):
         return ""
 
     def __call__( self ):
         """Render the widget to HTML."""
         value = self._getFormValue()
-        html = "<label for='%s'>%s</label>\n" % (self.name , super(CheckBoxWidget,self).label)
-        if self.required:
+        html = "<label for='%s'>%s</label>\n" % (self.__name , super(BaseWidget,self).label)
+        if self.__required:
             html += "<span class='fieldRequired' title='%s' > %s </span>" % ( translate(_(u'title_required'),context=self.request), translate(_(u'title_required'),context=self.request))
-        if super(CheckBoxWidget, self).hint:
-            html += "<div class='formHelp'>%s</div>" % super(CheckBoxWidget, self).hint
-        if super(CheckBoxWidget, self).error() != '':
-            html += "<div>%s</div>" % super(CheckBoxWidget, self).error
+        if super(BaseWidget, self).hint:
+            html += "<div class='formHelp'>%s</div>" % super(BaseWidget, self).hint
+        if super(BaseWidget, self).error() != '':
+            html += "<div>%s</div>" % super(BaseWidget, self).error()
         
         if value == 'on':
             kw = {'checked': 'checked'}
