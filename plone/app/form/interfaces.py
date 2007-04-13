@@ -1,5 +1,9 @@
 from zope.interface import Interface, Attribute
-from zope.component.interfaces import IObjectEvent
+try:
+    from zope.component.interfaces import IObjectEvent
+except ImportError:
+    from zope.app.event.interfaces import IObjectEvent
+    
 from zope.formlib.interfaces import IPageForm
 from zope.formlib.interfaces import ISubPageForm
 
