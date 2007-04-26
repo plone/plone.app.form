@@ -27,7 +27,7 @@ class CheckBoxWidget(BaseWidget):
     def __call__( self ):
         """Render the widget to HTML."""
         value = self._getFormValue()
-        html = "<label for='%s'>%s</label>\n" % (self.__name , super(BaseWidget,self).label)
+        html = "<label for='%s'>%s</label>\n" % (self.name , super(BaseWidget,self).label)
         if self.__required:
             html += "<span class='fieldRequired' title='%s' > %s </span>" % ( translate(_(u'title_required'),context=self.request), translate(_(u'title_required'),context=self.request))
         if super(BaseWidget, self).hint:
