@@ -1,11 +1,10 @@
 from zope.interface import implements
 from zope.component import getMultiAdapter
-from zope.component import getUtility
 
 from Acquisition import aq_inner
 from DateTime.DateTime import DateTime
 from DateTime.DateTime import DateTimeError
-from Products.CMFCore.interfaces import IPropertiesTool
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 
 from interfaces import IDateComponents
@@ -39,7 +38,8 @@ class DateComponents(BrowserView):
         """Returns a dict with date information.
         """
 
-        ptool = getUtility(IPropertiesTool)
+        ptool = getToolByName(self.context, 'portal_properties')
+
         site_props = ptool.site_properties
 
         # Get the date format from the locale
