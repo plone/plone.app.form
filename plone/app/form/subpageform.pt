@@ -1,11 +1,13 @@
 <div metal:define-macro="form">
     
-    <div class="portalMessage"
-       tal:define="status view/status"
-       tal:condition="status"
-       tal:content="status">
-       Error message goes here
-    </div>
+    <dl class="portalMessage error"
+        tal:define="status view/status"
+        tal:condition="status">
+        <dt i18n:translate="">
+            Error
+        </dt>
+        <dd tal:content="status" />
+    </dl>
 
   <h1  i18n:translate=""
        tal:condition="view/label"
