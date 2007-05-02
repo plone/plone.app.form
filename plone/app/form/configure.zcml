@@ -1,7 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:five="http://namespaces.zope.org/five">
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <include package=".widgets" />
 
@@ -41,7 +42,7 @@
       />
       
   <!-- Let Five's add views look pretty in CMF/Plone -->
-  <configure package="Products.CMFDefault.skin">
+  <configure package="Products.CMFDefault.browser">
       
       <browser:page
         name="five_template"
@@ -57,12 +58,14 @@
    -->
     
     <subscriber 
+        zcml:condition="installed plone.locking"
         for="plone.locking.interfaces.ITTWLockable
              .interfaces.IEditBegunEvent"
         handler="plone.locking.events.lockOnEditBegins" 
         />
     
     <subscriber 
+        zcml:condition="installed plone.locking"
         for="plone.locking.interfaces.ITTWLockable
              .interfaces.IEditFinishedEvent"
         handler="plone.locking.events.unlockAfterModification"
