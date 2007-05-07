@@ -19,7 +19,7 @@ The source itself.
 
 An adapter to ITerms.
 
-  >>> class ListTerms:
+  >>> class ListTerms(object):
   ...
   ...     implements(ITerms)
   ...
@@ -117,11 +117,11 @@ Now we want to make a query and see whether we get selectable results.
   2
   >>> u'c3BvdA==' in inputs[0].toxml()
   True
-  >>> u'spot' in inputs[0].nextSibling.toxml()
+  >>> u'spot' in inputs[0].nextSibling.nextSibling.toxml()
   True
   >>> u'Ym93c2Vy' in inputs[1].toxml()
   True
-  >>> u'bowser' in inputs[1].nextSibling.toxml()
+  >>> u'bowser' in inputs[1].nextSibling.nextSibling.toxml()
   True
   >>> dom.unlink()
 

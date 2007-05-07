@@ -13,7 +13,8 @@
              checked="checked"
              tal:attributes="name string:${options/name};
                              value term/token" />
-      <span tal:content="term/title" />
+      <span tal:content="term/title" 
+            tal:attributes="title term/description | nothing"/>
     </div>
   </fieldset>
 
@@ -47,7 +48,8 @@
           <input type="radio"
                  tal:attributes="name string:${options/name};
                                  value term/token" />
-          <span tal:replace="term/title">title</span>
+          <span tal:attributes="title term/description | nothing"
+                tal:content="term/title">title</span>
 
           <input type="submit"
                  class="standalone"

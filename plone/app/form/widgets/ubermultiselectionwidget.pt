@@ -19,7 +19,8 @@
              checked="checked"
              tal:attributes="name string:${options/name}:list;
                              value term/token" />
-      <span tal:content="term/title" />
+      <span tal:content="term/title" 
+            tal:attributes="title term/description | nothing"/>
     </div>
   </fieldset>
 
@@ -51,7 +52,8 @@
              tal:condition="python: parent_token is not None"
              i18n:attributes="value label_parent;"
              tal:attributes="name string:${options/name}.browse.${parent_token}" />
-      <span tal:replace="term/title">title</span>
+      <span tal:attributes="title term/description | nothing"
+                tal:content="term/title">title</span>
       <input type="submit"
              value="Browse"
              class="standalone"
