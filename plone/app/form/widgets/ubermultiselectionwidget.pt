@@ -23,17 +23,20 @@
     </div>
   </fieldset>
 
-  <input type="text"
-         value=""
-         tal:define="name string:${options/name}.query" 
-         tal:attributes="name name;
-                         id name;
-                         value request/?name | default" />
+  <div style="margin-bottom: 0.5em">
+      <input type="text"
+             value=""
+             tal:define="name string:${options/name}.query" 
+             tal:attributes="name name;
+                             id name;
+                             value request/?name | default" />
 
-  <input type="submit"
-         value="Search"
-         i18n:attributes="value label_search;"
-         tal:attributes="name string:${options/name}.search" />
+      <input type="submit"
+             class="searchButton"
+             value="Search"
+             i18n:attributes="value label_search;"
+             tal:attributes="name string:${options/name}.search" />
+  </div>
 
   <fieldset tal:condition="options/results | nothing">
     <legend i18n:translate="label_searchresults">Search results</legend>
@@ -43,6 +46,7 @@
                              value term/token" />
       <input type="submit"
              value="Parent"
+             class="standalone"
              tal:define="parent_token term/parent_token | nothing"
              tal:condition="python: parent_token is not None"
              i18n:attributes="value label_parent;"
@@ -50,6 +54,7 @@
       <span tal:replace="term/title">title</span>
       <input type="submit"
              value="Browse"
+             class="standalone"
              tal:condition="term/browse_token|nothing"
              i18n:attributes="value label_browse;"
              tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
@@ -60,11 +65,12 @@
     </p>
   </fieldset>
 
-  <div>
+  <div class="formControls">
     <input type="hidden" value="y"
            tal:attributes="name string:${options/name}.displayed" />
 
     <input type="submit"
+           class="context"
            value="Update"
            i18n:attributes="value label_update;"
            tal:attributes="name string:${options/name}.update" />

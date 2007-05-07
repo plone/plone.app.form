@@ -33,43 +33,45 @@
   <fieldset tal:condition="options/results | nothing">
     <legend i18n:translate="label_searchresults">Search results</legend>
 
-    <div tal:repeat="term options/results">
+    <div style="margin-bottom: 0.5em">
+        <div tal:repeat="term options/results">
 
-      <input type="submit"
-             value="Parent"
-             class="standalone"
-             tal:define="parent_token term/parent_token | nothing"
-             tal:condition="python: parent_token is not None"
-             i18n:attributes="value label_parent;"
-             tal:attributes="name string:${options/name}.browse.${parent_token}" />
+          <input type="submit"
+                 value="Parent"
+                 class="standalone"
+                 tal:define="parent_token term/parent_token | nothing"
+                 tal:condition="python: parent_token is not None"
+                 i18n:attributes="value label_parent;"
+                 tal:attributes="name string:${options/name}.browse.${parent_token}" />
 
-      <input type="radio"
-             tal:attributes="name string:${options/name};
-                             value term/token" />
-      <span tal:replace="term/title">title</span>
+          <input type="radio"
+                 tal:attributes="name string:${options/name};
+                                 value term/token" />
+          <span tal:replace="term/title">title</span>
 
-      <input type="submit"
-             class="standalone"
-             value="Browse"
-             tal:condition="term/browse_token|nothing"
-             i18n:attributes="value label_browse;"
-             tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
+          <input type="submit"
+                 class="standalone"
+                 value="Browse"
+                 tal:condition="term/browse_token|nothing"
+                 i18n:attributes="value label_browse;"
+                 tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
 
+        </div>
+        <p tal:condition="options/results_truncated"
+             i18n:translate="">
+          There are more search results, narrow your search.
+        </p>
     </div>
-    <p tal:condition="options/results_truncated"
-         i18n:translate="">
-      There are more search results, narrow your search.
-    </p>
 
     <div class="formControls">
-    <input type="hidden" value="y"
-           tal:attributes="name string:${options/name}.displayed" />
+        <input type="hidden" value="y"
+               tal:attributes="name string:${options/name}.displayed" />
 
-    <input type="submit"
-           class="context"
-           value="Update Selection"
-           i18n:attributes="value label_update;"
-           tal:attributes="name string:${options/name}.update" />
+        <input type="submit"
+               class="context"
+               value="Update Selection"
+               i18n:attributes="value label_update;"
+               tal:attributes="name string:${options/name}.update" />
     </div>
 
   </fieldset>
