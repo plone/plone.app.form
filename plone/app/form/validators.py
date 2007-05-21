@@ -4,7 +4,9 @@ def null_validator(*args, **kwargs):
     
     This is somewhat lame, but if you have a "Cancel" type button that
     won't want to validate the form, you need something like this.
-    
-    @form.action("Cancel", validator=null_validator)
+
+    @form.action(_(u"label_cancel", default=u"Cancel"),
+                 validator=null_validator,
+                 name=u'cancel')
     """
     return ()
