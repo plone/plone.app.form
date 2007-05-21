@@ -48,7 +48,9 @@ class EditForm(formbase.EditForm):
             self.form_name = None # hide border
         return super(EditForm, self).render()
     
-    @form.action(_(u"label_save", default="Save"), condition=form.haveInputWidgets)
+    @form.action(_(u"label_save", default="Save"),
+                 condition=form.haveInputWidgets,
+                 name=u'save')
     def handle_save_action(self, action, data):
         if form.applyChanges(self.context, self.form_fields, data, self.adapters):
             zope.event.notify(zope.lifecycleevent.ObjectModifiedEvent(self.context))
@@ -61,7 +63,9 @@ class EditForm(formbase.EditForm):
         url = getMultiAdapter((self.context, self.request), name='absolute_url')()
         self.request.response.redirect(url)
             
-    @form.action(_(u"label_cancel", default=u"Cancel"), validator=null_validator)
+    @form.action(_(u"label_cancel", default=u"Cancel"),
+                 validator=null_validator,
+                 name=u'cancel')
     def handle_cancel_action(self, action, data):
         zope.event.notify(EditCancelledEvent(self.context))
         url = getMultiAdapter((self.context, self.request), name='absolute_url')()
