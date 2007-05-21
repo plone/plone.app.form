@@ -8,8 +8,6 @@ import zope.lifecycleevent
 from Products.Five.formlib import formbase
 from Products.CMFPlone import PloneMessageFactory as _
 
-from plone.locking.interfaces import ILockable
-
 from plone.app.form.interfaces import IPlonePageForm
 from plone.app.form.interfaces import IEditForm
 from plone.app.form.validators import null_validator
@@ -21,11 +19,15 @@ class AddForm(formbase.AddForm):
     
     implements(IPlonePageForm)
         
-    @form.action(_(u"label_save", default=u"Save"), condition=form.haveInputWidgets)
+    @form.action(_(u"label_save", default=u"Save"),
+                 condition=form.haveInputWidgets,
+                 name=u'save')
     def handle_save_action(self, action, data):
         self.createAndAdd(data)
     
-    @form.action(_(u"label_cancel", default=u"Cancel"), validator=null_validator)
+    @form.action(_(u"label_cancel", default=u"Cancel"),
+                 validator=null_validator,
+                 name=u'cancel')
     def handle_cancel_action(self, action, data):
         self.request.response.redirect(self.nextURL())
 
