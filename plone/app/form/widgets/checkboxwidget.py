@@ -1,4 +1,4 @@
-from zope.app.form.browser.widget import renderElement, SimpleInputWidget
+from zope.app.form.browser.widget import renderElement
 from zope.i18nmessageid import MessageFactory
 from zope.i18n import translate
 from zope.app.form.browser import CheckBoxWidget as BaseWidget
@@ -27,13 +27,13 @@ class CheckBoxWidget(BaseWidget):
     def __call__( self ):
         """Render the widget to HTML."""
         value = self._getFormValue()
-        html = "<label for='%s'>%s</label>\n" % (self.name , super(BaseWidget,self).label)
+        html = "<label for='%s'>%s</label>\n" % (self.name , translate(super(BaseWidget,self).label, context=self.request))
         if self.__required:
-            html += "<span class='fieldRequired' title='%s' > %s </span>" % ( translate(_(u'title_required'),context=self.request), translate(_(u'title_required'),context=self.request))
+            html += "<span class='fieldRequired' title='%s' > %s </span>" % (translate(_(u'title_required'),context=self.request), translate(_(u'title_required'), context=self.request))
         if super(BaseWidget, self).hint:
-            html += "<div class='formHelp'>%s</div>" % super(BaseWidget, self).hint
+            html += "<div class='formHelp'>%s</div>" % translate(super(BaseWidget, self).hint, context=self.request)
         if super(BaseWidget, self).error() != '':
-            html += "<div>%s</div>" % super(BaseWidget, self).error()
+            html += "<div>%s</div>" % translate(super(BaseWidget, self).error(), context=self.request)
         
         if value == 'on':
             kw = {'checked': 'checked'}
