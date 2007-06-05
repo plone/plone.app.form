@@ -21,7 +21,7 @@
     <ul class="portalMessage error"
         tal:define="status view/status"
         tal:condition="status">
-        <dd tal:content="status" />
+        <li tal:content="status" />
     </ul>
 
   <h1  class="documentFirstHeading"
