@@ -18,14 +18,11 @@
 
 <div id="viewspace" metal:define-slot="viewspace">
     
-    <dl class="portalMessage error"
+    <ul class="portalMessage error"
         tal:define="status view/status"
         tal:condition="status">
-        <dt i18n:translate="">
-            Error
-        </dt>
         <dd tal:content="status" />
-    </dl>
+    </ul>
 
   <h1  class="documentFirstHeading"
        i18n:translate=""
