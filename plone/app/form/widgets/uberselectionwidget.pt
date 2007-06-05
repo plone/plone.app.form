@@ -7,10 +7,10 @@
           i18n:domain="plone">
 
   <legend>
-    <label for="fieldname" tal:content="view/label">choose</label>
+    <label for="fieldname" tal:content="python:view.label">choose</label>
   </legend>
 
-  <p class="discreet" tal:content="view/hint"></p>
+  <p class="discreet" tal:content="python:view.hint"></p>
 
   <fieldset tal:condition="options/value | nothing">
     <legend i18n:translate="label_currentselection">Current selection</legend>
@@ -18,8 +18,8 @@
       <input type="checkbox"
              checked="checked"
              tal:attributes="name string:${options/name};
-                             value term/token" />
-      <span tal:content="term/title" />
+                             value python:term.token" />
+      <span tal:content="python:term.title" />
     </div>
   </fieldset>
 
@@ -32,6 +32,7 @@
 
   <input type="submit"
          value="Search"
+         class="context"
          i18n:attributes="value label_search;"
          tal:attributes="name string:${options/name}.search" />
 
@@ -40,19 +41,20 @@
     <div tal:repeat="term options/results">
       <input type="radio"
              tal:attributes="name string:${options/name};
-                             value term/token" />
+                             value python:term.token" />
       <input type="submit"
              value="Parent"
-             tal:define="parent_token term/parent_token | nothing"
+             tal:define="parent_token python:term.parent_token or None"
              tal:condition="python: parent_token is not None"
              i18n:attributes="value label_parent;"
              tal:attributes="name string:${options/name}.browse.${parent_token}" />
-      <span tal:replace="term/title">title</span>
+      <span tal:replace="python:term.title">title</span>
       <input type="submit"
              value="Browse"
-             tal:condition="term/browse_token|nothing"
+             tal:condition="python:term.browse_token or None"
              i18n:attributes="value label_browse;"
-             tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
+             tal:define="browse_token python:term.browse_token"
+             tal:attributes="name string:${options/name}.browse.${browse_token}" />
     </div>
     <p tal:condition="options/results_truncated"
          i18n:translate="">
@@ -66,6 +68,7 @@
 
     <input type="submit"
            value="Update"
+           class="context"
            i18n:attributes="value label_update;"
            tal:attributes="name string:${options/name}.update" />
   </div>
