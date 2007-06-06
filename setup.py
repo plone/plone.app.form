@@ -25,7 +25,7 @@ not Products.Five.formlib.
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['plone'],
       include_package_data=True,
-      zip_safe=True,
+      zip_safe=False,
       install_requires=[
         'setuptools',
       ],
