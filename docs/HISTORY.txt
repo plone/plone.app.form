@@ -4,6 +4,10 @@ Changelog for plone.app.form
 
 plone.app.form - Unreleased
 
+    - Added a new DisabledCheckBoxWidget which renders a disabled variant of
+      the CheckBoxWidget.
+      [hannosch]
+
     - Keep existing date in the calendar widget in datecomponents.py. This
       closes http://dev.plone.org/plone/ticket/5833.
       [hannosch]

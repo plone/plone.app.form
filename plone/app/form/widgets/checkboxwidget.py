@@ -21,6 +21,8 @@ class CheckBoxWidget(BaseWidget):
 
     hint = property(lambda self: "")
 
+    disabled = False
+
     def error(self):
         return ""
 
@@ -39,6 +41,8 @@ class CheckBoxWidget(BaseWidget):
             kw = {'checked': 'checked'}
         else:
             kw = {}
+        if self.disabled:
+            kw['disabled'] = 'disabled'
         return "%s  %s %s" % (
             renderElement(self.tag,
                           type='hidden',
@@ -55,8 +59,11 @@ class CheckBoxWidget(BaseWidget):
                           value="on",
                           **kw),
             html
-
-
-
             )
 
+
+class DisabledCheckBoxWidget(CheckBoxWidget):
+    """Simple variation of the CheckBoxWidget which renders itself disabled.
+    """
+    
+    disabled = True
