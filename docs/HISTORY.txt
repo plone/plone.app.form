@@ -4,7 +4,12 @@ Changelog for plone.app.form
 
 plone.app.form - Unreleased
 
-    - Added a new DisabledCheckBoxWidget which renders a disabled variant of
+    - Added a new LanguageDropdownChoiceWidget, which renders a dropdown widget
+      which is populated by a language vocabulary. The language names are then
+      localized based on the zope.i18n.locales information.
+      [hannosch]
+
+    - Added a new DisabledCheckBoxWidget, which renders a disabled variant of
       the CheckBoxWidget.
       [hannosch]
 
