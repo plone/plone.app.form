@@ -3,7 +3,8 @@ from zope.component import getMultiAdapter, queryMultiAdapter
 from zope.formlib import form
 
 import zope.event
-import zope.lifecycleevent
+
+from zope.app.event.objectevent import ObjectModifiedEvent
 
 from Products.Five.formlib import formbase
 from Products.CMFPlone import PloneMessageFactory as _
@@ -51,7 +52,7 @@ class EditForm(formbase.EditForm):
     @form.action(_("Save"), condition=form.haveInputWidgets)
     def handle_save_action(self, action, data):
         if form.applyChanges(self.context, self.form_fields, data, self.adapters):
-            zope.event.notify(zope.lifecycleevent.ObjectModifiedEvent(self.context))
+            zope.event.notify(ObjectModifiedEvent(self.context))
             zope.event.notify(EditSavedEvent(self.context))
             self.status = "Changes saved"
         else:
