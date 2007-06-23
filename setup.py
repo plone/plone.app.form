@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '1.0b4'
+version = '1.0b5'
 
 setup(name='plone.app.form',
       version=version,
@@ -29,7 +29,4 @@ not Products.Five.formlib.
       install_requires=[
         'setuptools',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )
