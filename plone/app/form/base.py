@@ -5,6 +5,7 @@ from zope.formlib import form
 import zope.event
 import zope.lifecycleevent
 
+from Acquisition import aq_inner, aq_parent
 from Products.Five.formlib import formbase
 from Products.CMFPlone import PloneMessageFactory as _
 
@@ -29,7 +30,8 @@ class AddForm(formbase.AddForm):
                  validator=null_validator,
                  name=u'cancel')
     def handle_cancel_action(self, action, data):
-        self.request.response.redirect(self.nextURL())
+        parent = aq_parent(aq_inner(self.context))
+        self.request.response.redirect(parent.absolute_url())
 
 
 class EditForm(formbase.EditForm):
