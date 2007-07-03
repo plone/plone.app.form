@@ -47,16 +47,21 @@
                              value term/token" />
       <input type="submit"
              value="Parent"
-             class="standalone"
+             class="context"
              tal:define="parent_token term/parent_token | nothing"
              tal:condition="python: parent_token is not None"
              i18n:attributes="value label_parent;"
              tal:attributes="name string:${options/name}.browse.${parent_token}" />
       <span tal:attributes="title term/description | nothing"
                 tal:content="term/title">title</span>
+
+        <span class="discreet" 
+              tal:condition="term/description | nothing"
+               tal:content="term/description" />
+
       <input type="submit"
              value="Browse"
-             class="standalone"
+             class="context"
              tal:condition="term/browse_token|nothing"
              i18n:attributes="value label_browse;"
              tal:attributes="name string:${options/name}.browse.${term/browse_token}" />
@@ -72,7 +77,7 @@
            tal:attributes="name string:${options/name}.displayed" />
 
     <input type="submit"
-           class="context"
+           class="standalone"
            value="Update"
            i18n:attributes="value label_update;"
            tal:attributes="name string:${options/name}.update" />
