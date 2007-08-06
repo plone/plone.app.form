@@ -12,8 +12,7 @@ class CheckBoxWidget(BaseWidget):
 
     def __init__(self, context, request):
         BaseWidget.__init__(self, context, request)
-        self.__required = self.required
-        self.required = False
+        self.required = self.__required = False
         self.__name = self.name
         self.name = ""
 
