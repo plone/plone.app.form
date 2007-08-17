@@ -2,7 +2,10 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.app.form - Unreleased
+plone.app.form - 1.0 Released August 17, 2007
+
+    - Let the UberSelectionWidget handle optional fields properly.
+      [optilude]
 
     - Added a new LanguageDropdownChoiceWidget, which renders a dropdown widget
       which is populated by a language vocabulary. The language names are then

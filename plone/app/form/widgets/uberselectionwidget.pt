@@ -9,6 +9,8 @@
   <fieldset tal:condition="options/value | nothing">
     <legend i18n:translate="label_currentselection">Current selection</legend>
     <div tal:define="term options/value">
+      <input type="hidden" value=""
+             tal:attributes="name string:${options/name}:default" />
       <input type="checkbox"
              checked="checked"
              tal:attributes="name string:${options/name};

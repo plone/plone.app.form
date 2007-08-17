@@ -27,7 +27,7 @@ class UberSelectionWidget(SimpleInputWidget):
         else:
             token = self.request.form.get(self.name)
 
-            if token is not None:
+            if token is not None and token != '':
                 if not isinstance(token, basestring):
                     token = token[-1]
                 try:
