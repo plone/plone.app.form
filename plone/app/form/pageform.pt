@@ -2,7 +2,8 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="context/@@standard_macros/page">
+      metal:use-macro="context/@@standard_macros/page"
+      i18n:domain="plone">
 <head>
 </head>
 
@@ -75,10 +76,12 @@
             <span i18n:translate=""
                   tal:content="widget/label">label</span>
           </label>
-          <span class="fieldRequired" title="Required" tal:condition="widget/required">
+          <span class="fieldRequired" title="Required"
+                tal:condition="widget/required"
+                i18n:translate="label_required"
+                i18n:attributes="title title_required;">
             (Required)
           </span>
-          
           <div class="formHelp"
                i18n:translate=""
                tal:content="description"

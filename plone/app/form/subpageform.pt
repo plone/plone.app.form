@@ -1,5 +1,6 @@
-<div metal:define-macro="form">
-    
+<div metal:define-macro="form"
+    i18n:domain="plone">
+
     <dl class="portalMessage error"
         tal:define="status view/status"
         tal:condition="status">
@@ -50,10 +51,12 @@
             <span i18n:translate=""
                   tal:content="widget/label">label</span>
           </label>
-          <span class="fieldRequired" title="Required" tal:condition="widget/required">
+          <span class="fieldRequired" title="Required"
+                tal:condition="widget/required"
+                i18n:translate="label_required"
+                i18n:attributes="title title_required;">
             (Required)
           </span>
-          
           <div class="formHelp"
                i18n:translate=""
                tal:content="description"
