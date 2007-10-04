@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1 UNRELEASED
 
+    - Fixed fall back to language name in LanguageDropdownChoiceWidget.
+      [hannosch]
+
     - Added i18n markup to the formlib base templates, so the required message
       will be translated the same way as in the rest of Plone. This closes
       http://dev.plone.org/plone/ticket/7063.

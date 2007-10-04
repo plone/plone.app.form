@@ -21,5 +21,8 @@ class LanguageDropdownChoiceWidget(DropdownWidget):
         The `term` must be a vocabulary tokenized term.
         """
         if ITitledTokenizedTerm.providedBy(term):
-            return self.languages.get(term.value, term.title)
+            title = self.languages.get(term.value, term.title)
+            if title == term.value:
+                title = term.title
+            return title
         return term.token
