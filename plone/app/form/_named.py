@@ -19,7 +19,9 @@ class NamedTemplateAdapter(object):
         return self.default_template.macros
 
     def __call__(self, *args, **kwargs):
-        view = self.context.__of__(self.context.context)
+        context = aq_inner(self.context)
+        context_of_context = aq_inner(context.context)
+        view = context.__of__(context_of_context)
         return self.default_template.__of__(view)(*args, **kwargs)
 
 def named_template_adapter(template):
