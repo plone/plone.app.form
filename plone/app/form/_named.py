@@ -1,4 +1,5 @@
 import new
+from Acquisition import aq_inner
 from zope import interface
 from zope.formlib import namedtemplate
 
