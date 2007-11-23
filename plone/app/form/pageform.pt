@@ -80,8 +80,10 @@
     <div class="field"
          tal:define="description widget/hint;
                      error widget/error"
-         tal:attributes="class python:'field'+(error and ' error' or '')">
-          <label tal:attributes="for widget/name">
+         tal:attributes="class python:'field'+(error and ' error' or '');
+                         id string:field-${widget/name}">
+          <label tal:condition="widget/label"
+                 tal:attributes="for widget/name">
             <span i18n:translate=""
                   tal:content="widget/label">label</span>
           </label>
@@ -101,10 +103,12 @@
           </div>
           <div class="widget" tal:content="structure widget">
           <input type="text" /></div>
+          <tal:comment tal:condition="nothing">
             <!-- TODO Put this back, the Zope3 way.
             <img src="alert.gif" alt="Error"
             tal:replace="structure context/alert.gif" />
             -->
+          </tal:comment>
     </div>
 </tal:block>
 
