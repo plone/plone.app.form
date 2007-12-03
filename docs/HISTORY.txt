@@ -4,6 +4,14 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1 UNRELEASED
 
+    - Omit first label tag completely instead of having an empty one for
+      checkboxes.
+      [fschulze]
+
+    - Added id to wrapping div of the field for easy access for styles and
+      javascripts, the form is 'field-$fieldname'.
+      [fschulze]
+
     - Fixed fall back to language name in LanguageDropdownChoiceWidget.
       [hannosch]
 
