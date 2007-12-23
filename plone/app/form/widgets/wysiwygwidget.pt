@@ -1,0 +1,20 @@
+<div lang="en"
+     xml:lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:metal="http://xml.zope.org/namespaces/metal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="plone">
+
+     <tal:editor define="context            nocall:options/form_context;
+                         here               nocall:context;
+                         portal_url         nocall:context/portal_url;
+                         inputname          view/name;
+                         inputvalue         options/value;
+                         tabindex           nothing">
+        <div metal:use-macro="here/wysiwyg_support/macros/wysiwygEditorBox">
+            The WYSIWYG code
+        </div>
+    </tal:editor>
+  
+</div>
