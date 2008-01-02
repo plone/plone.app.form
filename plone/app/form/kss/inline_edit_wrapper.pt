@@ -7,24 +7,9 @@
                      error widget/error;
                      normalized_name python:widget.name.replace('.', '-');
                      fieldname_class string:kssattr-fieldname-${widget/name};
-                     error_class python:error and ' error' or ' '"
+                     error_class python:error and ' error' or ''"
          tal:attributes="id string:formfield-${normalized_name};
                          class string:field ${fieldname_class}${error_class}">
-          <label tal:attributes="for widget/name">
-            <span i18n:translate=""
-                  tal:content="widget/label">label</span>
-          </label>
-          <span class="fieldRequired" title="Required"
-                tal:condition="widget/required"
-                i18n:translate="label_required"
-                i18n:attributes="title title_required;">
-            (Required)
-          </span>
-          <div class="formHelp"
-               i18n:translate=""
-               tal:content="description"
-               tal:condition="description"
-               >field description</div>
           <div class="fieldErrorBox" tal:content="error">
             The Error
           </div>

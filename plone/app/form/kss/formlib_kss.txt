@@ -1,0 +1,285 @@
+===================
+Formlib KSS actions
+===================
+
+This doctest demonstrates KSS-based inline validation and editing for formlib
+forms.
+
+First, let's set up KSS debug mode:
+
+    >>> from zope.interface import alsoProvides
+    >>> from kss.core.tests.base import IDebugRequest
+    >>> from zope.publisher.browser import TestRequest
+    >>> from zope.annotation.interfaces import IAttributeAnnotatable
+
+    >>> def make_request():
+    ...     request = TestRequest()
+    ...     alsoProvides(request, IDebugRequest)
+    ...     alsoProvides(request, IAttributeAnnotatable)
+    ...     return request
+
+Then, we will create a simple test form and a context for it to operate on.
+
+    >>> from zope.interface import Interface
+    >>> from zope import schema
+    >>> class IWibble(Interface):
+    ...     title = schema.TextLine(title=u"Title", required=True)
+    ...     text = schema.Text(title=u"Description")
+    ...     size = schema.Int(title=u"Size")
+    
+    >>> from plone.app.content.item import Item
+    >>> from zope.interface import implements
+    >>> class Wibble(Item):
+    ...     implements(IWibble)
+    ...     title = u""
+    ...     text = u""
+    ...     size = 0
+
+    
+    >>> from zope.formlib import form
+    >>> from plone.app.form import base
+    >>> class EditWibble(base.EditForm):
+    ...     form_fields = form.FormFields(IWibble)
+    ...     label = "Edit wibble"
+
+    >>> from zope.component import provideAdapter
+    >>> from zope.publisher.interfaces.browser import IBrowserRequest
+    >>> provideAdapter(adapts=(IWibble, IBrowserRequest),
+    ...                provides=Interface,
+    ...                factory=EditWibble,
+    ...                name=u"edit")
+
+Let's verify that this worked:
+
+    >>> from zope.component import getMultiAdapter
+    >>> context = Wibble('wibble')
+    >>> request = make_request()
+    >>> getMultiAdapter((context, request), name=u"edit")
+    <EditWibble object at ...>
+
+    >>> del context, request
+
+Inline validation
+-----------------
+
+Inline validation is invoked via the @@kss_formlib_inline_validation view.
+
+    >>> context = Wibble('wibble')
+    >>> request = make_request()
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
+
+This is wired up with KSS. When the user leaves a form control with inline
+validation enabled, it will be called with the following parameters:
+
+    >>> view.validate_input(formname=u'edit', fieldname=u'form.title', value='Title')
+    [{'selectorType': 'css', 
+      'params': {},
+      'name': 'clearChildNodes', 
+      'selector': u'#formfield-form-title div.fieldErrorBox'}, 
+     {'selectorType': 'htmlid',
+      'params': {'value': u'error'}, 
+      'name': 'removeClass',
+      'selector': u'formfield-form-title'}]
+
+In this case, there is no validation error. The resulting payload should tell
+the client-side handler to remove any error message that may be showing 
+currently.
+
+We can also invoke a validation error, for example if a required field is 
+missing:
+
+    >>> request = make_request()
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
+    >>> view.validate_input(formname=u'edit', fieldname=u'form.title', value='')
+    [{'selectorType': 'css', 
+      'params': {'html': u'<span class="error">Required input is missing.</span>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 
+      'selector': u'#formfield-form-title div.fieldErrorBox'},
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'error'}, 
+      'name': 'addClass', 
+      'selector': u'formfield-form-title'}]
+    
+And similarly, we will get an error if the field has an invalid value:
+
+    >>> request = make_request()
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
+    >>> view.validate_input(formname=u'edit', fieldname=u'form.size', value='X')
+    [{'selectorType': 'css', 
+      'params': {'html': u'<span class="error">Invalid integer data</span>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 
+      'selector': u'#formfield-form-size div.fieldErrorBox'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'error'}, 
+      'name': 'addClass', 
+      'selector': u'formfield-form-size'}]
+
+    >>> del context, request
+
+Inline editing
+--------------
+
+Inline editing is effectuated by KSS bindings that invoke, cancel or complete
+the editing process.
+
+Let's first simulate editing the title. To make it more realistic, we will
+set the title first.
+
+    >>> context = Wibble('wibble')
+    >>> context.title = u"Test title"
+
+When inline editing is invoked, KSS actions will be returned that render an
+inline form next to the original field.
+
+    >>> request = make_request()
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_begin")
+    >>> view.begin(formname=u'edit', fieldname=u'form.title')
+    [{'selectorType': 'css', 
+      'params': {'name': u'display', 'value': u'none'}, 
+      'name': 'setStyle', 
+      'selector': '.portalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'<dt>info</dt><dd></dd>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 
+      'selector': 'kssPortalMessage'},
+     {'selectorType': 'htmlid', 
+      'params': {'name': u'class', 'value': u'portalMessage info'}, 
+      'name': 'setAttribute', 'selector': 'kssPortalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'name': u'display', 'value': u'none'}, 
+      'name': 'setStyle', 'selector': 'kssPortalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'hiddenStructure'}, 
+      'name': 'addClass', 'selector': u'title-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'<form id="title-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-title kssattr-structure-false">\n<div class="field kssattr-fieldname-form.title" id="formfield-form-title">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><input class="textType" id="form.title" name="form.title" size="20" type="text" value="Test title" /></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n', 'withKssSetup': u'True'}, 
+      'name': 'insertHTMLAfter', 
+      'selector': u'title-display'}]
+    
+Other KSS actions are bound to the rendered form. One is to cancel. This 
+simply removes the inline form created by the begin() action.
+
+    >>> request = make_request()
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_cancel")
+    >>> view.cancel(fieldname=u'form.title')
+    [{'selectorType': 'htmlid', 
+      'params': {'value': u'hiddenStructure'}, 
+      'name': 'removeClass', 
+      'selector': u'form.title-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {}, 
+      'name': 'deleteNode', 
+      'selector': u'form.title-form'}]
+
+In this case, the underlying context should not have been changed:
+
+    >>> context.title
+    u'Test title'
+    
+Alternatively, the user may choose to save. If there is a validation error,
+we will return this (note that inline validation may also apply, and thus
+may catch an error earlier).
+
+    >>> request = make_request()
+    >>> request.form['form.title'] = u''
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_save")
+    >>> view.save(formname=u'edit', fieldname=u'form.title')
+    [{'selectorType': 'css', 
+      'params': {'html': u'<span class="error">Required input is missing.</span>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 
+      'selector': u'#formfield-form-title div.fieldErrorBox'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'error'}, 
+      'name': 'addClass', 
+      'selector': u'formfield-form-title'}]
+
+    >>> context.title
+    u'Test title'
+
+When the error is corrected, things look different:
+
+    >>> request = make_request()
+    >>> request.form['form.title'] = u'New <b>title</b>'
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_save")
+    >>> view.save(formname=u'edit', fieldname=u'form.title')
+    [{'selectorType': 'css', 
+      'params': {}, 
+      'name': 'clearChildNodes', 
+      'selector': u'#formfield-form-title div.fieldErrorBox'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'error'}, 
+      'name': 'removeClass', 
+      'selector': u'formfield-form-title'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'New &#60;b&#62;title&#60;/b&#62;', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 'selector': u'form.title-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'hiddenStructure'}, 
+      'name': 'removeClass', 
+      'selector': u'form.title-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {}, 'name': 
+      'deleteNode', 
+      'selector': u'form.title-form'}]
+
+    >>> context.title
+    u'New <b>title</b>'
+    
+In the example above, notice how the instruction to render the return value
+escapes the HTML. To get around that, the template author can use the KSS 
+attribute 'structure'. This is mainly useful for rich text fields. This
+needs to be passed to both edit-begin and edit-save.
+
+    >>> context.text = u"Body <em>text</em>"
+
+    >>> request = make_request()
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_begin")
+    >>> view.begin(formname=u'edit', fieldname=u'form.text', structure='true')
+    [{'selectorType': 'css', 
+      'params': {'name': u'display', 'value': u'none'}, 
+      'name': 'setStyle', 
+      'selector': '.portalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'<dt>info</dt><dd></dd>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 
+      'selector': 'kssPortalMessage'},
+     {'selectorType': 'htmlid', 
+      'params': {'name': u'class', 'value': u'portalMessage info'}, 
+      'name': 'setAttribute', 'selector': 'kssPortalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'name': u'display', 'value': u'none'}, 
+      'name': 'setStyle', 'selector': 'kssPortalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'hiddenStructure'}, 
+      'name': 'addClass', 'selector': u'text-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'<form id="text-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-text kssattr-structure-true">\n<div class="field kssattr-fieldname-form.text" id="formfield-form-text">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><textarea cols="60" id="form.text" name="form.text" rows="15">Body &#60;em&#62;text&#60;/em&#62;</textarea></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n', 'withKssSetup': u'True'}, 
+      'name': 'insertHTMLAfter', 
+      'selector': u'text-display'}]
+
+    >>> request = make_request()
+    >>> request.form['form.text'] = u'New <strong>text</strong>'
+    >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_save")
+    >>> view.save(formname=u'edit', fieldname=u'form.text', structure='true')
+    [{'selectorType': 'css', 
+      'params': {}, 
+      'name': 'clearChildNodes', 
+      'selector': u'#formfield-form-text div.fieldErrorBox'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'error'}, 
+      'name': 'removeClass', 
+      'selector': u'formfield-form-text'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'New <strong>text</strong>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 
+      'selector': u'form.text-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'value': u'hiddenStructure'}, 
+      'name': 'removeClass', 'selector': u'form.text-display'}, 
+     {'selectorType': 'htmlid', 
+      'params': {}, 
+      'name': 'deleteNode', 
+      'selector': u'form.text-form'}]
+
+    >>> context.text
+    u'New <strong>text</strong>'

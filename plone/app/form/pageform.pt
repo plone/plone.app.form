@@ -103,7 +103,7 @@
                tal:content="description"
                tal:condition="description"
                >field description</div>
-          <div tal:condition="error" tal:content="error">
+          <div class="fieldErrorBox" tal:content="error">
             The Error
           </div>
           <div class="widget formlibInlineValidation" tal:content="structure widget">
