@@ -2,6 +2,11 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
+plone.app.form - 1.0.5 Unreleased
+
+    - Fix widget error rendering in template (added structure keyword).
+      [ldr]
+
 plone.app.form - 1.0.4 Released December 6th, 2007
 
     - Omit first label tag completely instead of having an empty one for

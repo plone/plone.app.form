@@ -98,7 +98,7 @@
                tal:content="description"
                tal:condition="description"
                >field description</div>
-          <div tal:condition="error" tal:content="error">
+          <div tal:condition="error" tal:content="structure error">
             The Error
           </div>
           <div class="widget" tal:content="structure widget">
