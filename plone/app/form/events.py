@@ -3,7 +3,7 @@
 
 from zope.interface import implements
 
-from zope.component.interfaces import ObjectEvent
+from zope.app.event.objectevent import ObjectEvent
 
 from plone.app.form.interfaces import IEditBegunEvent
 from plone.app.form.interfaces import IEditCancelledEvent
