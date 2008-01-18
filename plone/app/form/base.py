@@ -9,8 +9,6 @@ from zope.app.event.objectevent import ObjectModifiedEvent
 from Products.Five.formlib import formbase
 from Products.CMFPlone import PloneMessageFactory as _
 
-from plone.locking.interfaces import ILockable
-
 from plone.app.form.interfaces import IPlonePageForm
 from plone.app.form.interfaces import IEditForm
 from plone.app.form.validators import null_validator
