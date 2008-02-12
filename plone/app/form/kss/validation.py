@@ -43,9 +43,10 @@ class FormlibValidation(PloneKSSView):
         
         # Attempt to convert the value - this will trigge validation
         ksscore = self.getCommandSet('core')
-        validate_and_issue_message(ksscore, widget, fieldname)
+        kssplone = self.getCommandSet('plone')
+        validate_and_issue_message(ksscore, widget, fieldname, kssplone)
             
-def validate_and_issue_message(ksscore, widget, fieldname):
+def validate_and_issue_message(ksscore, widget, fieldname, kssplone=None):
     """A helper method also used by the inline editing view
     """
 
@@ -62,8 +63,12 @@ def validate_and_issue_message(ksscore, widget, fieldname):
     if error:
         ksscore.replaceInnerHTML(error_box, error)
         ksscore.addClass(field_div, 'error')
+        if kssplone is not None:
+            kssplone.issuePortalMessage(error, 'error')
     else:
         ksscore.clearChildNodes(error_box)
         ksscore.removeClass(field_div, 'error')
-        
+        if kssplone is not None: 
+            kssplone.issuePortalMessage('')
+
     return bool(error)
