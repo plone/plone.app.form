@@ -63,8 +63,6 @@ def validate_and_issue_message(ksscore, widget, fieldname, kssplone=None):
     if error:
         ksscore.replaceInnerHTML(error_box, error)
         ksscore.addClass(field_div, 'error')
-        if kssplone is not None:
-            kssplone.issuePortalMessage(error, 'error')
     else:
         ksscore.clearChildNodes(error_box)
         ksscore.removeClass(field_div, 'error')
