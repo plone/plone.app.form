@@ -73,13 +73,26 @@ validation enabled, it will be called with the following parameters:
 
     >>> view.validate_input(formname=u'edit', fieldname=u'form.title', value='Title')
     [{'selectorType': 'css', 
-      'params': {},
+      'params': {}, 
       'name': 'clearChildNodes', 
       'selector': u'#formfield-form-title div.fieldErrorBox'}, 
-     {'selectorType': 'htmlid',
+     {'selectorType': 'htmlid', 
       'params': {'value': u'error'}, 
-      'name': 'removeClass',
-      'selector': u'formfield-form-title'}]
+      'name': 'removeClass', 
+      'selector': u'formfield-form-title'}, 
+     {'selectorType': 'css', 
+      'params': {'name': u'display', 'value': u'none'}, 
+      'name': 'setStyle', 
+      'selector': '.portalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'html': u'<dt>info</dt><dd></dd>', 'withKssSetup': u'True'}, 
+      'name': 'replaceInnerHTML', 'selector': 'kssPortalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'name': u'class', 'value': u'portalMessage info'}, 
+      'name': 'setAttribute', 'selector': 'kssPortalMessage'}, 
+     {'selectorType': 'htmlid', 
+      'params': {'name': u'display', 'value': u'none'}, 
+      'name': 'setStyle', 'selector': 'kssPortalMessage'}]
 
 In this case, there is no validation error. The resulting payload should tell
 the client-side handler to remove any error message that may be showing 
@@ -99,7 +112,7 @@ missing:
       'params': {'value': u'error'}, 
       'name': 'addClass', 
       'selector': u'formfield-form-title'}]
-    
+          
 And similarly, we will get an error if the field has an invalid value:
 
     >>> request = make_request()
