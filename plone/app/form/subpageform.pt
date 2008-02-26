@@ -1,5 +1,6 @@
 <div metal:define-macro="form"
-    i18n:domain="plone">
+    i18n:domain="plone"
+    tal:attributes="class string:kssattr-formname-${view/__name__}">
 
     <dl class="portalMessage error"
         tal:define="status view/status"
@@ -45,8 +46,12 @@
   <tal:block tal:repeat="widget view/widgets">
     <div class="field"
          tal:define="description widget/hint;
-                     error widget/error"
-         tal:attributes="class python:'field'+(error and ' error' or '')">
+                     error widget/error;
+                     normalized_name python:widget.name.replace('.', '-');
+                     fieldname_class string:kssattr-fieldname-${widget/name};
+                     error_class python:error and ' error' or ' '"
+         tal:attributes="id string:formfield-${normalized_name};
+                         class string:field ${fieldname_class}${error_class}">
           <label tal:attributes="for widget/name">
             <span i18n:translate=""
                   tal:content="widget/label">label</span>
@@ -62,10 +67,10 @@
                tal:content="description"
                tal:condition="description"
                >field description</div>
-          <div tal:condition="error" tal:content="error">
+          <div class="fieldErrorBox" tal:content="error">
             The Error
           </div>
-          <div class="widget" tal:content="structure widget">
+          <div class="widget formlibInlineValidation" tal:content="structure widget">
           <input type="text" /></div>
             <!-- TODO Put this back, the Zope3 way.
             <img src="alert.gif" alt="Error"

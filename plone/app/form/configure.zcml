@@ -5,6 +5,34 @@
     xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <include package=".widgets" />
+  
+  <!-- PLIP 202 - include KSS package -->
+  <include package=".kss" />
+  
+  <!-- XXX: This is for testing during bundle review - DO NOT MERGE -->
+  
+  <browser:page
+      name="test_form"
+      for="*"
+      class=".testform.TestForm"
+      permission="zope2.View"
+      />
+      
+  <browser:page
+      name="edit_form"
+      for="*"
+      class=".testform.TestEditForm"
+      permission="cmf.ModifyPortalContent"
+      />
+      
+  <browser:page
+      name="test_view"
+      for="*"
+      template="testview.pt"
+      permission="zope2.View"
+      />
+
+  <!-- XXX -->
 
   <adapter
       for="Products.Five.BrowserView"

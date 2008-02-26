@@ -1,0 +1,31 @@
+<form tal:define="widget nocall:options/widget"
+      tal:attributes="id options/form_id;
+                      class string:formlibInlineForm enableUnloadProtection kssattr-fieldname-${options/fieldname} kssattr-structure-${options/structure}">
+    
+    <div class="field"
+         tal:define="description widget/hint;
+                     error widget/error;
+                     normalized_name python:widget.name.replace('.', '-');
+                     fieldname_class string:kssattr-fieldname-${widget/name};
+                     error_class python:error and ' error' or ''"
+         tal:attributes="id string:formfield-${normalized_name};
+                         class string:field ${fieldname_class}${error_class}">
+          <div class="fieldErrorBox" tal:content="error">
+            The Error
+          </div>
+          <div class="widget formlibInlineValidation" tal:content="structure widget">
+          <input type="text" /></div>
+    </div>
+    
+    <div class="formControls">
+        <input name="kss-save"
+               value="Save" type="button"
+               i18n:attributes="value label_save;"
+               class="context" />
+        <input name="kss-cancel"
+               value="Cancel" type="button"
+               i18n:attributes="value label_cancel;"
+               class="standalone" />
+      </div>
+    
+</form>
