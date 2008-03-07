@@ -85,7 +85,7 @@ validation enabled, it will be called with the following parameters:
       'name': 'setStyle', 
       'selector': '.portalMessage'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'<dt>info</dt><dd></dd>', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<dt>info</dt><dd></dd>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 'selector': 'kssPortalMessage'}, 
      {'selectorType': 'htmlid', 
       'params': {'name': u'class', 'value': u'portalMessage info'}, 
@@ -105,7 +105,7 @@ missing:
     >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
     >>> view.validate_input(formname=u'edit', fieldname=u'form.title', value='')
     [{'selectorType': 'css', 
-      'params': {'html': u'<span class="error">Required input is missing.</span>', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<span class="error">Required input is missing.</span>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 
       'selector': u'#formfield-form-title div.fieldErrorBox'},
      {'selectorType': 'htmlid', 
@@ -119,7 +119,7 @@ And similarly, we will get an error if the field has an invalid value:
     >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
     >>> view.validate_input(formname=u'edit', fieldname=u'form.size', value='X')
     [{'selectorType': 'css', 
-      'params': {'html': u'<span class="error">Invalid integer data</span>', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<span class="error">Invalid integer data</span>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 
       'selector': u'#formfield-form-size div.fieldErrorBox'}, 
      {'selectorType': 'htmlid', 
@@ -152,7 +152,7 @@ inline form next to the original field.
       'name': 'setStyle', 
       'selector': '.portalMessage'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'<dt>info</dt><dd></dd>', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<dt>info</dt><dd></dd>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 
       'selector': 'kssPortalMessage'},
      {'selectorType': 'htmlid', 
@@ -165,7 +165,7 @@ inline form next to the original field.
       'params': {'value': u'hiddenStructure'}, 
       'name': 'addClass', 'selector': u'title-display'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'<form id="title-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-title kssattr-structure-false">\n<div class="field kssattr-fieldname-form.title" id="formfield-form-title">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><input class="textType" id="form.title" name="form.title" size="20" type="text" value="Test title" /></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n', 'withKssSetup': u'True'}, 
+      'params': {'html':  u'<![CDATA[<form id="title-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-title kssattr-structure-false">\n<div class="field kssattr-fieldname-form.title" id="formfield-form-title">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><input class="textType" id="form.title" name="form.title" size="20" type="text" value="Test title" /></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n]]>', 'withKssSetup': u'True'}, 
       'name': 'insertHTMLAfter', 
       'selector': u'title-display'}]
     
@@ -198,7 +198,7 @@ may catch an error earlier).
     >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_edit_save")
     >>> view.save(formname=u'edit', fieldname=u'form.title')
     [{'selectorType': 'css', 
-      'params': {'html': u'<span class="error">Required input is missing.</span>', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<span class="error">Required input is missing.</span>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 
       'selector': u'#formfield-form-title div.fieldErrorBox'}, 
      {'selectorType': 'htmlid', 
@@ -224,7 +224,7 @@ When the error is corrected, things look different:
       'name': 'removeClass', 
       'selector': u'formfield-form-title'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'New &#60;b&#62;title&#60;/b&#62;', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[New &#60;b&#62;title&#60;/b&#62;]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 'selector': u'form.title-display'}, 
      {'selectorType': 'htmlid', 
       'params': {'value': u'hiddenStructure'}, 
@@ -253,7 +253,7 @@ needs to be passed to both edit-begin and edit-save.
       'name': 'setStyle', 
       'selector': '.portalMessage'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'<dt>info</dt><dd></dd>', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<dt>info</dt><dd></dd>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 
       'selector': 'kssPortalMessage'},
      {'selectorType': 'htmlid', 
@@ -266,7 +266,7 @@ needs to be passed to both edit-begin and edit-save.
       'params': {'value': u'hiddenStructure'}, 
       'name': 'addClass', 'selector': u'text-display'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'<form id="text-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-text kssattr-structure-true">\n<div class="field kssattr-fieldname-form.text" id="formfield-form-text">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><textarea cols="60" id="form.text" name="form.text" rows="15">Body &#60;em&#62;text&#60;/em&#62;</textarea></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n', 'withKssSetup': u'True'}, 
+      'params': {'html': u'<![CDATA[<form id="text-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-text kssattr-structure-true">\n<div class="field kssattr-fieldname-form.text" id="formfield-form-text">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><textarea cols="60" id="form.text" name="form.text" rows="15">Body &#60;em&#62;text&#60;/em&#62;</textarea></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n]]>', 'withKssSetup': u'True'}, 
       'name': 'insertHTMLAfter', 
       'selector': u'text-display'}]
 
@@ -283,7 +283,7 @@ needs to be passed to both edit-begin and edit-save.
       'name': 'removeClass', 
       'selector': u'formfield-form-text'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'New <strong>text</strong>', 'withKssSetup': u'True'}, 
+      'params': {'html':  u'<![CDATA[New <strong>text</strong>]]>', 'withKssSetup': u'True'}, 
       'name': 'replaceInnerHTML', 
       'selector': u'form.text-display'}, 
      {'selectorType': 'htmlid', 
