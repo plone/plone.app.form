@@ -4,6 +4,11 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1.0a1
 
+    - Improve KSS inline validation for complex widgets like the 
+      UberSelectionwidget that require more than a single form value to
+      validate.
+      [optilude]
+
     - PLIP202: add support for KSS validation and inline editing for formlib
       forms
       [optilude]

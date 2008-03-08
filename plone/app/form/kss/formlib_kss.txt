@@ -12,8 +12,9 @@ First, let's set up KSS debug mode:
     >>> from zope.publisher.browser import TestRequest
     >>> from zope.annotation.interfaces import IAttributeAnnotatable
 
-    >>> def make_request():
+    >>> def make_request(form={}):
     ...     request = TestRequest()
+    ...     request.form.update(form)
     ...     alsoProvides(request, IDebugRequest)
     ...     alsoProvides(request, IAttributeAnnotatable)
     ...     return request
@@ -101,7 +102,7 @@ currently.
 We can also invoke a validation error, for example if a required field is 
 missing:
 
-    >>> request = make_request()
+    >>> request = make_request({'form.title': ''})
     >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
     >>> view.validate_input(formname=u'edit', fieldname=u'form.title', value='')
     [{'selectorType': 'css', 
@@ -115,7 +116,7 @@ missing:
           
 And similarly, we will get an error if the field has an invalid value:
 
-    >>> request = make_request()
+    >>> request = make_request({'form.size': 'X'})
     >>> view = getMultiAdapter((context, request,), name=u"kss_formlib_inline_validation")
     >>> view.validate_input(formname=u'edit', fieldname=u'form.size', value='X')
     [{'selectorType': 'css', 
