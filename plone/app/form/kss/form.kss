@@ -8,6 +8,7 @@
     kss_formlib_inline_validation-formname:    kssAttr('formname', true);
     kss_formlib_inline_validation-fieldname:   kssAttr('fieldname', true);
     kss_formlib_inline_validation-value:       currentFormVar();
+    kss_formlib_inline_validation-kssSubmitForm: currentForm();
 }
 
 .formlibInlineValidation input[type="password"]:blur {
@@ -16,6 +17,7 @@
     kss_formlib_inline_validation-formname:    kssAttr('formname', true);
     kss_formlib_inline_validation-fieldname:   kssAttr('fieldname', true);
     kss_formlib_inline_validation-value:       currentFormVar();
+    kss_formlib_inline_validation-kssSubmitForm: currentForm();
 }
 
 .formlibInlineValidation input[type="checkbox"]:blur {
@@ -24,6 +26,7 @@
     kss_formlib_inline_validation-formname:    kssAttr('formname', true);
     kss_formlib_inline_validation-fieldname:   kssAttr('fieldname', true);
     kss_formlib_inline_validation-value:       currentFormVar();
+    kss_formlib_inline_validation-kssSubmitForm: currentForm();
 }
 
 .formlibInlineValidation input[type="radio"]:blur {
@@ -32,6 +35,7 @@
     kss_formlib_inline_validation-formname:    kssAttr('formname', true);
     kss_formlib_inline_validation-fieldname:   kssAttr('fieldname', true);
     kss_formlib_inline_validation-value:       currentFormVar();
+    kss_formlib_inline_validation-kssSubmitForm: currentForm();
 }
 
 .formlibInlineValidation select:blur {
@@ -40,6 +44,7 @@
     kss_formlib_inline_validation-formname:    kssAttr('formname', true);
     kss_formlib_inline_validation-fieldname:   kssAttr('fieldname', true);
     kss_formlib_inline_validation-value:       currentFormVar();
+    kss_formlib_inline_validation-kssSubmitForm: currentForm();
 }
 
 .formlibInlineValidation textarea:blur {
@@ -48,6 +53,7 @@
     kss_formlib_inline_validation-formname:    kssAttr('formname', true);
     kss_formlib_inline_validation-fieldname:   kssAttr('fieldname', true);
     kss_formlib_inline_validation-value:       currentFormVar();
+    kss_formlib_inline_validation-kssSubmitForm: currentForm();
 }
 
 /* 

@@ -16,17 +16,14 @@ class FormlibValidation(PloneKSSView):
         value, validate the given field.
         """
         
-        # Abort if this was not bound properly, e.g. it's a submit button
-        # in the middle of the form
+        # Abort if there was no value changed. Note that the actual value
+        # comes along the submitted form, since a widget may require more than
+        # a single form field to validate properly.
         if value is None:
             return
         
         context = aq_inner(self.context)
         request = aq_inner(self.request)
-        
-        # Fake input in the request
-        
-        request.form[fieldname] = value
         
         # Find the form, the field and the widget
 
@@ -37,7 +34,7 @@ class FormlibValidation(PloneKSSView):
         formlib_field = form.form_fields[raw_fieldname]
  
         widgets = formlib.setUpWidgets((formlib_field,), form.prefix, context, 
-            request, form=form, adapters={}, ignore_request=True)
+            request, form=form, adapters={}, ignore_request=False)
             
         widget = widgets[raw_fieldname]
         
