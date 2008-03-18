@@ -1,3 +1,4 @@
+import logging
 from Products.Five.formlib import formbase
 
 def apply_patches():
@@ -7,4 +8,7 @@ def apply_patches():
     # defined as a NamedTemplate, which is much nicer, and what we
     # want.
     if 'template' in formbase.FiveFormlibMixin.__dict__:
+        logger = logging.getLogger('plone.app.form')
+        logger.info('*** MONKEYPATCH *** : delete "template" attribute of ' +
+           'FiveFormlibMixin to allow use of named templates.')
         delattr(formbase.FiveFormlibMixin, 'template')
