@@ -2,6 +2,12 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
+plone.app.form - 1.1
+
+    - Changed the patch warning to debug level. This is nothing the end users
+      have to see.
+      [hannosch]
+
 plone.app.form - 1.1.0a1
 
     - Improve KSS inline validation for complex widgets like the 

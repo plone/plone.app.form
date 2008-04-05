@@ -9,6 +9,6 @@ def apply_patches():
     # want.
     if 'template' in formbase.FiveFormlibMixin.__dict__:
         logger = logging.getLogger('plone.app.form')
-        logger.info('*** MONKEYPATCH *** : delete "template" attribute of ' +
+        logger.debug('*** MONKEYPATCH *** : delete "template" attribute of ' +
            'FiveFormlibMixin to allow use of named templates.')
         delattr(formbase.FiveFormlibMixin, 'template')
