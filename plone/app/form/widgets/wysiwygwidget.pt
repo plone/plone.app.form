@@ -16,7 +16,7 @@
                          editor             python: member.getProperty('wysiwyg_editor','').lower();
                          support            python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/portal_skins/plone_wysiwyg/wysiwyg_support' % (editor, editor));
                          tabindex           nothing">
-        <div metal:use-macro="here/wysiwyg_support/macros/wysiwygEditorBox">
+        <div metal:use-macro="support/macros/wysiwygEditorBox">
             The WYSIWYG code
         </div>
     </tal:editor>
