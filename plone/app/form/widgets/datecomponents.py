@@ -113,12 +113,14 @@ class DateComponents(BrowserView):
 
         year=int(date.strftime('%Y'))
 
-        if min_year != max_year:
+        if default:
+            years.append({'id': '--', 'value': '0000', 'selected': 1})
+        else:
             years.append({'id': '--', 'value': '0000', 'selected': None})
 
         for x in range(min_year, max_year+1):
             d={'id': x, 'value': x, 'selected': None}
-            if x==year:
+            if x==year and not default:
                 d['selected']=1
             years.append(d)
 
