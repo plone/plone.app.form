@@ -95,14 +95,14 @@ class DateComponents(BrowserView):
         if starting_year is None:
             min_year = site_props.getProperty('calendar_starting_year', 1999)
         else:
-            min_year = starting_year
+            min_year = int(starting_year)
         if ending_year is None:
             if future_years is None:
                 max_year = site_props.getProperty('calendar_future_years_available', 5) + now.year()
             else:
-                max_year = future_years + now.year()
+                max_year = int(future_years) + now.year()
         else:
-            max_year = ending_year
+            max_year = int(ending_year)
 
         # keeps the existing date if it's out of range
         if not default:

@@ -4,6 +4,11 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1.1
 
+    - Forced the input values of the datecomponents into integers before doing
+      calculations with them. This closes
+      https://dev.plone.org/plone/ticket/6737.
+      [hannosch]
+
     - Synchronized the default value behavior of all fields in the datetime
       widget. This closes https://dev.plone.org/plone/ticket/6988.
       [hannosch]
