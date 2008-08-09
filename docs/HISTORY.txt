@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1.1
 
+    - Add a MultiCheckBoxWidget that uses <label>s to be accessible.
+      [csenger]
+
     - Forced the input values of the datecomponents into integers before doing
       calculations with them. This closes
       http://dev.plone.org/plone/ticket/6737.
