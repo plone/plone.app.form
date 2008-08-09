@@ -1,10 +1,4 @@
-from Testing import ZopeTestCase as ztc
-
-from Products.Five import zcml
-from Products.Five import fiveconfigure
-
 from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase.layer import onsetup
 from Products.CMFCore.utils import getToolByName
 
 from zope.publisher.browser import TestRequest
@@ -12,18 +6,8 @@ from zope.app.component.hooks import getSite
 
 from plone.app.form.widgets.wysiwygwidget import WYSIWYGWidget
 
-@onsetup
-def setup_product():
-    fiveconfigure.debug_mode = True
-    try:
-        import plone.app.form
-        zcml.load_config('configure.zcml', plone.app.form)
-    finally:
-        fiveconfigure.debug_mode = False
-    ztc.installPackage('plone.app.form')
+ptc.setupPloneSite()
 
-setup_product()
-ptc.setupPloneSite(products=['plone.app.form'])
 
 class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
     """Base class used for test cases
