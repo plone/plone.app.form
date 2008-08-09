@@ -1,5 +1,4 @@
 import unittest
-from zope import component
 from zope.component import testing
 from zope.testing import doctestunit
 

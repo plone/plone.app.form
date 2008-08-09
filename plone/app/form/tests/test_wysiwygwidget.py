@@ -8,16 +8,9 @@ from Products.PloneTestCase.layer import onsetup
 from Products.CMFCore.utils import getToolByName
 
 from zope.publisher.browser import TestRequest
-from zope.interface import implements
-from zope.component import provideAdapter
-from zope.publisher.interfaces.browser import IBrowserRequest
-from zope.component import getMultiAdapter
-from zope import interface, schema
-from zope.formlib import form
 from zope.app.component.hooks import getSite
 
 from plone.app.form.widgets.wysiwygwidget import WYSIWYGWidget
-from plone.app.content.item import Item
 
 @onsetup
 def setup_product():
@@ -28,7 +21,7 @@ def setup_product():
     finally:
         fiveconfigure.debug_mode = False
     ztc.installPackage('plone.app.form')
-    
+
 setup_product()
 ptc.setupPloneSite(products=['plone.app.form'])
 
@@ -70,16 +63,15 @@ class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
 
         # let's change it to `cool_editor`
         member.setMemberProperties({'wysiwyg_editor': 'cool_editor'})
-        
+
         w = WYSIWYGWidget(MyField(), TestRequest())
         cool_editor = w()
-        
+
         # the macro used by wysiwygwidget should differ
         self.assertNotEquals(kupu, cool_editor)
 
 def test_suite():
-    from unittest import TestSuite, makeSuite 
+    from unittest import TestSuite, makeSuite
     suite = TestSuite()
     suite.addTest(makeSuite(WYSIWYGWidgetTestCase))
     return suite
-
