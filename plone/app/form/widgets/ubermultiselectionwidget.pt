@@ -12,7 +12,8 @@
 
   <p class="discreet" tal:content="view/hint"></p>
 
-  <fieldset tal:condition="options/value | nothing">
+  <fieldset class="currentSelection"
+            tal:attributes="style python:len(options['value']) == 0 and 'display: none' or None">
     <legend i18n:translate="label_currentselection">Current selection</legend>
     <div tal:repeat="term options/value">
       <input type="checkbox"
@@ -21,6 +22,9 @@
                              value term/token" />
       <span tal:content="term/title" 
             tal:attributes="title term/description | nothing"/>
+      <span class="discreet" 
+            tal:condition="term/description | nothing"
+            tal:content="term/description" />
     </div>
   </fieldset>
 
@@ -39,7 +43,8 @@
              tal:attributes="name string:${options/name}.search" />
   </div>
 
-  <fieldset tal:condition="options/results | nothing">
+  <fieldset class="searchResults"
+            tal:condition="options/results | nothing">
     <legend i18n:translate="label_searchresults">Search results</legend>
     <div tal:repeat="term options/results">
       <input type="checkbox"
@@ -55,9 +60,9 @@
       <span tal:attributes="title term/description | nothing"
                 tal:content="term/title">title</span>
 
-        <span class="discreet" 
-              tal:condition="term/description | nothing"
-               tal:content="term/description" />
+      <span class="discreet" 
+            tal:condition="term/description | nothing"
+            tal:content="term/description" />
 
       <input type="submit"
              value="Browse"

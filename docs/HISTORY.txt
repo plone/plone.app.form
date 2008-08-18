@@ -4,6 +4,13 @@ Changelog for plone.app.form
 
 plone.app.form - 1.0.5 Unreleased
 
+    - For the USW:
+      Made description of search result and current selection items
+      consistent, always include the current selection fieldset (hidden if
+      empty) and added CSS classes to the current selection and search result
+      fieldsets.
+      [fschulze]
+
     - Fix widget error rendering in template (added structure keyword).
       [ldr]
 
