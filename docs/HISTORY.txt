@@ -2,7 +2,7 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.app.form - 1.1.1
+plone.app.form - 1.1.5 Released August 18th, 2008
 
     - Add a MultiCheckBoxWidget that uses <label>s to be accessible.
       [csenger]
