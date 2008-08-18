@@ -2,7 +2,7 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.app.form - 1.0.5 Unreleased
+plone.app.form - 1.0.5-jarn.1 (Private unsupported release)
 
     - For the USW:
       Made description of search result and current selection items
