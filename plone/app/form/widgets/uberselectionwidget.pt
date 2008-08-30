@@ -17,6 +17,9 @@
                              value term/token" />
       <span tal:content="term/title" 
             tal:attributes="title term/description | nothing"/>
+      <span class="discreet" 
+            tal:condition="term/description | nothing"
+            tal:content="term/description" />
     </div>
   </fieldset>
 
@@ -52,10 +55,10 @@
                                  value term/token" />
           <span tal:attributes="title term/description | nothing"
                 tal:content="term/title">title</span>
-                
-            <span class="discreet" 
-                  tal:condition="term/description | nothing"
-                   tal:content="term/description" />
+
+          <span class="discreet" 
+                tal:condition="term/description | nothing"
+                tal:content="term/description" />
 
           <input type="submit"
                  class="context"
