@@ -103,7 +103,12 @@
                tal:content="description"
                tal:condition="description"
                >field description</div>
-          <div class="fieldErrorBox" tal:content="error">
+	  <tal:comment tal:condition="nothing">
+	    <!-- The structure keyword is necessary as Invariant strings have a
+	         span tag. It is often useful to set Invariant errors on the
+		 fields they refer to. -->
+	  </tal:comment>
+          <div class="fieldErrorBox" tal:content="structure error">
             The Error
           </div>
           <div class="widget formlibInlineValidation" tal:content="structure widget">
