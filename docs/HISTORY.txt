@@ -4,6 +4,12 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1.6
 
+    - Only include KSS subpackage if kss.core is available.
+      [hannosch]
+
+    - Fixed KSS payload tests to omit a trailing newline.
+      [hannosch]
+
     - Use structure for errors again, this seems to have been lost in the merge
       of r19540.
       [elro]

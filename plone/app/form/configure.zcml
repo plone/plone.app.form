@@ -5,9 +5,9 @@
     xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <include package=".widgets" />
-  
-  <!-- PLIP 202 - include KSS package -->
-  <include package=".kss" />
+
+  <include zcml:condition="installed kss.core"
+    package=".kss" />
 
   <adapter
       for="Products.Five.BrowserView"

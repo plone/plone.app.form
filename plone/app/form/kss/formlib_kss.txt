@@ -166,7 +166,7 @@ inline form next to the original field.
       'params': {'value': u'hiddenStructure'}, 
       'name': 'addClass', 'selector': u'title-display'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html':  u'<![CDATA[<form id="title-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-title kssattr-structure-false">\n<div class="field kssattr-fieldname-form.title" id="formfield-form-title">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><input class="textType" id="form.title" name="form.title" size="20" type="text" value="Test title" /></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n]]>', 'withKssSetup': u'True'}, 
+      'params': {'html':  u'<![CDATA[<form id="title-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-title kssattr-structure-false">\n<div class="field kssattr-fieldname-form.title" id="formfield-form-title">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><input class="textType" id="form.title" name="form.title" size="20" type="text" value="Test title" /></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>]]>', 'withKssSetup': u'True'}, 
       'name': 'insertHTMLAfter', 
       'selector': u'title-display'}]
     
@@ -267,8 +267,8 @@ needs to be passed to both edit-begin and edit-save.
       'params': {'value': u'hiddenStructure'}, 
       'name': 'addClass', 'selector': u'text-display'}, 
      {'selectorType': 'htmlid', 
-      'params': {'html': u'<![CDATA[<form id="text-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-text kssattr-structure-true">\n<div class="field kssattr-fieldname-form.text" id="formfield-form-text">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><textarea cols="60" id="form.text" name="form.text" rows="15">Body &#60;em&#62;text&#60;/em&#62;</textarea></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>\n]]>', 'withKssSetup': u'True'}, 
-      'name': 'insertHTMLAfter', 
+      'params': {'html': u'<![CDATA[<form id="text-form" class="formlibInlineForm enableUnloadProtection kssattr-fieldname-text kssattr-structure-true">\n<div class="field kssattr-fieldname-form.text" id="formfield-form-text">\n<div class="fieldErrorBox"></div>\n<div class="widget formlibInlineValidation"><textarea cols="60" id="form.text" name="form.text" rows="15">Body &#60;em&#62;text&#60;/em&#62;</textarea></div>\n</div>\n<div class="formControls">\n<input name="kss-save" value="Save" type="button" class="context" />\n<input name="kss-cancel" value="Cancel" type="button" class="standalone" />\n</div>\n</form>]]>', 'withKssSetup': u'True'},
+      'name': 'insertHTMLAfter',
       'selector': u'text-display'}]
 
     >>> request = make_request()
