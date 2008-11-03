@@ -39,7 +39,8 @@ Then, we will create a simple test form and a context for it to operate on.
     
     >>> from zope.formlib import form
     >>> from plone.app.form import base
-    >>> class EditWibble(base.EditForm):
+    >>> from Products.Five import BrowserView
+    >>> class EditWibble(BrowserView, base.EditForm):
     ...     form_fields = form.FormFields(IWibble)
     ...     label = "Edit wibble"
 
