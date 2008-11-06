@@ -4,6 +4,10 @@ Changelog for plone.app.form
 
 plone.app.form - 1.1.6
 
+    - Made a test less dependent on the exact HTML output, so it works across
+      Zope versions with slightly different newline ending semantics.
+      [hannosch]
+
     - Only include KSS subpackage if kss.core is available.
       [hannosch]
 
