@@ -2,7 +2,7 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.app.form - 1.1.6
+plone.app.form - 1.1.6 Released November 21st, 2008
 
     - Made a test less dependent on the exact HTML output, so it works across
       Zope versions with slightly different newline ending semantics.
