@@ -8,8 +8,7 @@ setup(name='plone.app.form',
       description="zope.formlib integration for Plone",
       long_description="""\
 This package enables zope.formlib forms to work in Zope 2 code, styled to
-look like Plone forms. Note that developers should use zope.formlib directly,
-not Products.Five.formlib.
+look like Plone forms.
 """,
       classifiers=[
         "Framework :: Plone",
@@ -26,7 +25,37 @@ not Products.Five.formlib.
       namespace_packages = ['plone', 'plone.app'],
       include_package_data=True,
       zip_safe=False,
+      extras_require=dict(
+        test=[
+            'plone.memoize',
+            'plone.app.content',
+            'zope.annotation',
+            'zope.publisher',
+            'zope.testing',
+            'Products.PloneTestCase',
+        ]
+      ),
       install_requires=[
         'setuptools',
+        'kss.core',
+        'plone.locking',
+        'plone.app.kss',
+        'plone.app.vocabularies',
+        'zope.component',
+        'zope.event',
+        'zope.formlib',
+        'zope.i18n',
+        'zope.i18nmessageid',
+        'zope.interface',
+        'zope.lifecycleevent',
+        'zope.schema',
+        'zope.app.component',
+        'zope.app.form',
+        'zope.app.pagetemplate',
+        'Plone',
+        'Products.CMFCore',
+        # 'Acquisition',
+        # 'DateTime',
+        # 'Zope2',
       ],
       )

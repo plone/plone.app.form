@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.2.0 (unreleased)
 
+    - Specified package dependencies.
+      [hannosch]
+
     - Corrected the NamedTemplateAdapter to work with the modified
       ViewPageTemplateFile in Zope 2.12.
       [davisagli]
