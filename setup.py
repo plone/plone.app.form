@@ -54,8 +54,8 @@ look like Plone forms.
         'zope.app.pagetemplate',
         'Plone',
         'Products.CMFCore',
-        # 'Acquisition',
-        # 'DateTime',
-        # 'Zope2',
+        'Acquisition',
+        'DateTime',
+        'Zope2',
       ],
       )
