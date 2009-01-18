@@ -29,3 +29,6 @@ default_subpage_template = named_template_adapter(_subpage_template)
 
 _template = pagetemplatefile.ViewPageTemplateFile('addingpageform.pt')
 adding_named_template_adapter = named_template_adapter(_template)
+
+from zope.i18nmessageid import MessageFactory
+PloneMessageFactory = MessageFactory('plone')

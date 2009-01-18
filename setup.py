@@ -52,7 +52,6 @@ look like Plone forms.
         'zope.app.component',
         'zope.app.form',
         'zope.app.pagetemplate',
-        'Plone',
         'Products.CMFCore',
         'Acquisition',
         'DateTime',

@@ -7,8 +7,8 @@ import zope.lifecycleevent
 
 from Acquisition import aq_inner, aq_parent
 from Products.Five.formlib import formbase
-from Products.CMFPlone import PloneMessageFactory as _
 
+from plone.app.form import PloneMessageFactory as _
 from plone.app.form.interfaces import IPlonePageForm
 from plone.app.form.interfaces import IEditForm
 from plone.app.form.validators import null_validator

@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.2.0 (unreleased)
 
+    - Use our own PloneMessageFactory. We don't depend on CMFPlone anymore.
+      [hannosch]
+
     - Specified package dependencies.
       [hannosch]
 
