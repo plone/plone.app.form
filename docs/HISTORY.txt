@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.2.0 (unreleased)
 
+    - Made kss support truly optional and advertise it via an extra.
+      [hannosch]
+
     - Use our own PloneMessageFactory. We don't depend on CMFPlone anymore.
       [hannosch]
 
@@ -13,8 +16,6 @@ plone.app.form - 1.2.0 (unreleased)
     - Corrected the NamedTemplateAdapter to work with the modified
       ViewPageTemplateFile in Zope 2.12.
       [davisagli]
-
-plone.app.form - 1.1.6 (unreleased)
 
     - Made a test less dependent on the exact HTML output, so it works across
       Zope versions with slightly different newline ending semantics.

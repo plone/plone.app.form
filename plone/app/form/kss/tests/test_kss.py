@@ -3,9 +3,15 @@ from zope.testing import doctest, cleanup
 from Products.Five import zcml
 
 import Products.Five
-import kss.core
-import kss.core.tests
-import plone.app.kss
+try:
+    import kss.core
+    import kss.core
+    import kss.core.tests
+    import plone.app.kss
+    HAS_KSS = True
+except ImportError:
+    HAS_KSS = False
+
 import plone.app.form
 import plone.memoize
 
@@ -26,10 +32,12 @@ def tearDown(test):
     cleanup.cleanUp()
 
 def test_suite():
-    return unittest.TestSuite([
-        doctest.DocFileSuite('kss/formlib_kss.txt',
-                             package='plone.app.form',
-                             setUp=setUp,
-                             tearDown=tearDown,
-                             optionflags=optionflags),
-        ])
+    if HAS_KSS:
+        return unittest.TestSuite([
+            doctest.DocFileSuite('kss/formlib_kss.txt',
+                                 package='plone.app.form',
+                                 setUp=setUp,
+                                 tearDown=tearDown,
+                                 optionflags=optionflags),
+            ])
+    return unittest.TestSuite()

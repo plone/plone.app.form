@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
-import sys, os
 
-version = '1.1.6'
+version = '1.2.0'
 
 setup(name='plone.app.form',
       version=version,
@@ -33,13 +32,15 @@ look like Plone forms.
             'zope.publisher',
             'zope.testing',
             'Products.PloneTestCase',
-        ]
+        ],
+        kss=[
+            'kss.core',
+            'plone.app.kss',
+        ],
       ),
       install_requires=[
         'setuptools',
-        'kss.core',
         'plone.locking',
-        'plone.app.kss',
         'plone.app.vocabularies',
         'zope.component',
         'zope.event',
