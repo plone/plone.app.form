@@ -87,7 +87,7 @@
 
 /* save on Enter or the Save button */
 
-form.inlineForm input[type="text"]:keyup {
+form.formlibInlineForm input[type="text"]:keyup {
     evt-keyup-preventdefault: true;
     evt-keyup-keycodes: 13;
     

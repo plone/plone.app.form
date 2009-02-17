@@ -31,6 +31,10 @@ plone.app.form - 1.2.0 (unreleased)
       of r19540.
       [elro]
 
+    - Fixed inline save of 'title' field raises 'Invalid request' error.
+      This closes http://dev.plone.org/plone/ticket/8189.
+      [deo]
+
 plone.app.form - 1.1.5 Released August 18th, 2008
 
     - Add a MultiCheckBoxWidget that uses <label>s to be accessible.
@@ -53,7 +57,7 @@ plone.app.form - 1.1.0 Released April 20th, 2008
 
 plone.app.form - 1.1.0a1
 
-    - Improve KSS inline validation for complex widgets like the 
+    - Improve KSS inline validation for complex widgets like the
       UberSelectionwidget that require more than a single form value to
       validate.
       [optilude]
@@ -135,4 +139,3 @@ plone.app.form - 1.0b1 Released March 5, 2007
 
     - Initial package structure.
       [zopeskel]
-
