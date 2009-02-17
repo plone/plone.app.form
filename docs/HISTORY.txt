@@ -2,6 +2,12 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
+plone.app.form - 1.1.7 (Unreleased)
+
+    - Fixed inline save of 'title' field raises 'Invalid request' error.
+      This closes http://dev.plone.org/plone/ticket/8189.
+      [deo]
+
 plone.app.form - 1.1.6 Released November 21st, 2008
 
     - Made a test less dependent on the exact HTML output, so it works across
