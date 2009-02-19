@@ -2,12 +2,14 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.app.form - 1.0.5 Unreleased
+plone.app.form - 1.0.5-jarn.2 (Private unsupported release)
 
     - Added support for readonly, addonly and removeonly to multi USW.
       Warning! Readonly is implemented in code, but addonly and removeonly is
       only done in the UI!
       [fschulze]
+
+plone.app.form - 1.0.5-jarn.1 (Private unsupported release)
 
     - For the USW:
       Made description of search result and current selection items
