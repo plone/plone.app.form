@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.2.0 (unreleased)
 
+    - Updated import of ITerms to zope.browser.interfaces.
+      [hannosch]
+
     - Made kss support truly optional and advertise it via an extra.
       [hannosch]
 

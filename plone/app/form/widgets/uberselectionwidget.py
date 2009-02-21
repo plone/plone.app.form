@@ -1,13 +1,12 @@
-from zope.schema.interfaces import ValidationError
+from zope.browser.interfaces import ITerms
 from zope.component import getMultiAdapter
+from zope.schema.interfaces import ValidationError
 
 from zope.app.form.interfaces import WidgetInputError
 from zope.app.form.browser.interfaces import \
-    ISourceQueryView, ITerms, IWidgetInputErrorView
+    ISourceQueryView, IWidgetInputErrorView
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-
-from plone.app.vocabularies.interfaces import IBrowsableTerm
 
 
 class UberSelectionWidget(SimpleInputWidget):

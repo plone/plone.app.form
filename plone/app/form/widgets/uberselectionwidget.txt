@@ -3,13 +3,13 @@ UberSelectionWidget
 
 First we need to prepare some things. For this we need some imports.
 
-  >>> from zope.interface import Interface, implements
+  >>> from zope.browser.interfaces import ITerms
   >>> from zope.component import provideAdapter, adapts
+  >>> from zope.interface import Interface, implements
   >>> from zope.schema import Choice, List
   >>> from zope.schema.interfaces import IIterableSource
   >>> from plone.app.vocabularies.catalog import SearchableTextSource
   >>> from zope.publisher.interfaces.browser import IBrowserRequest
-  >>> from zope.app.form.browser.interfaces import ITerms
   >>> from zope.schema.vocabulary import SimpleTerm
 
 The source itself.
