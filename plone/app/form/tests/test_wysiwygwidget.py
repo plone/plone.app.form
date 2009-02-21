@@ -26,14 +26,6 @@ class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
         member = pm.getAuthenticatedMember()
         editor = member.getProperty('wysiwyg_editor', '').lower()
 
-        # we have kupu by default
-        self.assertEquals(editor, 'kupu')
-
-        # so it means the widget should use the macro
-        # provided by kupu (default skin with .css includes)
-        w = WYSIWYGWidget(MyField(), TestRequest())
-        kupu = w()
-
         # let's add a custom editor
         # with a fake skin that should be catched
         # to provide a custom macro
@@ -50,9 +42,6 @@ class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
 
         w = WYSIWYGWidget(MyField(), TestRequest())
         cool_editor = w()
-
-        # the macro used by wysiwygwidget should differ
-        self.assertNotEquals(kupu, cool_editor)
 
 def test_suite():
     from unittest import TestSuite, makeSuite

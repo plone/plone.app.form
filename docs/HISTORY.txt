@@ -4,6 +4,9 @@ Changelog for plone.app.form
 
 plone.app.form - 1.2.0 (unreleased)
 
+    - Made sure tests don't rely on kupu.
+      [hannosch]
+
     - Updated import of ITerms to zope.browser.interfaces.
       [hannosch]
 
