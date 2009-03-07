@@ -1,28 +1,33 @@
 Changelog
 =========
 
-1.1.7 - 2008-03-07
+1.1.8 - unreleased
 ------------------
 
-    - Fixed inline save of 'title' field raises 'Invalid request' error.
-      This closes http://dev.plone.org/plone/ticket/8189.
-      [deo]
 
-plone.app.form - 1.1.6 Released November 21st, 2008
+1.1.7 - 2009-03-07
+------------------
 
-    - Made a test less dependent on the exact HTML output, so it works across
-      Zope versions with slightly different newline ending semantics.
-      [hannosch]
+- Fixed inline save of 'title' field raises 'Invalid request' error.
+  This closes http://dev.plone.org/plone/ticket/8189.
+  [deo]
 
-    - Only include KSS subpackage if kss.core is available.
-      [hannosch]
+1.1.6 - 2008-11-21
+------------------
 
-    - Fixed KSS payload tests to omit a trailing newline.
-      [hannosch]
+- Made a test less dependent on the exact HTML output, so it works across
+  Zope versions with slightly different newline ending semantics.
+  [hannosch]
 
-    - Use structure for errors again, this seems to have been lost in the merge
-      of r19540.
-      [elro]
+- Only include KSS subpackage if kss.core is available.
+  [hannosch]
+
+- Fixed KSS payload tests to omit a trailing newline.
+  [hannosch]
+
+- Use structure for errors again, this seems to have been lost in the merge
+  of r19540.
+  [elro]
 
 plone.app.form - 1.1.5 Released August 18th, 2008
 
