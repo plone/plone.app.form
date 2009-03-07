@@ -1,8 +1,8 @@
-Changelog for plone.app.form
+Changelog
+=========
 
-    (name of developer listed in brackets)
-
-plone.app.form - 1.1.7 (Unreleased)
+1.1.7 - 2008-03-07
+------------------
 
     - Fixed inline save of 'title' field raises 'Invalid request' error.
       This closes http://dev.plone.org/plone/ticket/8189.
