@@ -1,59 +1,66 @@
-Changelog for plone.app.form
+Changelog
+=========
 
-    (name of developer listed in brackets)
+1.2.0 (unreleased)
+------------------
 
-plone.app.form - 1.2.0 (unreleased)
+- Made sure tests don't rely on kupu.
+  [hannosch]
 
-    - Made sure tests don't rely on kupu.
-      [hannosch]
+- Updated import of ITerms to zope.browser.interfaces.
+  [hannosch]
 
-    - Updated import of ITerms to zope.browser.interfaces.
-      [hannosch]
+- Made kss support truly optional and advertise it via an extra.
+  [hannosch]
 
-    - Made kss support truly optional and advertise it via an extra.
-      [hannosch]
+- Use our own PloneMessageFactory. We don't depend on CMFPlone anymore.
+  [hannosch]
 
-    - Use our own PloneMessageFactory. We don't depend on CMFPlone anymore.
-      [hannosch]
+- Specified package dependencies.
+  [hannosch]
 
-    - Specified package dependencies.
-      [hannosch]
+- Corrected the NamedTemplateAdapter to work with the modified
+  ViewPageTemplateFile in Zope 2.12.
+  [davisagli]
 
-    - Corrected the NamedTemplateAdapter to work with the modified
-      ViewPageTemplateFile in Zope 2.12.
-      [davisagli]
+1.1.7 - 2008-03-07
+------------------
 
-    - Made a test less dependent on the exact HTML output, so it works across
-      Zope versions with slightly different newline ending semantics.
-      [hannosch]
+- Fixed inline save of 'title' field raises 'Invalid request' error.
+  This closes http://dev.plone.org/plone/ticket/8189.
+  [deo]
 
-    - Only include KSS subpackage if kss.core is available.
-      [hannosch]
+1.1.6 - 2008-11-21
+------------------
 
-    - Fixed KSS payload tests to omit a trailing newline.
-      [hannosch]
+- Made a test less dependent on the exact HTML output, so it works across
+  Zope versions with slightly different newline ending semantics.
+  [hannosch]
 
-    - Use structure for errors again, this seems to have been lost in the merge
-      of r19540.
-      [elro]
+- Only include KSS subpackage if kss.core is available.
+  [hannosch]
 
-    - Fixed inline save of 'title' field raises 'Invalid request' error.
-      This closes http://dev.plone.org/plone/ticket/8189.
-      [deo]
+- Fixed KSS payload tests to omit a trailing newline.
+  [hannosch]
 
-plone.app.form - 1.1.5 Released August 18th, 2008
+- Use structure for errors again, this seems to have been lost in the merge
+  of r19540.
+  [elro]
 
-    - Add a MultiCheckBoxWidget that uses <label>s to be accessible.
-      [csenger]
+1.1.5 - 2008-08-18
+------------------
 
-    - Forced the input values of the datecomponents into integers before doing
-      calculations with them. This closes
-      http://dev.plone.org/plone/ticket/6737.
-      [hannosch]
+- Add a MultiCheckBoxWidget that uses <label>s to be accessible.
+  [csenger]
 
-    - Synchronized the default value behavior of all fields in the datetime
-      widget. This closes http://dev.plone.org/plone/ticket/6988.
-      [hannosch]
+- Forced the input values of the datecomponents into integers before doing
+  calculations with them. This closes
+  http://dev.plone.org/plone/ticket/6737.
+  [hannosch]
+
+- Synchronized the default value behavior of all fields in the datetime
+  widget. This closes http://dev.plone.org/plone/ticket/6988.
+  [hannosch]
 
 plone.app.form - 1.1.0 Released April 20th, 2008
 
@@ -145,3 +152,4 @@ plone.app.form - 1.0b1 Released March 5, 2007
 
     - Initial package structure.
       [zopeskel]
+
