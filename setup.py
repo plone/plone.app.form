@@ -18,7 +18,7 @@ look like Plone forms.
       keywords='',
       author='Plone Foundation',
       author_email='plone-developers@lists.sourceforge.net',
-      url='http://svn.plone.org/svn/plone/plone.app.form',
+      url='http://pypi.python.org/pypi/plone.app.form',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages = ['plone', 'plone.app'],
