@@ -125,4 +125,25 @@ Now we want to make a query and see whether we get selectable results.
   True
   >>> dom.unlink()
 
+Test multiselection
+
+  >>> from zope.schema import List
+  >>> selection = List(__name__='selection',
+  ...                title=u'Multi select',
+  ...                value_type=Choice(
+  ...                       source = SourceList(['spot', 'bowser', 'prince', 'duchess', 'lassie']))
+  ...                       )
+
+And the widget itself.
+
+  >>> widget = UberMultiSelectionWidget(selection, request)
+  
+Widget value should always be list
+
+  >>> widget._value()
+  []
+  >>> widget._getRenderValue()
+  []
+
 Fine, so far everything works!
+
