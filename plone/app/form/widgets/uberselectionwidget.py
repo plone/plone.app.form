@@ -145,7 +145,8 @@ class UberMultiSelectionWidget(UberSelectionWidget):
                     value = []
                 else:
                     value = self.context.missing_value
-
+        if value is None:
+            value = []
         return value
 
     def _getRenderValue(self):

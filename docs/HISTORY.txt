@@ -23,6 +23,14 @@ Changelog
   ViewPageTemplateFile in Zope 2.12.
   [davisagli]
 
+1.1.8 - unreleased
+------------------
+
+- Fixed return value of multi selection widget _value method. The template 
+  tries to get len() of the value, but fails if the value is None. This allows
+  to use multi selection widget in the portlets, for example.
+  [naro]
+
 1.1.7 - 2008-03-07
 ------------------
 
