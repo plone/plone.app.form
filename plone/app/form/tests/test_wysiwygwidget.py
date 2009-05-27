@@ -2,7 +2,7 @@ from Products.PloneTestCase import PloneTestCase as ptc
 from Products.CMFCore.utils import getToolByName
 
 from zope.publisher.browser import TestRequest
-from zope.app.component.hooks import getSite
+from zope.site.hooks import getSite
 
 from plone.app.form.widgets.wysiwygwidget import WYSIWYGWidget
 

@@ -3,7 +3,9 @@ from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Acquisition import aq_parent
 from Products.CMFCore.interfaces import ISiteRoot
-from zope.app.component.hooks import getSite
+
+from zope.site.hooks import getSite
+
 
 class WYSIWYGWidget(TextWidget):
     """ A widget using Plone's wysiwyg_support.

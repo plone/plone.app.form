@@ -50,7 +50,7 @@ look like Plone forms.
         'zope.interface',
         'zope.lifecycleevent',
         'zope.schema',
-        'zope.app.component',
+        'zope.site',
         'zope.app.form',
         'zope.app.pagetemplate',
         'Products.CMFCore',
