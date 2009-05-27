@@ -20,6 +20,8 @@ class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
             required = True
             default = u'the value'
             missing_value = None
+            title = ""
+            description = ""
 
         # the wysiwyg widget depends on the used editor
         pm = getToolByName(self.portal, 'portal_membership')
