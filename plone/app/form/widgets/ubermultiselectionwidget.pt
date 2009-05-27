@@ -7,7 +7,9 @@
           i18n:domain="plone">
 
   <legend>
-    <label for="fieldname" tal:content="view/label">choose</label>
+    <label for="fieldname"
+           tal:content="view/label"
+           i18n:translate="">choose</label>
   </legend>
 
   <p class="discreet" tal:content="view/hint"></p>

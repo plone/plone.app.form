@@ -4,6 +4,9 @@ Changelog
 1.2.0 (unreleased)
 ------------------
 
+- Updated checkboxwidget hacks to work with zope.app.form 3.8.0.
+  [hannosch]
+
 - Use getSite from zope.site instead of zope.app.component.
   [hannosch]
 

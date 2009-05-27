@@ -77,7 +77,8 @@
   <fieldset tal:define="form_name view/form_name|nothing"
             tal:omit-tag="not:form_name">
     <legend tal:condition="form_name"
-            tal:content="form_name">Form name</legend>
+            tal:content="form_name"
+            i18n:translate="">Form name</legend>
   <tal:block tal:repeat="widget view/widgets">
     <div class="field"
          tal:define="description widget/hint;
