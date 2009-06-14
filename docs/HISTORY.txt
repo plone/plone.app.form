@@ -4,6 +4,9 @@ Changelog
 1.2.0 (unreleased)
 ------------------
 
+- Updated to use new locations for IAdding and IObjectEvent.
+  [hannosch]
+
 - Updated checkboxwidget hacks to work with zope.app.form 3.8.0.
   [hannosch]
 

@@ -1,11 +1,8 @@
-from zope.interface import Interface, Attribute
-try:
-    from zope.component.interfaces import IObjectEvent
-except ImportError:
-    from zope.app.event.interfaces import IObjectEvent
-    
+from zope.component.interfaces import IObjectEvent
 from zope.formlib.interfaces import IPageForm
 from zope.formlib.interfaces import ISubPageForm
+from zope.interface import Interface, Attribute
+
 
 class IPlonePageForm(IPageForm):
     """A page form with a couple extra attributes

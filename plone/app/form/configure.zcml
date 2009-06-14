@@ -51,7 +51,7 @@
       
       <browser:page
         name="five_template"
-        for="zope.app.container.interfaces.IAdding"
+        for="zope.browser.interfaces.IAdding"
         template="five_template.pt"
         permission="zope2.View"
         />
