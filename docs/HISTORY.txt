@@ -1,12 +1,5 @@
 Changelog
 =========
-x.x.x - unreleased
-------------------
-    
-    - Added more text and interactive features for ubermultiselectwidget
-      If there are no search results, it shows a message, stating that.
-      If somebody selects a search result, a notice appears, to remind
-      him to save. [do3cc]
 
 1.1.7 - 2008-03-07
 ------------------

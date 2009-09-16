@@ -43,12 +43,11 @@
              tal:attributes="name string:${options/name}.search" />
   </div>
 
-  <fieldset class="ubermultiselectwidget searchResults"
+  <fieldset class="searchResults"
             tal:condition="options/results | nothing">
     <legend i18n:translate="label_searchresults">Search results</legend>
     <div tal:repeat="term options/results">
       <input type="checkbox"
-             onChange="saveWarning()"
              tal:attributes="name string:${options/name}:list;
                              value term/token" />
       <input type="submit"
@@ -76,18 +75,6 @@
          i18n:translate="">
       There are more search results, narrow your search.
     </p>
-    <dl class="portalMessage save_reminder">
-        <dd i18n:translate="">Do not forget to save your selection</dd>
-    </dl>
-    <script type="text/javascript">
-    // By calling this method here, the message gets displayed even if no
-    // javascript is active
-    saveWarning();
-    </script>
-  </fieldset>
-  
-  <fieldset class="searchResults" tal:condition="not:options/results | nothing">
-    No search results or no search entered
   </fieldset>
 
   <div class="formControls">

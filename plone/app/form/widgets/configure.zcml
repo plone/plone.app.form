@@ -3,11 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five">
 
-    <browser:resource
-        name="plone.app.form.widget_features.js"
-        file="widget_features.js"
-        />
-
     <browser:page
         name="date_components_support"
         for="*"
