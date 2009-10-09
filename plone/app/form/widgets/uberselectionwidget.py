@@ -13,6 +13,7 @@ class UberSelectionWidget(SimpleInputWidget):
     _error = None
 
     template = ViewPageTemplateFile('uberselectionwidget.pt')
+    limit_results = 20
 
     def __init__(self, field, request):
         SimpleInputWidget.__init__(self, field, request)
@@ -69,10 +70,11 @@ class UberSelectionWidget(SimpleInputWidget):
         field = self.context
         results = []
         results_truncated = False
+        limit = self.limit_results
         qresults = self.queryview.results(self.name)
         if qresults is not None:
             for index, item in enumerate(qresults):
-                if index >= 20:
+                if (limit > 0 and index >= limit):
                     results_truncated = True
                     break
                 results.append(self.terms.getTerm(item))

@@ -35,6 +35,10 @@ Changelog
 1.1.8 - unreleased
 ------------------
 
+- Made default truncation size of 20 results on the uberselectionwidget
+  configurable by a simple variable called `limit_results` on the widget.
+  [hannosch]
+
 - Fixed return value of multi selection widget _value method. The template 
   tries to get len() of the value, but fails if the value is None. This allows
   to use multi selection widget in the portlets, for example.
