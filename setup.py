@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
-import sys, os
 
-version = '1.1.8'
+version = '1.1.9'
 
 setup(name='plone.app.form',
       version=version,
