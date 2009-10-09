@@ -32,7 +32,11 @@ Changelog
   ViewPageTemplateFile in Zope 2.12.
   [davisagli]
 
-1.1.8 - unreleased
+1.1.9 - Unreleased
+------------------
+
+
+1.1.8 - 2009-10-09
 ------------------
 
 - Made default truncation size of 20 results on the uberselectionwidget
