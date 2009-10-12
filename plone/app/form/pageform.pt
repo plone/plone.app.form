@@ -123,6 +123,10 @@
     </div>
 </tal:block>
 
+  <metal:block define-slot="authenticator">
+    <input tal:replace="structure context/@@authenticator/authenticator" />
+  </metal:block>
+
   <metal:block define-slot="above_buttons" />
 <div id="actionsView">
   <span class="actionButtons"
