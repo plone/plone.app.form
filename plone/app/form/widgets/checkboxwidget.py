@@ -28,7 +28,7 @@ class CheckBoxWidget(BaseWidget):
         value = self._getFormValue()
         html = "<label for='%s'>%s</label>\n" % (self.name , translate(self.context.title, context=self.request))
         if self.__required:
-            html += "<span class='fieldRequired' title='%s'>%s</span>" % (translate(_(u'title_required'), context=self.request, default='Required'), translate(_(u'label_required'), context=self.request, default='(Required)'))
+            html += "<span class='fieldRequired' title='%s'>%s</span>" % (translate(_(u'title_required', default='Required'), context=self.request), translate(_(u'label_required', default='(Required)'), context=self.request))
         if self.context.description:
             html += "<div class='formHelp'>%s</div>" % translate(self.context.description, context=self.request)
         if super(BaseWidget, self).error() != '':

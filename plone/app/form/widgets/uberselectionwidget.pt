@@ -80,7 +80,7 @@
 
         <input type="submit"
                class="standalone"
-               value="Update Selection"
+               value="Update"
                i18n:attributes="value label_update;"
                tal:attributes="name string:${options/name}.update" />
     </div>
