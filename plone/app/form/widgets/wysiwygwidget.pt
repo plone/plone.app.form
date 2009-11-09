@@ -13,7 +13,10 @@
                          inputvalue         options/value;
                          here_url           context/absolute_url;
                          member             context/portal_membership/getAuthenticatedMember;
-                         editor             python: member.getProperty('wysiwyg_editor','').lower();
+                         isAnon             context/@@plone_portal_state/anonymous;
+                         member_editor      python: not isAnon and member.getProperty('wysiwyg_editor').lower() or '';
+                         default_editor     python: context.portal_properties.site_properties.getProperty('default_editor', '').lower();
+                         editor             python: member_editor=='' and default_editor or member_editor;
                          support            python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/portal_skins/plone_wysiwyg/wysiwyg_support' % (editor, editor));
                          tabindex           nothing">
         <div metal:use-macro="support/macros/wysiwygEditorBox">
