@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0a1 (unreleased)
+2.0a1 - 2009-11-14
 ------------------
 
 - Made sure to use the correct ViewPageTemplateFile from Products.Five.
