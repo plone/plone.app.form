@@ -6,7 +6,8 @@ from zope.app.form.interfaces import WidgetInputError
 from zope.app.form.browser.interfaces import \
     ISourceQueryView, IWidgetInputErrorView
 from zope.app.form.browser.widget import SimpleInputWidget
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class UberSelectionWidget(SimpleInputWidget):

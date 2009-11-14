@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.2.0 (unreleased)
+2.0a1 (unreleased)
 ------------------
+
+- Made sure to use the correct ViewPageTemplateFile from Products.Five.
+  [hannosch]
 
 - Updated to use new locations for IAdding and IObjectEvent.
   [hannosch]

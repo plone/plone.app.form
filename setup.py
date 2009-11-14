@@ -1,14 +1,12 @@
 from setuptools import setup, find_packages
 
-version = '1.2.0'
+version = '2.0a1'
 
 setup(name='plone.app.form',
       version=version,
       description="zope.formlib integration for Plone",
-      long_description="""\
-This package enables zope.formlib forms to work in Zope 2 code, styled to
-look like Plone forms.
-""",
+      long_description=open("README.txt").read() + "\n" + \
+                       open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
@@ -52,7 +50,6 @@ look like Plone forms.
         'zope.schema',
         'zope.site',
         'zope.app.form',
-        'zope.app.pagetemplate',
         'Products.CMFCore',
         'Acquisition',
         'DateTime',

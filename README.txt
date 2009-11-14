@@ -5,11 +5,11 @@ Overview
 --------
 
 The plone.app.form package gives Plone the ability to better adapt common
-Zope 3 UI style functionality to a more appropriate Plone style.
+zope.formlib UI style functionality to a more appropriate Plone style.
 
 Features
 --------
 
-  - **Better integration with zope.formlib.**  The default templates
-    distributed with zope.formlib are table-based and don't follow
-    common Plone UI patterns, plone.app.form addresses this.
+- **Better integration with zope.formlib.**  The default templates
+  distributed with zope.formlib are table-based and don't follow
+  common Plone UI patterns, plone.app.form addresses this.
