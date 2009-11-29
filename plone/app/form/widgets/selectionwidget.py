@@ -1,6 +1,5 @@
 from zope.app.form.browser.itemswidgets import DropdownWidget
 from zope.component import queryMultiAdapter
-from zope.schema.interfaces import ITitledTokenizedTerm
 
 
 class LanguageDropdownChoiceWidget(DropdownWidget):
@@ -11,18 +10,42 @@ class LanguageDropdownChoiceWidget(DropdownWidget):
         """Initialize the widget."""
         super(LanguageDropdownChoiceWidget, self).__init__(field,
             field.vocabulary, request)
-        portal_state = queryMultiAdapter((self.context, request),
+
+    def renderItemsWithValues(self, values):
+        """Render the list of possible values, with those found in
+        `values` being marked as selected."""
+
+        # Sort languages by their title
+        portal_state = queryMultiAdapter((self.context, self.request),
                                          name=u'plone_portal_state')
-        self.languages = portal_state.locale().displayNames.languages
+        languages = portal_state.locale().displayNames.languages
 
-    def textForValue(self, term):
-        """Extract a string from the `term`.
-
-        The `term` must be a vocabulary tokenized term.
-        """
-        if ITitledTokenizedTerm.providedBy(term):
-            title = self.languages.get(term.value, term.title)
-            if title == term.value:
+        terms = []
+        languages = languages
+        for term in self.vocabulary:
+            value = term.value
+            title = languages.get(value, term.title)
+            if title == value:
                 title = term.title
-            return title
-        return term.token
+            terms.append((title, term.token))
+
+        terms.sort()
+
+        cssClass = self.cssClass
+        name = self.name
+        renderSelectedItem = self.renderSelectedItem
+        renderItem = self.renderItem
+        rendered_items = []
+        count = 0
+
+        for title, token in terms:
+            if token in values:
+                render = renderSelectedItem
+            else:
+                render = renderItem
+
+            rendered_item = render(count, title, token, name, cssClass)
+            rendered_items.append(rendered_item)
+            count += 1
+
+        return rendered_items

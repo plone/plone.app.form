@@ -4,6 +4,10 @@ Changelog
 2.0b1 - Unreleased
 ------------------
 
+- Updated the LanguageDropdownChoiceWidget to present its options sorted by
+  the localized title. So far it showed localized titles while keeping
+  English ordering.
+  [hannosch]
 
 2.0a1 - 2009-11-14
 ------------------
