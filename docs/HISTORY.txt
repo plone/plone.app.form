@@ -2,7 +2,7 @@ Changelog for plone.app.form
 
     (name of developer listed in brackets)
 
-plone.app.form - Unreleased
+plone.app.form - 1.0.eea.1 (2010-01-22)
 
     - Keep existing date in the calendar widget in datecomponents.py. This
       closes http://dev.plone.org/plone/ticket/5833.
