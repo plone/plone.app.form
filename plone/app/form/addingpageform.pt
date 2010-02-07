@@ -10,7 +10,7 @@
 <body>
 <div metal:fill-slot="main">
   
-  <div metal:use-macro="context/@@base-pageform.html/macros/form" />
+  <div metal:use-macro="context/@@base-pageform.html/form" />
   
 </div>
 </body>
