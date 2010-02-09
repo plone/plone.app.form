@@ -4,6 +4,10 @@ Changelog
 2.0b2 - unreleased
 ------------------
 
+- Updated pageform.pt to follow recent markup conventions.
+  References http://dev.plone.org/plone/ticket/9981
+  [spliter]
+
 - Fixed add form page template
   [do3cc]
 
