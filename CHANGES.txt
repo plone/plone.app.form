@@ -1,14 +1,14 @@
 Changelog
 =========
 
-2.0b2 - unreleased
+2.0b2 - 2010-02-17
 ------------------
 
 - Updated pageform.pt to follow recent markup conventions.
-  References http://dev.plone.org/plone/ticket/9981
+  References http://dev.plone.org/plone/ticket/9981.
   [spliter]
 
-- Fixed add form page template
+- Fixed macro call in add form page template.
   [do3cc]
 
 2.0b1 - 2009-12-27
