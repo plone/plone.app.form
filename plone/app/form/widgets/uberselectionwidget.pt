@@ -28,7 +28,7 @@
          value=""
          tal:define="name string:${options/name}.query" 
          tal:attributes="name name;
-                         id name;
+                         id options/name;
                          value request/?name | default" />
 
   <input type="submit"
