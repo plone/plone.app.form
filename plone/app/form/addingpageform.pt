@@ -8,10 +8,10 @@
                  tal:define="dummy python:request.set('disable_border',1)" />
                  
 <body>
-<div metal:fill-slot="main">
+<metal:main metal:fill-slot="main">
   
   <div metal:use-macro="context/@@base-pageform.html/form" />
   
-</div>
+</metal:main>
 </body>
 </html>
