@@ -4,6 +4,10 @@ Changelog
 2.0b3 - unreleased
 ------------------
 
+- Decode form inputs before trying to do inline validation of them, the same
+  way they would be in a real form submission. This closes
+  http://dev.plone.org/plone/ticket/9757.
+  [davisagli]
 
 2.0b2 - 2010-02-17
 ------------------

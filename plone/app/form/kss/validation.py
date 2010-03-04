@@ -5,6 +5,7 @@ from kss.core import kssaction
 from plone.app.kss.plonekssview import PloneKSSView
 
 from Acquisition import aq_inner
+from Products.Five.browser.decode import processInputs
 
 class FormlibValidation(PloneKSSView):
     """KSS actions for formlib form inline validation
@@ -24,6 +25,7 @@ class FormlibValidation(PloneKSSView):
         
         context = aq_inner(self.context)
         request = aq_inner(self.request)
+        processInputs(self.request)
         
         # Find the form, the field and the widget
 
