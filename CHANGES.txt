@@ -1,13 +1,21 @@
 Changelog
 =========
 
-2.0b3 - unreleased
+2.0b3 - 2010-03-05
 ------------------
 
 - Decode form inputs before trying to do inline validation of them, the same
   way they would be in a real form submission. This closes
   http://dev.plone.org/plone/ticket/9757.
   [davisagli]
+
+- Use the search text input as the target for the uberselection widget label.
+  Fixes invalid HTML.
+  [rossp]
+
+- Fix invalid HTML by moving the xmlns declarations into a tag that will be
+  omitted by TAL.
+  [rossp]
 
 2.0b2 - 2010-02-17
 ------------------
