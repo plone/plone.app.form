@@ -56,11 +56,11 @@
             <span i18n:translate=""
                   tal:content="widget/label">label</span>
           </label>
-          <span class="fieldRequired" title="Required"
+          <span class="required" title="Required"
                 tal:condition="widget/required"
-                i18n:translate="label_required"
-                i18n:attributes="title title_required;">
-            (Required)
+                i18n:attributes="title title_required;"
+                style="color: #f00;">
+            &#x25a0;
           </span>
           <div class="formHelp"
                i18n:translate=""

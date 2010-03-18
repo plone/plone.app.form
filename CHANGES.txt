@@ -4,6 +4,9 @@ Changelog
 2.0b4 - unreleased
 ------------------
 
+- Replace the required field indicator image with a unicode box.
+  Refs http://dev.plone.org/plone/ticket/10352
+  [davisagli, limi]
 
 2.0b3 - 2010-03-05
 ------------------
