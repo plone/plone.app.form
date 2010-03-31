@@ -4,6 +4,10 @@ Changelog
 2.0b4 - unreleased
 ------------------
 
+- Make sure that named template adapters use Chameleon-compatible templates
+  if five.pt is present.  Closes http://dev.plone.org/plone/ticket/10103.
+  [davisagli]
+
 - Replace the required field indicator image with a unicode box.
   Refs http://dev.plone.org/plone/ticket/10352
   [davisagli, limi]

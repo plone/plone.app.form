@@ -3,6 +3,12 @@ from Acquisition import aq_inner
 from zope import interface
 from zope.formlib import namedtemplate
 from Products.Five.browser.pagetemplatefile import BoundPageTemplate
+try:
+    # chameleon-compatible page templates
+    from five.pt.pagetemplate import ViewPageTemplateFile as ChameleonPageTemplateFile
+    HAS_CHAMELEON = True
+except ImportError:
+    HAS_CHAMELEON = False
 
 class NamedTemplateAdapter(object):
     """A named template adapter implementation that has the ability
@@ -39,5 +45,7 @@ def named_template_adapter(template):
     new_class = new.classobj('GeneratedClass', 
                              (NamedTemplateAdapter,),
                              {})
+    if HAS_CHAMELEON:
+        template = ChameleonPageTemplateFile(template.filename)
     new_class.default_template = template
     return new_class
