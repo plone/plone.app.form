@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b4 - unreleased
+2.0b4 - 2010-04-08
 ------------------
 
 - Make sure that named template adapters use Chameleon-compatible templates
