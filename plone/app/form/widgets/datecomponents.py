@@ -1,3 +1,5 @@
+from time import localtime
+
 from zope.interface import implements
 from zope.component import getMultiAdapter
 
@@ -37,7 +39,6 @@ class DateComponents(BrowserView):
                minute_step=5):
         """Returns a dict with date information.
         """
-
         ptool = getToolByName(self.context, 'portal_properties')
 
         site_props = ptool.site_properties
@@ -46,7 +47,6 @@ class DateComponents(BrowserView):
         context = aq_inner(self.context)
         portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
 
-        locale = portal_state.locale()
         dates = portal_state.locale().dates
 
         timepattern = dates.getFormatter('time').getPattern()
@@ -90,6 +90,10 @@ class DateComponents(BrowserView):
         # Anything above PLONE_CEILING should be PLONE_CEILING
         if date.greaterThan(PLONE_CEILING):
             date = PLONE_CEILING
+
+        # Represent the date in the local timezone
+        local_zone = date.localZone(localtime(date.timeTime()))
+        date = date.toZone(local_zone)
 
         # Get portal year range
         if starting_year is None:
@@ -154,11 +158,11 @@ class DateComponents(BrowserView):
         if use_ampm:
             hours_range=[12]+range(1,12)
             hour_default='12'
-            hour=int(date.strftime('%I'))
+            hour=int(date.h_12())
         else:
             hours_range=range(0,24)
             hour_default='00'
-            hour=int(date.strftime('%H'))
+            hour=int(date.h_24())
 
         if default:
             hours.append({'id': '--', 'value': hour_default, 'selected': 1})
