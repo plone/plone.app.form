@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b5 - unreleased
+2.0b5 - 2010-04-10
 ------------------
 
 - Make the date components view always represent the date in the local
