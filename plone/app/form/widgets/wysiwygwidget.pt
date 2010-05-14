@@ -18,12 +18,11 @@
                          member_editor      python: not isAnon and member.getProperty('wysiwyg_editor').lower() or '';
                          default_editor     python: context.portal_properties.site_properties.getProperty('default_editor', '').lower();
                          editor             python: member_editor=='' and default_editor or member_editor;
-                         support            python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/portal_skins/plone_wysiwyg/wysiwyg_support' % (editor, editor));
-                         tabindex           nothing">
+                         support            python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/portal_skins/plone_wysiwyg/wysiwyg_support' % (editor, editor));">
         <div metal:use-macro="support/macros/wysiwygEditorBox">
             The WYSIWYG code
         </div>
     </tal:editor>
-  
+
 </div>
 </html>
