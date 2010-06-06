@@ -1,3 +1,4 @@
+from five.formlib import formbase
 from zope.interface import implements
 from zope.component import getMultiAdapter, queryMultiAdapter
 from zope.formlib import form
@@ -6,7 +7,6 @@ import zope.event
 import zope.lifecycleevent
 
 from Acquisition import aq_inner, aq_parent
-from Products.Five.formlib import formbase
 
 from plone.app.form import PloneMessageFactory as _
 from plone.app.form.interfaces import IPlonePageForm

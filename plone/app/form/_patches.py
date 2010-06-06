@@ -1,5 +1,5 @@
 import logging
-from Products.Five.formlib import formbase
+from five.formlib import formbase
 
 def apply_patches():
 

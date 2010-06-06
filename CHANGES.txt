@@ -4,7 +4,10 @@ Changelog
 2.0b6 - unreleased
 ------------------
 
-- Remove tabindex deprecated html attribute 
+- Updated to use five.formlib.
+  [hannosch]
+
+- Remove tabindex deprecated html attribute.
   [edegoute]
 
 2.0b5 - 2010-04-10
