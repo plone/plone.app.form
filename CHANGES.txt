@@ -4,6 +4,9 @@ Changelog
 2.0b6 - unreleased
 ------------------
 
+- Explicitly load CMFCore's permissions and five.formlib ZCML.
+  [hannosch]
+
 - Updated to use five.formlib.
   [hannosch]
 
