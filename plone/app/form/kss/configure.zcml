@@ -14,31 +14,31 @@
         for="*"
         class=".validation.FormlibValidation"
         permission="zope2.View">
-        
+
       <browser:page
         name="kss_formlib_inline_validation"
         attribute="validate_input" />
-        
+
     </browser:pages>
-    
+
     <!-- Inline editing -->
     <browser:pages
         for="*"
         class=".edit.FormlibInlineEdit"
         permission="cmf.ModifyPortalContent">
-        
+
       <browser:page
         name="kss_formlib_inline_edit_begin"
         attribute="begin" />
-        
+
       <browser:page
         name="kss_formlib_inline_edit_cancel"
         attribute="cancel" />
-        
+
       <browser:page
         name="kss_formlib_inline_edit_save"
         attribute="save" />
-        
+
     </browser:pages>
 
 </configure>
