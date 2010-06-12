@@ -1,5 +1,7 @@
+import doctest
 import unittest
-from zope.testing import doctest, cleanup
+
+from zope.testing import cleanup
 from Products.Five import zcml
 
 try:

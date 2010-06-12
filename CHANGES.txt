@@ -4,6 +4,9 @@ Changelog
 2.0b6 - unreleased
 ------------------
 
+- Use the standard libraries doctest module.
+  [hannosch]
+
 - Explicitly load CMFCore's permissions and five.formlib ZCML.
   [hannosch]
 
