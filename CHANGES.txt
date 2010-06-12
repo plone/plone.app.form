@@ -4,6 +4,9 @@ Changelog
 2.0b6 - unreleased
 ------------------
 
+- Avoid deprecation warnings under Zope 2.13.
+  [hannosch]
+
 - Use the standard libraries doctest module.
   [hannosch]
 

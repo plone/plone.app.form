@@ -2,9 +2,12 @@ import doctest
 import unittest
 
 from zope.testing import cleanup
-from Products.Five import zcml
 
-optionflags =  (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
+# BBB Zope 2.12
+try:
+    from Zope2.App import zcml
+except ImportError:
+    from Products.Five import zcml
 
 
 def setUp(test):
@@ -26,6 +29,7 @@ def tearDown(test):
 
 
 def test_suite():
+    optionflags =  (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
     return unittest.TestSuite([
         doctest.DocFileSuite('widgets/uberselectionwidget.txt',
                              package='plone.app.form',

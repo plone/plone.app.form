@@ -2,7 +2,12 @@ import doctest
 import unittest
 
 from zope.testing import cleanup
-from Products.Five import zcml
+
+# BBB Zope 2.12
+try:
+    from Zope2.App import zcml
+except ImportError:
+    from Products.Five import zcml
 
 try:
     import kss.core
@@ -11,9 +16,6 @@ try:
     HAS_KSS = True
 except ImportError:
     HAS_KSS = False
-
-optionflags =  (doctest.ELLIPSIS |
-                doctest.NORMALIZE_WHITESPACE)
 
 
 def setUp(test):
@@ -42,6 +44,7 @@ def tearDown(test):
 
 def test_suite():
     if HAS_KSS:
+        optionflags = (doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
         return unittest.TestSuite([
             doctest.DocFileSuite('kss/formlib_kss.txt',
                                  package='plone.app.form',
