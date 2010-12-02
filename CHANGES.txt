@@ -4,6 +4,10 @@ Changelog
 2.0.1 - unreleased
 ------------------
 
+- Use the FileUploadWidget from CMFDefault as the default widget for the
+  FileUpload field from the same package (this was lost when CMFPlone
+  started excluding CMFDefault's ZCML.)
+  [davisagli]
 
 2.0 - 2010-07-18
 ----------------

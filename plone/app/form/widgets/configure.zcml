@@ -11,4 +11,12 @@
         allowed_interface=".interfaces.IDateComponents"
         />
 
+    <!-- use the FileUploadWidget from CMFDefault as the default
+         widget for the FileUpload field from that package;
+         the zcml in that package is excluded by CMFPlone -->
+    <adapter
+        factory="Products.CMFDefault.formlib.widgets.FileUploadWidget"
+        permission="zope.Public"
+        />
+
 </configure>
