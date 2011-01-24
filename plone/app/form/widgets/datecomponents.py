@@ -74,8 +74,12 @@ class DateComponents(BrowserView):
             date=date.strip()
             if not date:
                 date=None
-            elif date.split(' ')[-1].startswith('GMT'):
-                date=' '.join(date.split(' ')[:-1])
+            #elif date.split(' ')[-1].startswith('GMT'):
+            #    date=' '.join(date.split(' ')[:-1])
+            else:
+                dateParts = date.split(" ")
+                dateParts[0] = dateParts[0].replace("-", "/")
+                date=' '.join(dateParts)
 
         if date is None:
             date=now

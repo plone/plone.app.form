@@ -1,0 +1,74 @@
+CalendarWidget
+===================
+
+There are no tests for this at all and I want to make a change. This is 
+a scary adventure!
+
+  >>> from plone.app.form.widgets import datecomponents
+  >>> from zope.publisher.browser import TestRequest
+  >>> request = TestRequest()
+  >>> view = datecomponents.DateComponents(self.portal, request)
+  
+For some reason, the DateTime module parses the timezone differently if 
+a date is created with a "-" instead of a "/". Note that 
+this difference seems only to affect the timezone, nothing else. Dates 
+that enter here with a "-" go to "GMT-0" by default whereas "/" goes to 
+the server timezone (in my case this is "US/Pacific"). The bug:
+
+Note that this test won't work on a computer running on GMT+0.
+
+  >>> import DateTime
+  >>> him = DateTime.DateTime("2011/01/13")
+  >>> her = DateTime.DateTime("2011-01-13")
+  >>> her == him
+  False
+  >>> her._tz
+  'GMT+0'
+  >>> him._tz != her._tz
+  True
+
+So this wouldn't be an issue if the DateTime didn't later convert this
+to the localzone:
+  >>> her.strftime('%d')
+  '12'
+  >>> him.strftime('%d')
+  '13'
+
+It would be sane to fix it in the DateTime module, but I wouldn't wish 
+that task upon my worst enemy. So we can fix it here by replacing all 
+instances of "-" with "/" in the first part of a date string:
+  
+  >>> date = "2011-01-13"
+  >>> parts = view.result(date=date)
+  >>> parts['days'][13]['selected']
+  1
+  >>> date = "2011/01/13"
+  >>> parts = view.result(date=date)
+  >>> parts['days'][13]['selected']
+  1
+  
+Additionally, there was a note that DateTime didn't support GMT and then 
+was stripping it off. I don't think that is still the case and it 
+causes whacky jackiness for people who actually want to pass in time zones.
+For example, we can pass in GMT-8 here and it will correctly remap to
+US/Pacific using the localzone in the components code:
+
+  >>> date = "2011-01-13 01:30 GMT-8"
+  >>> parts = view.result(date=date)
+  >>> parts['days'][13]['selected']
+  1
+  >>> parts['hours'][2]['selected']
+  1
+  >>> parts['minutes'][7]['selected']
+  1
+  
+And to be sure, we also can't break other tz representations. I won't test 
+for time here because it will break half of every year do to daylight savings.
+
+  >>> date = "2011/01/13 01:30 US/Pacific"
+  >>> parts = view.result(date=date)
+  >>> parts['days'][13]['selected']
+  1
+  >>> parts['minutes'][7]['selected']
+  1
+
