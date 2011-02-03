@@ -67,15 +67,16 @@ class DateComponents(BrowserView):
         ampm=[]
         now=DateTime()
 
-        # This debacle is because the date that is usually passed in ends with GMT
-        # and of course DateTime is too stupid to handle it.  So we strip it off.
-
         if isinstance(date, basestring):
             date=date.strip()
             if not date:
                 date=None
-            elif date.split(' ')[-1].startswith('GMT'):
-                date=' '.join(date.split(' ')[:-1])
+            else:
+                # Please see datecomponents.txt for an explanation of 
+                # the next few lines. Also see #11423
+                dateParts = date.split(" ")
+                dateParts[0] = dateParts[0].replace("-", "/")
+                date=' '.join(dateParts)
 
         if date is None:
             date=now

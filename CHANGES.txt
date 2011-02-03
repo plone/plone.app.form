@@ -3,6 +3,9 @@ Changelog
 
 2.0.2 - Unreleased
 ------------------
+ - Stop stripping GMT when passed to widget display and replace dates
+   that have "-" with "/" so the proper timezone is applied. See #11423
+   [eleddy]
 
 2.0.1 - 2011-01-03
 ------------------
