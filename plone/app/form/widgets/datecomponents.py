@@ -164,7 +164,7 @@ class DateComponents(BrowserView):
             hours_range=range(0,24)
             hour_default='00'
             hour=int(date.h_24())
-
+        
         if default:
             hours.append({'id': '--', 'value': hour_default, 'selected': 1})
         else:
@@ -176,12 +176,16 @@ class DateComponents(BrowserView):
                 d['selected']=1
             hours.append(d)
 
-        minute=int(date.strftime('%M'))
-
         if default:
             minutes.append({'id': '--', 'value': '00', 'selected': 1})
         else:
             minutes.append({'id': '--', 'value': '00', 'selected': None})
+            
+        minute=int(date.strftime('%M'))
+        
+        if minute + minute_step >= 60:
+            # edge case. see doctest for explanation
+            minute = 60 - minute_step
 
         for x in range(0, 60, minute_step):
             d={'id': '%02d' % x, 'value': '%02d' % x, 'selected': None}

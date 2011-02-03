@@ -6,6 +6,9 @@ Changelog
  - Stop stripping GMT when passed to widget display and replace dates
    that have "-" with "/" so the proper timezone is applied. See #11423
    [eleddy]
+ - Fix edge case of dates that are greater than the last minute interval.
+   Now rounding down to last interval instead of returning "--". 
+   [eleddy]
 
 2.0.1 - 2011-01-03
 ------------------
