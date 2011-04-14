@@ -1,19 +1,25 @@
 Changelog
 =========
 
+
 2.0.3 - Unreleased
 ------------------
+
+- Add MANIFEST.in.
+  [WouterVH]
+
 
 2.0.2 - 2011-02-04
 ------------------
 
- - Stop stripping GMT when passed to widget display and replace dates
-   that have "-" with "/" so the proper timezone is applied. See #11423
-   [eleddy]
+- Stop stripping GMT when passed to widget display and replace dates
+  that have "-" with "/" so the proper timezone is applied. See #11423
+  [eleddy]
 
- - Fix edge case of dates that are greater than the last minute interval.
-   Now rounding down to last interval instead of returning "--". 
-   [eleddy]
+- Fix edge case of dates that are greater than the last minute interval.
+  Now rounding down to last interval instead of returning "--".
+  [eleddy]
+
 
 2.0.1 - 2011-01-03
 ------------------
@@ -23,11 +29,13 @@ Changelog
   started excluding CMFDefault's ZCML.)
   [davisagli]
 
+
 2.0 - 2010-07-18
 ----------------
 
 - Update license to GPL version 2 only.
   [hannosch]
+
 
 2.0b6 - 2010-06-13
 ------------------
@@ -47,12 +55,14 @@ Changelog
 - Remove tabindex deprecated html attribute.
   [edegoute]
 
+
 2.0b5 - 2010-04-10
 ------------------
 
 - Make the date components view always represent the date in the local
   timezone.
   [davisagli]
+
 
 2.0b4 - 2010-04-08
 ------------------
@@ -64,6 +74,7 @@ Changelog
 - Replace the required field indicator image with a unicode box.
   Refs http://dev.plone.org/plone/ticket/10352
   [davisagli, limi]
+
 
 2.0b3 - 2010-03-05
 ------------------
@@ -81,6 +92,7 @@ Changelog
   omitted by TAL.
   [rossp]
 
+
 2.0b2 - 2010-02-17
 ------------------
 
@@ -91,11 +103,13 @@ Changelog
 - Fixed macro call in add form page template.
   [do3cc]
 
+
 2.0b1 - 2009-12-27
 ------------------
 
 - Fixed package dependency declaration.
   [hannosch]
+
 
 2.0a2 - 2009-12-02
 ------------------
@@ -104,6 +118,7 @@ Changelog
   the localized title. So far it showed localized titles while keeping
   English ordering.
   [hannosch]
+
 
 2.0a1 - 2009-11-14
 ------------------
@@ -139,6 +154,7 @@ Changelog
   ViewPageTemplateFile in Zope 2.12.
   [davisagli]
 
+
 1.1.9 - Unreleased
 ------------------
 
@@ -146,6 +162,7 @@ Changelog
   There is no new strings to translate.
   See http://dev.plone.org/plone/ticket/9633
   [vincentfretin]
+
 
 1.1.8 - 2009-10-09
 ------------------
@@ -159,12 +176,14 @@ Changelog
   to use multi selection widget in the portlets, for example.
   [naro]
 
+
 1.1.7 - 2008-03-07
 ------------------
 
 - Fixed inline save of 'title' field raises 'Invalid request' error.
   This closes http://dev.plone.org/plone/ticket/8189.
   [deo]
+
 
 1.1.6 - 2008-11-21
 ------------------
@@ -183,6 +202,7 @@ Changelog
   of r19540.
   [elro]
 
+
 1.1.5 - 2008-08-18
 ------------------
 
@@ -198,94 +218,110 @@ Changelog
   widget. This closes http://dev.plone.org/plone/ticket/6988.
   [hannosch]
 
-plone.app.form - 1.1.0 Released April 20th, 2008
 
-    - Changed the patch warning to debug level. This is nothing the end users
-      have to see.
-      [hannosch]
+1.1.0 - 2008-04-20
+------------------
 
-plone.app.form - 1.1.0a1
+- Changed the patch warning to debug level. This is nothing the end users have
+  to see.
+  [hannosch]
 
-    - Improve KSS inline validation for complex widgets like the
-      UberSelectionwidget that require more than a single form value to
-      validate.
-      [optilude]
 
-    - PLIP202: add support for KSS validation and inline editing for formlib
-      forms
-      [optilude]
+1.1.0a1 - 2008-03-09
+--------------------
 
-plone.app.form - 1.0.5
+- Improve KSS inline validation for complex widgets like the UberSelectionwidget
+  that require more than a single form value to validate.
+  [optilude]
 
-    - For the USW:
-      Made description of search result and current selection items
-      consistent, always include the current selection fieldset (hidden if
-      empty) and added CSS classes to the current selection and search result
-      fieldsets.
-      [fschulze]
+- PLIP202: add support for KSS validation and inline editing for formlib forms.
+  [optilude]
 
-    - Fix widget error rendering in template (added structure keyword).
-      [ldr]
 
-plone.app.form - 1.0.4 Released December 6th, 2007
+1.0.5
+-----
 
-    - Omit first label tag completely instead of having an empty one for
-      checkboxes.
-      [fschulze]
+- For the USW:
+  Made description of search result and current selection items
+  consistent, always include the current selection fieldset (hidden if
+  empty) and added CSS classes to the current selection and search result
+  fieldsets.
+  [fschulze]
 
-    - Added id to wrapping div of the field for easy access for styles and
-      javascripts, the form is 'field-$fieldname'.
-      [fschulze]
+- Fix widget error rendering in template (added structure keyword).
+  [ldr]
 
-plone.app.form - 1.0.3 Released
 
-    - Changed template to render info messages as infos and error messages as
-      errors, instead of all messages (info and error both) as errors.
-      [derek_richardson]
+1.0.4 - 2007-12-06
+------------------
 
-    - Protect against funky aq_chains.
-      [hannosch, rafrombrc]
+- Omit first label tag completely instead of having an empty one for
+  checkboxes.
+  [fschulze]
 
-plone.app.form - 1.0.2 Released
+- Added id to wrapping div of the field for easy access for styles and
+  javascripts, the form is 'field-$fieldname'.
+  [fschulze]
 
-    - Fixed fall back to language name in LanguageDropdownChoiceWidget.
-      [hannosch]
 
-    - Added i18n markup to the formlib base templates, so the required message
-      will be translated the same way as in the rest of Plone. This closes
-      http://dev.plone.org/plone/ticket/7063.
-      [hannosch]
+1.0.3 - 2007-11-09
+------------------
 
-plone.app.form - 1.0.1 Released
+- Changed template to render info messages as infos and error messages as
+  errors, instead of all messages (info and error both) as errors.
+  [derek_richardson]
 
-    - Add a form validator that only validates an action when updating a
-      form. This makes it possible to add actions manually in the template
-      without having formlib autogenerate buttons in other places.
-      [wichert]
+- Protect against funky aq_chains.
+  [hannosch, rafrombrc]
 
-plone.app.form - 1.0 Released August 17, 2007
 
-    - Let the UberSelectionWidget handle optional fields properly.
-      [optilude]
+1.0.2 - 2007-10-08
+------------------
 
-    - Added a new LanguageDropdownChoiceWidget, which renders a dropdown widget
-      which is populated by a language vocabulary. The language names are then
-      localized based on the zope.i18n.locales information.
-      [hannosch]
+- Fixed fall back to language name in LanguageDropdownChoiceWidget.
+  [hannosch]
 
-    - Added a new DisabledCheckBoxWidget, which renders a disabled variant of
-      the CheckBoxWidget.
-      [hannosch]
+- Added i18n markup to the formlib base templates, so the required message
+  will be translated the same way as in the rest of Plone. This closes
+  http://dev.plone.org/plone/ticket/7063.
+  [hannosch]
 
-    - Keep existing date in the calendar widget in datecomponents.py. This
-      closes http://dev.plone.org/plone/ticket/5833.
-      [hannosch]
 
-plone.app.form - 1.0b1 Released March 5, 2007
+1.0.1
+-----
 
-    - Initial implementation.
-      [alecm, rocky, optilude]
+- Add a form validator that only validates an action when updating a
+  form. This makes it possible to add actions manually in the template
+  without having formlib autogenerate buttons in other places.
+  [wichert]
 
-    - Initial package structure.
-      [zopeskel]
+
+1.0 - 2007-08-17
+----------------
+
+- Let the UberSelectionWidget handle optional fields properly.
+  [optilude]
+
+- Added a new LanguageDropdownChoiceWidget, which renders a dropdown widget
+  which is populated by a language vocabulary. The language names are then
+  localized based on the zope.i18n.locales information.
+  [hannosch]
+
+- Added a new DisabledCheckBoxWidget, which renders a disabled variant of
+  the CheckBoxWidget.
+  [hannosch]
+
+- Keep existing date in the calendar widget in datecomponents.py. This
+  closes http://dev.plone.org/plone/ticket/5833.
+  [hannosch]
+
+
+1.0b1 - 2007-03-05
+------------------
+
+- Initial implementation.
+  [alecm, rocky, optilude]
+
+- Initial package structure.
+  [zopeskel]
 
