@@ -20,14 +20,14 @@
       />
 
   <adapter
-      for=".interfaces.IPageForm"
+      for="zope.formlib.interfaces.IPageForm"
       factory="plone.app.form.default_named_template_adapter"
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
 
   <adapter
-      for=".interfaces.ISubPageForm"
+      for="zope.formlib.interfaces.ISubPageForm"
       factory="plone.app.form.default_subpage_template"
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
