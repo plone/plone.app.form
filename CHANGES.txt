@@ -4,6 +4,11 @@ Changelog
 2.0.4 - unreleased
 ------------------
 
+- Added support for readonly, addonly and removeonly to multi USW. 
+  Warning! Readonly is implemented in code, but addonly and removeonly is 
+  only done in the UI! 
+  [fschulze,tesdal]
+
 - Added overrides for IPageForm and ISubPageForm as the monkeypatch
   breaks compatibility with five.formlib without restoring it in
   any other way if we don't import from plone.app.form

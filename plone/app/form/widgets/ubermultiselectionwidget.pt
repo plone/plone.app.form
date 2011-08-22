@@ -5,7 +5,10 @@
       tal:omit-tag="">
 <fieldset lang="en"
           xml:lang="en"
-          i18n:domain="plone">
+          i18n:domain="plone"
+          tal:define="readonly options/field/readonly|python:True;
+                      addonly options/field/addonly|python:False;
+                      removeonly options/field/removeonly|python:False;">
 
   <legend>
     <label for="fieldname"
@@ -22,7 +25,8 @@
       <input type="checkbox"
              checked="checked"
              tal:attributes="name string:${options/name}:list;
-                             value term/token" />
+                             value term/token;
+                             type python:(readonly or addonly) and 'hidden' or 'checkbox';" />
       <span tal:content="term/title" 
             tal:attributes="title term/description | nothing"/>
       <span class="discreet" 
@@ -31,7 +35,8 @@
     </div>
   </fieldset>
 
-  <div style="margin-bottom: 0.5em">
+  <div style="margin-bottom: 0.5em"
+       tal:condition="python: addonly or not (readonly or removeonly)">
       <input type="text"
              value=""
              tal:define="name string:${options/name}.query" 
@@ -80,7 +85,8 @@
     </p>
   </fieldset>
 
-  <div class="formControls">
+  <div class="formControls"
+       tal:condition="not:readonly">
     <input type="hidden" value="y"
            tal:attributes="name string:${options/name}.displayed" />
 
