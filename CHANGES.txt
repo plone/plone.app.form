@@ -1,17 +1,17 @@
 Changelog
 =========
 
-2.0.4 - unreleased
+2.0.4 - 2011-10-06
 ------------------
 
-- Added support for readonly, addonly and removeonly to multi USW. 
-  Warning! Readonly is implemented in code, but addonly and removeonly is 
-  only done in the UI! 
-  [fschulze,tesdal]
+- Added support for readonly, addonly and removeonly to multi USW.
+  Warning! Readonly is implemented in code, but addonly and removeonly is
+  only done in the UI!
+  [fschulze, tesdal]
 
 - Added overrides for IPageForm and ISubPageForm as the monkeypatch
   breaks compatibility with five.formlib without restoring it in
-  any other way if we don't import from plone.app.form
+  any other way if we don't import from plone.app.form.
   [tesdal]
 
 2.0.3 - 2011-07-13
@@ -187,7 +187,7 @@ Changelog
   configurable by a simple variable called `limit_results` on the widget.
   [hannosch]
 
-- Fixed return value of multi selection widget _value method. The template 
+- Fixed return value of multi selection widget _value method. The template
   tries to get len() of the value, but fails if the value is None. This allows
   to use multi selection widget in the portlets, for example.
   [naro]
