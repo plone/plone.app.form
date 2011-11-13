@@ -36,4 +36,9 @@ def test_suite():
                              setUp=setUp,
                              tearDown=tearDown,
                              optionflags=optionflags),
+        doctest.DocFileSuite('widgets/checkboxwidget.txt',
+                             package='plone.app.form',
+                             setUp=setUp,
+                             tearDown=tearDown,
+                             optionflags=optionflags),
         ])

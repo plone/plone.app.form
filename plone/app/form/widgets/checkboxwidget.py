@@ -12,27 +12,21 @@ class CheckBoxWidget(BaseWidget):
 
     def __init__(self, context, request):
         BaseWidget.__init__(self, context, request)
-        self.required = self.__required = False
-        self.__name = self.name
-        self.name = ""
+        self.required = False
+        self.__required = context.required
         self.label = ""
         self.hint = ""
 
     disabled = False
-
-    def error(self):
-        return ""
 
     def __call__( self ):
         """Render the widget to HTML."""
         value = self._getFormValue()
         html = "<label for='%s'>%s</label>\n" % (self.name , translate(self.context.title, context=self.request))
         if self.__required:
-            html += "<span class='fieldRequired' title='%s'>%s</span>" % (translate(_(u'title_required', default='Required'), context=self.request), translate(_(u'label_required', default='(Required)'), context=self.request))
+            html += "<span class='required' style='color: #f00;' title='%s'>&#x25a0;</span>" % (translate(_(u'title_required', default='Required'), context=self.request))
         if self.context.description:
             html += "<div class='formHelp'>%s</div>" % translate(self.context.description, context=self.request)
-        if super(BaseWidget, self).error() != '':
-            html += "<div>%s</div>" % translate(super(BaseWidget, self).error(), context=self.request)
         
         if value == 'on':
             kw = {'checked': 'checked'}
