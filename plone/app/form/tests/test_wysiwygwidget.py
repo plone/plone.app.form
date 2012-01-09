@@ -29,21 +29,19 @@ class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
         editor = member.getProperty('wysiwyg_editor', '').lower()
 
         # let's add a custom editor
-        # with a fake skin that should be catched
+        # with a fake skin that should be changed
         # to provide a custom macro
         site = getSite()
-        class  MyMacros(object):
-            def wysiwygEditorBox(self):
-                return (('version', '1.6'), ('mode', 'html'))
-        class MySkin(object):
-            macros = MyMacros()
-        site.cool_editor_wysiwyg_support = MySkin()
+        orig = site.portal_skins.plone_wysiwyg.wysiwyg_support
+        site.portal_skins.custom.cooleditor__wysiwyg_support = orig
 
         # let's change it to `cool_editor`
         member.setMemberProperties({'wysiwyg_editor': 'cool_editor'})
 
         w = WYSIWYGWidget(MyField(), TestRequest())
+        # The test is that this call does not give an error:
         cool_editor = w()
+
 
 def test_suite():
     from unittest import TestSuite, makeSuite
