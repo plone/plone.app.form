@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.5 - unreleased
+2.0.5 (2012-01-26)
 ------------------
 
 - Fix the CheckBoxWidget to work properly with required fields and
