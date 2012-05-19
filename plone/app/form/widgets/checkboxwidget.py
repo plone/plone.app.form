@@ -1,7 +1,7 @@
-from zope.app.form.browser.widget import renderElement
+from zope.formlib.widget import renderElement
 from zope.i18nmessageid import MessageFactory
 from zope.i18n import translate
-from zope.app.form.browser import CheckBoxWidget as BaseWidget
+from zope.formlib.boolwidgets import CheckBoxWidget as BaseWidget
 
 _ = MessageFactory('plone')
 

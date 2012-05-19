@@ -1,10 +1,10 @@
-from zope.app.form.browser.textwidgets import TextWidget
+from zope.formlib.textwidgets import TextWidget
 
 from Acquisition import aq_parent
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from zope.site.hooks import getSite
+from zope.component.hooks import getSite
 
 
 class WYSIWYGWidget(TextWidget):

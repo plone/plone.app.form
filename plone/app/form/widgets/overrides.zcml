@@ -8,7 +8,7 @@
     <view
       type="zope.publisher.interfaces.browser.IBrowserRequest"
       for="zope.schema.interfaces.IBool"
-      provides="zope.app.form.interfaces.IInputWidget"
+      provides="zope.formlib.interfaces.IInputWidget"
       factory=".CheckBoxWidget"
       permission="zope.Public"
       />

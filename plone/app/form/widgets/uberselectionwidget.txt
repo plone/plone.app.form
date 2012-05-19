@@ -43,7 +43,7 @@ An adapter to ITerms.
 
 An adapter to ISourceQueryView to make the source searchable.
 
-  >>> from zope.app.form.browser.interfaces import ISourceQueryView
+  >>> from zope.formlib.interfaces import ISourceQueryView
 
   >>> class ListQueryView:
   ...

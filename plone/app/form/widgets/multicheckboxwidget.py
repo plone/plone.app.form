@@ -1,5 +1,5 @@
-from zope.app.form.browser.widget import renderElement
-from zope.app.form.browser import MultiCheckBoxWidget as BaseWidget
+from zope.formlib.widget import renderElement
+from zope.formlib.itemswidgets import MultiCheckBoxWidget as BaseWidget
 
 
 class MultiCheckBoxWidget(BaseWidget):

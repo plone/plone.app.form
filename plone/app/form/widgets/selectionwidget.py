@@ -1,4 +1,4 @@
-from zope.app.form.browser.itemswidgets import DropdownWidget
+from zope.formlib.itemswidgets import DropdownWidget
 from zope.component import queryMultiAdapter
 
 

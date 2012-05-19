@@ -4,7 +4,7 @@ from zope.component import getMultiAdapter
 from zope.event import notify
 
 from zope import lifecycleevent
-from zope.app.form.interfaces import IDisplayWidget
+from zope.formlib.interfaces import IDisplayWidget
 from zope.formlib import form as formlib
 
 from kss.core import kssaction

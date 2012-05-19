@@ -2,10 +2,10 @@ from zope.browser.interfaces import ITerms
 from zope.component import getMultiAdapter
 from zope.schema.interfaces import ValidationError
 
-from zope.app.form.interfaces import WidgetInputError
-from zope.app.form.browser.interfaces import \
-    ISourceQueryView, IWidgetInputErrorView
-from zope.app.form.browser.widget import SimpleInputWidget
+from zope.formlib.interfaces import WidgetInputError
+from zope.formlib.interfaces import ISourceQueryView
+from zope.formlib.interfaces import IWidgetInputErrorView
+from zope.formlib.widget import SimpleInputWidget
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
