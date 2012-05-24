@@ -5,6 +5,7 @@ from zope.formlib.boolwidgets import CheckBoxWidget as BaseWidget
 
 _ = MessageFactory('plone')
 
+
 class CheckBoxWidget(BaseWidget):
     """ Plone specific widget that is going to show the checkbox widget on the left of the label
         in order to do that we remove the title / label / required
@@ -19,15 +20,16 @@ class CheckBoxWidget(BaseWidget):
 
     disabled = False
 
-    def __call__( self ):
+    def __call__(self):
         """Render the widget to HTML."""
         value = self._getFormValue()
-        html = "<label for='%s'>%s</label>\n" % (self.name , translate(self.context.title, context=self.request))
+        html = "<label for='%s'>%s" % (self.name, translate(self.context.title, context=self.request))
         if self.__required:
             html += "<span class='required' title='%s'>&nbsp;</span>" % (translate(_(u'title_required', default='Required'), context=self.request))
         if self.context.description:
-            html += "<div class='formHelp'>%s</div>" % translate(self.context.description, context=self.request)
-        
+            html += "<span class='formHelp'>%s</span>" % translate(self.context.description, context=self.request)
+        html += "</label>\n"
+
         if value == 'on':
             kw = {'checked': 'checked'}
         else:
@@ -37,8 +39,8 @@ class CheckBoxWidget(BaseWidget):
         return "%s  %s %s" % (
             renderElement(self.tag,
                           type='hidden',
-                          name=self.name+".used",
-                          id=self.name+".used",
+                          name=self.name + ".used",
+                          id=self.name + ".used",
                           value=""
                           ),
             renderElement(self.tag,

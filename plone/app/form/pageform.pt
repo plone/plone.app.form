@@ -91,15 +91,15 @@
                                      tal:attributes="for widget/name">
                                 <span i18n:translate=""
                                       tal:content="widget/label">label</span>
+                                <span class="required" title="Required"
+                                      tal:condition="widget/required"
+                                      i18n:attributes="title title_required;">&nbsp;</span>
+                                <span class="formHelp"
+                                     i18n:translate=""
+                                     tal:content="description"
+                                     tal:condition="description"
+                                     >field description</span>
                               </label>
-                              <span class="required" title="Required"
-                                    tal:condition="widget/required"
-                                    i18n:attributes="title title_required;">&nbsp;</span>
-                              <div class="formHelp"
-                                   i18n:translate=""
-                                   tal:content="description"
-                                   tal:condition="description"
-                                   >field description</div>
                     	  <tal:comment tal:condition="nothing">
                     	    <!-- The structure keyword is necessary as Invariant strings have a
                     	         span tag. It is often useful to set Invariant errors on the
