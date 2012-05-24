@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.6 (unreleased)
+2.1 (unreleased)
 ------------------
 
 - Remove hard-coded required markers. Replaced by CSS in Plone 4.2.x.
