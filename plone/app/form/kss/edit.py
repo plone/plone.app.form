@@ -15,7 +15,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.locking.interfaces import ILockable
 
-from plone.app.form.kss.validation import validate_and_issue_message
 
 class FormlibInlineEdit(PloneKSSView):
     """KSS actions for formlib form inline editing
@@ -170,3 +169,28 @@ class FormlibInlineEdit(PloneKSSView):
         
             # unlock and remove the field
             self.cancel(fieldname)
+
+def validate_and_issue_message(ksscore, widget, fieldname, kssplone=None):
+    """A helper method also used by the inline editing view
+    """
+
+    error = None
+    try:
+        widget.getInputValue()
+    except:
+        pass
+    error = widget.error()
+
+    field_div = ksscore.getHtmlIdSelector('formfield-%s' % fieldname.replace('.', '-'))
+    error_box = ksscore.getCssSelector('#formfield-%s div.fieldErrorBox' % fieldname.replace('.', '-'))
+    
+    if error:
+        ksscore.replaceInnerHTML(error_box, error)
+        ksscore.addClass(field_div, 'error')
+    else:
+        ksscore.clearChildNodes(error_box)
+        ksscore.removeClass(field_div, 'error')
+        if kssplone is not None: 
+            kssplone.issuePortalMessage('')
+
+    return bool(error)
