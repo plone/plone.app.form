@@ -13,4 +13,22 @@
       permission="zope.Public"
       />
 
+  <adapter
+      for="zope.schema.interfaces.ITuple
+           zope.schema.interfaces.IField
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      provides="zope.formlib.interfaces.ISimpleInputWidget"
+      factory=".TupleSequenceWidget"
+      permission="zope.Public"
+      />
+
+  <adapter
+      for="zope.schema.interfaces.IList
+           zope.schema.interfaces.IField
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      provides="zope.formlib.interfaces.ISimpleInputWidget"
+      factory=".ListSequenceWidget"
+      permission="zope.Public"
+      />
+
 </configure>

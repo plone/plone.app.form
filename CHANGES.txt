@@ -4,8 +4,9 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Customize formlib sequencewidget in order to add originalValue attribute.
+  We need it to enable form unload protection for list fields on Plone forms.
+  [vipod]
 
 2.1 (2012-05-25)
 ----------------
