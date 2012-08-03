@@ -93,7 +93,16 @@ class DateComponents(BrowserView):
             date = PLONE_CEILING
 
         # Represent the date in the local timezone
-        local_zone = date.localZone(localtime(date.timeTime()))
+        try:
+            local_zone = date.localZone(localtime(date.timeTime()))
+        except ValueError:
+            # Dates before 1970 use a negative timeTime() value, which on
+            # on some platforms are not handled well and lead to a ValueError.
+            # In those cases, calculate the local timezone (which is DST based)
+            # from the same date in the *current year* instead. This is better
+            # than failing altogether!
+            timeZoneDate = DateTime(localtime().tm_year, *date.parts()[1:])
+            local_zone = date.localZone(localtime(timeZoneDate.timeTime()))
         date = date.toZone(local_zone)
 
         # Get portal year range

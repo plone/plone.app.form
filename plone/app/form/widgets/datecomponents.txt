@@ -126,5 +126,11 @@ And some backwards compatibility checks
   >>> parseDate(parts)
   (2011, '01', '13', '06', '00')
   
+Pre-epoch dates need to work too
+
+  >>> parts = view.result(date="1961/01/13 06:00 US/Pacific")
+  >>> parseDate(parts)
+  (1961, '01', '13', '06', '00')
+
   >>> DateTime.DateTime.localZone = realLocalZone
 
