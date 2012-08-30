@@ -1,16 +1,19 @@
 Changelog
 =========
 
-2.1.1 (unreleased)
+2.1.2 (Unreleased)
+------------------
+
+- Fix handling of timezones for dates before 1970 on platforms where
+  time.localtime cannot handle negative values (such as Windows).
+  [mj]
+
+2.1.1 (2012-08-04)
 ------------------
 
 - Customize formlib sequencewidget in order to add originalValue attribute.
   We need it to enable form unload protection for list fields on Plone forms.
   [vipod]
-
-- Fix handling of timezones for dates before 1970 on platforms where
-  time.localtime cannot handle negative values (such as Windows).
-  [mj]
 
 2.1 (2012-05-25)
 ----------------
