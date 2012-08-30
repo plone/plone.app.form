@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.2 (Unreleased)
+2.1.2 (2012-08-29)
 ------------------
 
 - Fix handling of timezones for dates before 1970 on platforms where
