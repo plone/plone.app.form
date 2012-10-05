@@ -80,7 +80,7 @@
   <browser:page
       name="formlib_validate_field"
       for="*"
-      class=".kss.validation.InlineValidationView"
+      class=".inline_validation.InlineValidationView"
       permission="zope2.View"
       />
 
