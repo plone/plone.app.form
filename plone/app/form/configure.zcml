@@ -76,4 +76,12 @@
         handler="plone.locking.events.unlockAfterModification"
         />
 
+  <!-- Inline validation -->
+  <browser:page
+      name="formlib_validate_field"
+      for="*"
+      class=".kss.validation.InlineValidationView"
+      permission="zope2.View"
+      />
+
 </configure>

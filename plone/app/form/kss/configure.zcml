@@ -9,18 +9,6 @@
       name="plone.app.form.kss"
       />
 
-    <!-- Inline validation -->
-    <browser:pages
-        for="*"
-        class=".validation.FormlibValidation"
-        permission="zope2.View">
-
-      <browser:page
-        name="kss_formlib_inline_validation"
-        attribute="validate_input" />
-
-    </browser:pages>
-
     <!-- Inline editing -->
     <browser:pages
         for="*"
