@@ -2,20 +2,17 @@
 Formlib inline validation
 =========================
 
-This doctest demonstrates KSS-based inline validation and editing for formlib
-forms.
+This doctest demonstrates inline validation and editing for formlib forms.
 
-First, let's set up KSS debug mode:
+First, let's set up the tests:
 
     >>> from zope.interface import alsoProvides
-    >>> from kss.core.tests.base import IDebugRequest
     >>> from zope.publisher.browser import TestRequest
     >>> from zope.annotation.interfaces import IAttributeAnnotatable
 
     >>> def make_request(form={}):
     ...     request = TestRequest()
     ...     request.form.update(form)
-    ...     alsoProvides(request, IDebugRequest)
     ...     alsoProvides(request, IAttributeAnnotatable)
     ...     return request
 

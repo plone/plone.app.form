@@ -33,10 +33,6 @@ setup(name='plone.app.form',
             'zope.testing',
             'Products.PloneTestCase',
         ],
-        kss=[
-            'kss.core',
-            'plone.app.kss',
-        ],
       ),
       install_requires=[
         'setuptools',
