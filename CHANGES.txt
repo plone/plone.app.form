@@ -4,7 +4,8 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed TypeError in DateComponents.resault()
+  [yangh]
 
 
 2.2.1 (2013-01-01)
