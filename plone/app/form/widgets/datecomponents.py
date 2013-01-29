@@ -192,6 +192,9 @@ class DateComponents(BrowserView):
             
         minute=int(date.strftime('%M'))
         
+        if minute_step is None:
+            minute_step = 5
+
         if minute + minute_step >= 60:
             # edge case. see doctest for explanation
             minute = 60 - minute_step
