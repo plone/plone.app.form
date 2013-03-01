@@ -51,24 +51,11 @@ we un-monkey patch.
 
   >>> DateTime.DateTime.localZone = realLocalZone
 
-It would be sane to fix it in the DateTime module, but I wouldn't wish 
-that task upon my worst enemy. So we can fix it here by replacing all 
-instances of "-" with "/" in the first part of a date string:
-  
-  >>> date = "2011-01-13"
-  >>> parts = view.result(date=date)
-  >>> parts['days'][13]['selected']
-  1
-  >>> date = "2011/01/13"
-  >>> parts = view.result(date=date)
-  >>> parts['days'][13]['selected']
-  1
-  
 Helper function to parse through the next return values without losing 
 whatever sanity is left
   >>> def parseDate(parts):
   ...   date = ()
-  ...   sections = ['years', 'months', 'days', 'hours', 'minutes']
+  ...   sections = ['hours', 'minutes']
   ...   for section in sections:
   ...       for item in parts[section]:
   ...           if item['selected'] == 1:
@@ -86,12 +73,12 @@ test case doesn't fail):
   >>> date = "2011-01-13 01:30 GMT-5"
   >>> parts = view.result(date=date)
   >>> parseDate(parts)
-  (2011, '01', '12', '22', '30')
+  ('2011-01-12', '22', '30')
   
 And to be sure, we also can't break other tz representations. I won't test 
 for time here because it will break half of every year do to daylight savings.
 
-  >>> date = "2011/01/13 01:30 US/Pacific"
+  >>> date = "2011-01-13 01:30 US/Pacific"
   >>> parts = view.result(date=date)
   >>> parseDate(parts)
   (2011, '01', '13', '01', '30')
@@ -102,33 +89,33 @@ are greater than the the last interval. Instead of  messing with logic about
 rounding to the next hour then the next day, etc, etc... let's just round down 
 to the last interval
 
-  >>> date = "2011/01/13 05:59 US/Pacific"
+  >>> date = "2011-01-13 05:59 US/Pacific"
   >>> parts = view.result(date=date)
   >>> parseDate(parts)
   (2011, '01', '13', '05', '55')
   
 And some backwards compatibility checks
 
-  >>> date = "2011/01/13 05:55 US/Pacific"
+  >>> date = "2011-01-13 05:55 US/Pacific"
   >>> parts = view.result(date=date)
   >>> parseDate(parts)
   (2011, '01', '13', '05', '55')
    
-  >>> parts = view.result(date="2011/01/13 05:47 US/Pacific")
+  >>> parts = view.result(date="2011-01-13 05:47 US/Pacific")
   >>> parseDate(parts)
   (2011, '01', '13', '05', '50')
   
-  >>> parts = view.result(date="2011/01/13 05:51 US/Pacific")
+  >>> parts = view.result(date="2011-01-13 05:51 US/Pacific")
   >>> parseDate(parts)
   (2011, '01', '13', '05', '55')
   
-  >>> parts = view.result(date="2011/01/13 06:00 US/Pacific")
+  >>> parts = view.result(date="2011-01-13 06:00 US/Pacific")
   >>> parseDate(parts)
   (2011, '01', '13', '06', '00')
   
 Pre-epoch dates need to work too
 
-  >>> parts = view.result(date="1961/01/13 06:00 US/Pacific")
+  >>> parts = view.result(date="1961-01-13 06:00 US/Pacific")
   >>> parseDate(parts)
   (1961, '01', '13', '06', '00')
 

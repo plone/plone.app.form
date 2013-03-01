@@ -16,15 +16,6 @@ FLOOR=DateTime(1970, 0)
 PLONE_CEILING=DateTime(2021,0) # 2020-12-31
 
 
-def english_month_names():
-    names={}
-    for x in range(1,13):
-        faux=DateTime(2004, x, 1)
-        names[x]=faux.Month()
-    return names
-
-ENGLISH_MONTH_NAMES=english_month_names()
-
 class DateComponents(BrowserView):
     """A view that provides some helper methods useful in date widgets.
     """
@@ -45,23 +36,21 @@ class DateComponents(BrowserView):
 
         # Get the date format from the locale
         context = aq_inner(self.context)
-        portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+        portal_state = getMultiAdapter((context, self.request),
+                                       name=u'plone_portal_state')
 
         dates = portal_state.locale().dates
 
         timepattern = dates.getFormatter('time').getPattern()
         if 'a' in timepattern:
              use_ampm = True
-        month_names = dates.getFormatter('date').calendar.months
 
-        # 'id' is what shows up.  December for month 12. 
+        # 'id' is what shows up. 
         # 'value' is the value for the form.
         # 'selected' is whether or not it is selected.
 
         default=0
         years=[]
-        days=[]
-        months=[]
         hours=[]
         minutes=[]
         ampm=[]
@@ -71,12 +60,6 @@ class DateComponents(BrowserView):
             date=date.strip()
             if not date:
                 date=None
-            else:
-                # Please see datecomponents.txt for an explanation of 
-                # the next few lines. Also see #11423
-                dateParts = date.split(" ")
-                dateParts[0] = dateParts[0].replace("-", "/")
-                date=' '.join(dateParts)
 
         if date is None:
             date=now
@@ -124,46 +107,7 @@ class DateComponents(BrowserView):
                 min_year = date.year()
             if max_year < date.year():
                 max_year = date.year()
-
-        year=int(date.strftime('%Y'))
-
-        if default:
-            years.append({'id': '--', 'value': '0000', 'selected': 1})
-        else:
-            years.append({'id': '--', 'value': '0000', 'selected': None})
-
-        for x in range(min_year, max_year+1):
-            d={'id': x, 'value': x, 'selected': None}
-            if x==year and not default:
-                d['selected']=1
-            years.append(d)
-
-        month=int(date.strftime('%m'))
-
-        if default:
-            months.append({'id': '--', 'value': '00', 'selected': 1, 'title': '--'})
-        else:
-            months.append({'id': '--', 'value': '00', 'selected': None, 'title': '--'})
-
-        for x in range(1, 13):
-            d={'id': ENGLISH_MONTH_NAMES[x], 'value': '%02d' % x, 'selected': None}
-            if x==month and not default:
-                d['selected']=1
-            d['title']=month_names[x][0]
-            months.append(d)
-
-        day=int(date.strftime('%d'))
-
-        if default:
-            days.append({'id': '--', 'value': '00', 'selected': 1})
-        else:
-            days.append({'id': '--', 'value': '00', 'selected': None})
-
-        for x in range(1, 32):
-            d={'id': x, 'value': '%02d' % x, 'selected': None}
-            if x==day and not default:
-                d['selected']=1
-            days.append(d)
+        years = [min_year, max_year]
 
         if use_ampm:
             hours_range=[12]+range(1,12)
@@ -216,5 +160,5 @@ class DateComponents(BrowserView):
                     d['selected']=1
                 ampm.append(d)
 
-        return {'years': years, 'months': months, 'days': days,
+        return {'years': years, 'date': date.strftime('%Y-%m-%d'),
                 'hours': hours, 'minutes': minutes, 'ampm': ampm}
