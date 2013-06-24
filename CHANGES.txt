@@ -4,7 +4,9 @@ Changelog
 2.2.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Decode form data prior to inline validation.
+  This fixes https://dev.plone.org/ticket/13639
+  [davisagli]
 
 
 2.2.2 (2013-03-05)
