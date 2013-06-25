@@ -6,14 +6,13 @@ This doctest demonstrates inline validation and editing for formlib forms.
 
 First, let's set up the tests:
 
+    >>> from Acquisition import Acquirer
     >>> from zope.interface import alsoProvides
-    >>> from zope.publisher.browser import TestRequest
-    >>> from zope.annotation.interfaces import IAttributeAnnotatable
+    >>> from Testing.makerequest import makerequest
 
     >>> def make_request(form={}):
-    ...     request = TestRequest()
+    ...     request = makerequest(Acquirer()).REQUEST
     ...     request.form.update(form)
-    ...     alsoProvides(request, IAttributeAnnotatable)
     ...     return request
 
 Then, we will create a simple test form and a context for it to operate on.
