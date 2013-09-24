@@ -125,7 +125,7 @@ class DateComponents(BrowserView):
             if max_year < date.year():
                 max_year = date.year()
 
-        year=int(date.strftime('%Y'))
+        year=date.year()
 
         if default:
             years.append({'id': '--', 'value': '0000', 'selected': 1})
@@ -138,7 +138,7 @@ class DateComponents(BrowserView):
                 d['selected']=1
             years.append(d)
 
-        month=int(date.strftime('%m'))
+        month=date.month()
 
         if default:
             months.append({'id': '--', 'value': '00', 'selected': 1, 'title': '--'})
@@ -152,7 +152,7 @@ class DateComponents(BrowserView):
             d['title']=month_names[x][0]
             months.append(d)
 
-        day=int(date.strftime('%d'))
+        day=date.day()
 
         if default:
             days.append({'id': '--', 'value': '00', 'selected': 1})
@@ -189,9 +189,9 @@ class DateComponents(BrowserView):
             minutes.append({'id': '--', 'value': '00', 'selected': 1})
         else:
             minutes.append({'id': '--', 'value': '00', 'selected': None})
-            
-        minute=int(date.strftime('%M'))
-        
+
+        minute=date.minute()
+
         if minute_step is None:
             minute_step = 5
 
