@@ -134,3 +134,9 @@ Pre-epoch dates need to work too
 
   >>> DateTime.DateTime.localZone = realLocalZone
 
+Test date before 1900 (usual problem with strftime)
+
+  >>> date = "1899-07-26 22:00 GMT+1"
+  >>> parts = view.result(date=date)
+  >>> parseDate(parts)
+  (1899, '07', '26', '22', '00')
