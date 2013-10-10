@@ -85,7 +85,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         request = TestRequest()
         widget = ListSequenceWidget(
             self.field, self.field.value_type, request)
-        self.failIf(widget.hasInput())
+        self.assertFalse(widget.hasInput())
         self.assertRaises(MissingInputError, widget.getInputValue)
 
         request = TestRequest(form={'field.foo.add': u'Add bar',
@@ -100,13 +100,13 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         widget = ListSequenceWidget(
             self.field, self.field.value_type, request)
         self.assert_(widget.hasInput())
-        self.assertEquals(widget.getInputValue(), [u'Hello world!'])
+        self.assertEqual(widget.getInputValue(), [u'Hello world!'])
 
     def test_new(self):
         request = TestRequest()
         widget = TupleSequenceWidget(
             self.field, self.field.value_type, request)
-        self.failIf(widget.hasInput())
+        self.assertFalse(widget.hasInput())
         self.assertRaises(MissingInputError, widget.getInputValue)
         check_list = ('input', 'name="field.foo.add"')
         self.verifyResult(widget(), check_list)
@@ -130,14 +130,14 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         widget = TupleSequenceWidget(
             self.field, self.field.value_type, request)
         self.assert_(widget.hasInput())
-        self.assertEquals(widget.getInputValue(), (u'Hello world!',))
+        self.assertEqual(widget.getInputValue(), (u'Hello world!',))
 
     def test_existing(self):
         request = TestRequest()
         widget = TupleSequenceWidget(
             self.field, self.field.value_type, request)
         widget.setRenderedValue((u'existing',))
-        self.failIf(widget.hasInput())
+        self.assertFalse(widget.hasInput())
         self.assertRaises(MissingInputError, widget.getInputValue)
         check_list = (
             'checkbox', 'field.foo.remove_0', 'input', 'field.foo.0.bar',
@@ -147,7 +147,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         )
         self.verifyResult(widget(), check_list, inorder=True)
         widget.setRenderedValue((u'existing', u'second'))
-        self.failIf(widget.hasInput())
+        self.assertFalse(widget.hasInput())
         self.assertRaises(MissingInputError, widget.getInputValue)
         check_list = (
             'checkbox', 'field.foo.remove_0', 'input', 'field.foo.0.bar',
@@ -168,7 +168,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         widget = TupleSequenceWidget(
             self.field, self.field.value_type, request)
         widget.setRenderedValue((u'existing', u'second'))
-        self.assertEquals(widget.getInputValue(), (u'second',))
+        self.assertEqual(widget.getInputValue(), (u'second',))
         check_list = (
             'checkbox', 'field.foo.remove_0', 'input', 'field.foo.0.bar',
                 'existing',
@@ -193,7 +193,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         )
         s = widget()
         self.verifyResult(s, check_list, inorder=True)
-        self.assertEquals(s.find('checkbox'), -1)
+        self.assertEqual(s.find('checkbox'), -1)
 
     def test_max(self):
         request = TestRequest()
@@ -203,7 +203,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         widget.setRenderedValue((u'existing',))
         self.assertRaises(MissingInputError, widget.getInputValue)
         s = widget()
-        self.assertEquals(s.find('field.foo.add'), -1)
+        self.assertEqual(s.find('field.foo.add'), -1)
 
     def test_anonymousfield(self):
         self.field = Tuple(__name__=u'foo', value_type=TextLine())
@@ -231,7 +231,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         widget()
 
         data = widget._generateSequence()
-        self.assertEquals(data, [None, u'nonempty'])
+        self.assertEqual(data, [None, u'nonempty'])
 
     def doctest_widgeterrors(self):
         """Test that errors on subwidgets appear
