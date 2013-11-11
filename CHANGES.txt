@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.3.0 (unreleased)
+------------------
+
+- Move date_components_support view to Products.Archetypes.
+  [davisagli]
+
+
 2.2.4 (unreleased)
 ------------------
 
