@@ -1,3 +1,7 @@
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from plone.app.controlpanel.interfaces import IEditingSchema
+
 from zope.formlib.textwidgets import TextWidget
 
 from Acquisition import aq_parent
@@ -32,6 +36,11 @@ class WYSIWYGWidget(TextWidget):
         site = getSite()
         while site is not None and not ISiteRoot.providedBy(site):
             site = aq_parent(site)
-        
+
         return self.template(form_context=site,
                              value=value)
+
+    def default_editor(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IEditingSchema)
+        return settings.default_editor.lower()

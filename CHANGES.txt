@@ -4,6 +4,10 @@ Changelog
 2.3.0 (unreleased)
 ------------------
 
+- Read the default_editor setting from plone.app.registry instead of from the
+  portal properties. This release will works on Plone 5 only.
+  [timo]
+
 - Move date_components_support view to Products.Archetypes.
   [davisagli]
 
@@ -11,7 +15,7 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-- Fixed ValueError in DateComponents.result() with a date before 1900. 
+- Fixed ValueError in DateComponents.result() with a date before 1900.
   [bsuttor]
 
 
