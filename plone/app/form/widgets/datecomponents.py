@@ -13,7 +13,7 @@ from interfaces import IDateComponents
 
 CEILING=DateTime(9999, 0)
 FLOOR=DateTime(1970, 0)
-PLONE_CEILING=DateTime(2021,0) # 2020-12-31
+PLONE_CEILING=DateTime(2500,0) # 2499-12-31
 
 
 def english_month_names():

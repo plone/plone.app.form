@@ -139,4 +139,18 @@ Test date before 1900 (usual problem with strftime)
   >>> parseDate(parts)
   (1899, '07', '26', '22', '00')
 
+Test date before 2499
+
+  >>> date = "2499-12-30 08:00 US/Pacific"
+  >>> parts = view.result(date=date)
+  >>> parseDate(parts)
+  (2499, '12', '30', '08', '00')
+
   >>> DateTime.DateTime.localZone = realLocalZone
+
+Test date after 2500
+
+  >>> date = "2501-01-30 22:00 US/Pacific"
+  >>> parts = view.result(date=date)
+  >>> parseDate(parts)
+  (2499, '12', '31', '00', '00')
