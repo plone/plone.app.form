@@ -11,26 +11,26 @@
 <metal:main fill-slot="main">
 
     <metal:form metal:define-macro="form">
-    <metal:override define-slot="main">    
-    
-        <tal:status define="status view/status" condition="status">
-            <dl class="portalMessage error"
-                tal:condition="view/errors">
-                <dt i18n:translate="">
-                    Error
-                </dt>
-                <dd tal:content="status" />
-            </dl>
+    <metal:override define-slot="main">
 
-            <dl class="portalMessage info"
+        <tal:status define="status view/status" condition="status">
+            <div class="portalMessage error"
+                tal:condition="view/errors">
+                <strong i18n:translate="">
+                    Error
+                </strong>
+                <span tal:replace="status" />
+            </div>
+
+            <div class="portalMessage info"
                 tal:condition="not: view/errors">
-                <dt i18n:translate="">
+                <strong i18n:translate="">
                     Info
-                </dt>
-                <dd tal:content="status" />
-            </dl>
+                </strong>
+                <span tal:replace="status" />
+            </div>
         </tal:status>
-    
+
         <h1  class="documentFirstHeading"
              i18n:translate=""
              tal:condition="view/label"
@@ -46,11 +46,11 @@
                                   class string:kssattr-formname-${view/__name__}"
                   method="post"
                   enctype="multipart/form-data"
-                  id="zc.page.browser_form">              
-              
+                  id="zc.page.browser_form">
+
                   <metal:block define-macro="header">
 
-                      <tal:block replace="nothing">  
+                      <tal:block replace="nothing">
                           <div class="form-status"
                            tal:define="status view/status"
                            tal:condition="status">
@@ -135,10 +135,10 @@
                         </span>
                       </div>
                   </fieldset>
-              
+
             </form>
-    
-    
+
+
             <script type="text/javascript"
                 tal:define="extra_script view/extra_script | nothing"
                 tal:condition="extra_script"

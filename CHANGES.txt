@@ -4,6 +4,10 @@ Changelog
 2.3.0 (unreleased)
 ------------------
 
+- Remove DL's from portal message in templates.
+  https://github.com/plone/Products.CMFPlone/issues/153
+  [khink]
+
 - Move date_components_support view to Products.Archetypes.
   [davisagli]
 
@@ -11,7 +15,7 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-- Fixed ValueError in DateComponents.result() with a date before 1900. 
+- Fixed ValueError in DateComponents.result() with a date before 1900.
   [bsuttor]
 
 
