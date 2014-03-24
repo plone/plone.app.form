@@ -14,10 +14,10 @@ if a date is created with a "-" instead of a "/". Dates
 that enter here with a "-" go to "GMT-0" by default whereas "/" goes to
 the server timezone (in my case this is "US/Pacific"). The bug:
 
-Note that this explanation won't work on certain timezones and
+Note that this test won't work on certain timezones and
 DateTime doesn't look at anything obvious to get the timezone
 info (like environment variables) so I'm going to patch the func
-that sets the timezone so that this explanation test doesn't
+that sets the timezone so that this test doesn't
 break on different timezones. If this test does break then, it
 means that the actual bug has been fixed. There maybe other signs
 such as pigs flying, locusts, etc...
@@ -28,7 +28,6 @@ such as pigs flying, locusts, etc...
   >>> def fakeLocalZone(self, ltm=None):
   ...    return TEST_TIME_ZONE
   >>> DateTime.DateTime.localZone = fakeLocalZone
-
 
   >>> him = DateTime.DateTime("2011/01/13")
   >>> her = DateTime.DateTime("2011-01-13")
@@ -89,7 +88,7 @@ test case doesn't fail):
   (2011, '01', '12', '22', '30')
 
 And to be sure, we also can't break other tz representations. I won't test
-for time here because it will break half of every year do to daylight savings.
+for time here because it will break half of every year due to daylight savings.
 
   >>> date = "2011/01/13 01:30 US/Pacific"
   >>> parts = view.result(date=date)
@@ -146,12 +145,18 @@ Test date before 2499
   >>> parseDate(parts)
   (2499, '12', '30', '08', '00')
 
-Test date after 2500
+Test date after 2500. First we need to make sure that PLONE_CEILING
+is in our fake test timezone, so that it doesn't get converted
+to a time that will vary depending on the timezone in which the
+test is run.
+
+  >>> from plone.app.form.widgets import datecomponents
+  >>> datecomponents.PLONE_CEILING = DateTime.DateTime(2500, 0)
 
   >>> date = "2501-01-30 22:00 US/Pacific"
   >>> parts = view.result(date=date)
   >>> parseDate(parts)
-  (2499, '12', '30', '20', '00')
+  (2499, '12', '31', '00', '00')
 
 un-monkey patch
   >>> DateTime.DateTime.localZone = realLocalZone
