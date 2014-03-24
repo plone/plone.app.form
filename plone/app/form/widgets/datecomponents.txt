@@ -160,3 +160,5 @@ test is run.
 
 un-monkey patch
   >>> DateTime.DateTime.localZone = realLocalZone
+  >>> datecomponents.PLONE_CEILING = DateTime.DateTime(2500, 0)
+
