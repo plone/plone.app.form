@@ -1,7 +1,13 @@
 Changelog
 =========
 
-2.3.0 (unreleased)
+2.3.1 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+2.3.0 (2014-02-26)
 ------------------
 
 - Remove DL's from portal message in templates.
