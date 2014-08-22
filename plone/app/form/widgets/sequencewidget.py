@@ -3,7 +3,7 @@ from zope.formlib.sequencewidget import SequenceWidget as BaseWidget
 class SequenceWidget(BaseWidget):
     """Plone specific widget that is going to include originalValue attribute
     within marker input element.
-    
+
     It'll be used to enable unload form protection for Remove, Add widget
     buttons usage.
     """

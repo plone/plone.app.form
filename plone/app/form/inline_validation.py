@@ -23,7 +23,7 @@ class InlineValidationView(BrowserView):
 
         raw_fname = fname[len(form.prefix) + 1:]
         formlib_field = form.form_fields[raw_fname]
- 
+
         widgets = formlib.setUpWidgets(
             (formlib_field,), form.prefix, context,
             request, form=form, adapters={}, ignore_request=False)

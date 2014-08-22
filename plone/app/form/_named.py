@@ -30,7 +30,7 @@ class NamedTemplateAdapter(object):
         context = aq_inner(self.context)
         context_of_context = aq_inner(context.context)
         view = context.__of__(context_of_context)
-        
+
         # self.default_template is a ViewPageTemplateFile, which is a property descriptor
         # whose __get__ method returns a BoundPageTemplate.  That expects to be accessed from
         # a view, but we're accessing it from a NamedTemplateAdapter so we have to be sneaky and
@@ -42,7 +42,7 @@ def named_template_adapter(template):
     template.
     """
 
-    new_class = new.classobj('GeneratedClass', 
+    new_class = new.classobj('GeneratedClass',
                              (NamedTemplateAdapter,),
                              {})
     if HAS_CHAMELEON:

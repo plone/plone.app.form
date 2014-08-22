@@ -23,7 +23,7 @@ Then, we will create a simple test form and a context for it to operate on.
     ...     title = schema.TextLine(title=u"Title", required=True)
     ...     text = schema.Text(title=u"Description")
     ...     size = schema.Int(title=u"Size")
-    
+
     >>> from plone.app.content.item import Item
     >>> from zope.interface import implements
     >>> class Wibble(Item):
@@ -32,7 +32,7 @@ Then, we will create a simple test form and a context for it to operate on.
     ...     text = u""
     ...     size = 0
 
-    
+
     >>> from zope.formlib import form
     >>> from plone.app.form import base
     >>> from Products.Five import BrowserView
@@ -74,10 +74,10 @@ validation enabled, it will be called with the following parameters:
     '{"errmsg": ""}'
 
 In this case, there is no validation error. The resulting payload should tell
-the client-side handler to remove any error message that may be showing 
+the client-side handler to remove any error message that may be showing
 currently.
 
-We can also invoke a validation error, for example if a required field is 
+We can also invoke a validation error, for example if a required field is
 missing:
 
     >>> request = make_request({'form.title': ''})
@@ -85,7 +85,7 @@ missing:
     >>> formlib_validate_input = getMultiAdapter((form, request,), name=u"formlib_validate_field")
     >>> formlib_validate_input(fname=u'form.title')
     '{"errmsg": "<span class=\\"error\\">Required input is missing.</span>"}'
-          
+
 And similarly, we will get an error if the field has an invalid value:
 
     >>> request = make_request({'form.size': 'X'})

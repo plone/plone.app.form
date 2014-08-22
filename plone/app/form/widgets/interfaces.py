@@ -3,7 +3,7 @@ from zope.interface import Interface
 class IDateComponents(Interface):
     """A view that provides some helper methods useful in date widgets.
     """
-    
+
     def result(date=None,
                use_ampm=0,
                starting_year=None,

@@ -137,7 +137,7 @@ Test multiselection
 And the widget itself.
 
   >>> widget = UberMultiSelectionWidget(selection, request)
-  
+
 Widget value should always be list
 
   >>> widget._value()

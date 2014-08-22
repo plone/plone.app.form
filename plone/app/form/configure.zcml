@@ -12,14 +12,14 @@
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
-  
+
   <adapter
       for=".interfaces.IPloneSubPageForm"
       factory="plone.app.form.default_subpage_template"
       name="default"
       provides="zope.formlib.namedtemplate.INamedTemplate"
       />
-      
+
   <adapter
       for="zope.formlib.interfaces.IAddFormCustomization"
       factory="plone.app.form.adding_named_template_adapter"
@@ -40,31 +40,31 @@
       name="base-subpageform.html"
       template="subpageform.pt"
       />
-      
+
   <!-- Let Five's add views look pretty in CMF/Plone -->
   <configure package="Products.CMFDefault.skin">
-      
+
       <browser:page
         name="five_template"
         for="zope.browser.interfaces.IAdding"
         template="five_template.pt"
         permission="zope2.View"
         />
-      
+
   </configure>
-  
+
   <!-- Support locking on content that is marked to support it and
    which uses plone.app.form.base.EditForm
    -->
-    
-    <subscriber 
+
+    <subscriber
         zcml:condition="installed plone.locking"
         for="plone.locking.interfaces.ITTWLockable
              .interfaces.IEditBegunEvent"
-        handler="plone.locking.events.lockOnEditBegins" 
+        handler="plone.locking.events.lockOnEditBegins"
         />
-    
-    <subscriber 
+
+    <subscriber
         zcml:condition="installed plone.locking"
         for="plone.locking.interfaces.ITTWLockable
              .interfaces.IEditFinishedEvent"

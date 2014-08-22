@@ -60,5 +60,5 @@ class CheckBoxWidget(BaseWidget):
 class DisabledCheckBoxWidget(CheckBoxWidget):
     """Simple variation of the CheckBoxWidget which renders itself disabled.
     """
-    
+
     disabled = True

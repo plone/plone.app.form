@@ -25,7 +25,7 @@ request, which seems to be no longer needed to have it work with Zope
   >>> bar.adapters = {}
   >>> action = bar.actions[u'form.actions.apply']
 
-Now we see if we can use EditFormBase's apply action (we couldn't 
+Now we see if we can use EditFormBase's apply action (we couldn't
 before).
 
   >>> bar = BarForm(foo, request)

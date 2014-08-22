@@ -32,6 +32,6 @@ class WYSIWYGWidget(TextWidget):
         site = getSite()
         while site is not None and not ISiteRoot.providedBy(site):
             site = aq_parent(site)
-        
+
         return self.template(form_context=site,
                              value=value)

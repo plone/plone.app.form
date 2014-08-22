@@ -9,7 +9,7 @@ class MultiCheckBoxWidget(BaseWidget):
     orientation = "vertical"
 
     _joinButtonToMessageTemplate = u"%s %s"
-    
+
     def renderItem(self, index, text, value, name, cssClass):
         id = '%s.%s' % (name, index)
         elem = renderElement('input',

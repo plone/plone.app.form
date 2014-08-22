@@ -17,7 +17,7 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-- Fixed ValueError in DateComponents.result() with a date before 1900. 
+- Fixed ValueError in DateComponents.result() with a date before 1900.
   [bsuttor]
 
 

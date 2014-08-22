@@ -27,9 +27,9 @@
              tal:attributes="name string:${options/name}:list;
                              value term/token;
                              type python:(readonly or addonly) and 'hidden' or 'checkbox';" />
-      <span tal:content="term/title" 
+      <span tal:content="term/title"
             tal:attributes="title term/description | nothing"/>
-      <span class="discreet" 
+      <span class="discreet"
             tal:condition="term/description | nothing"
             tal:content="term/description" />
     </div>
@@ -39,7 +39,7 @@
        tal:condition="python: addonly or not (readonly or removeonly)">
       <input type="text"
              value=""
-             tal:define="name string:${options/name}.query" 
+             tal:define="name string:${options/name}.query"
              tal:attributes="name name;
                              id options/name;
                              value request/?name | default" />
@@ -68,7 +68,7 @@
       <span tal:attributes="title term/description | nothing"
                 tal:content="term/title">title</span>
 
-      <span class="discreet" 
+      <span class="discreet"
             tal:condition="term/description | nothing"
             tal:content="term/description" />
 

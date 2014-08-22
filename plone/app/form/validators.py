@@ -3,13 +3,13 @@ def update_only_validator(form, action):
 
     This allows you to create an action without having formlib render a
     button for it.
-    """ 
+    """
     return "form_result" not in form.__dict__
 
 
 def null_validator(*args, **kwargs):
     """A validator that doesn't validate anything.
-    
+
     This is somewhat lame, but if you have a "Cancel" type button that
     won't want to validate the form, you need something like this.
 

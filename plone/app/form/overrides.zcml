@@ -11,7 +11,7 @@
       factory=".exception.WidgetInputErrorView"
       permission="zope.Public"
       />
-  
+
   <adapter
       for="zope.formlib.interfaces.IAction"
       factory="plone.app.form.render_submit_button"
