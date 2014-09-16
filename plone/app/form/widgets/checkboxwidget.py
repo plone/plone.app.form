@@ -1,7 +1,8 @@
-from zope.formlib.widget import renderElement
-from zope.i18nmessageid import MessageFactory
-from zope.i18n import translate
+# -*- coding: utf-8 -*-
 from zope.formlib.boolwidgets import CheckBoxWidget as BaseWidget
+from zope.formlib.widget import renderElement
+from zope.i18n import translate
+from zope.i18nmessageid import MessageFactory
 
 _ = MessageFactory('plone')
 
@@ -23,13 +24,20 @@ class CheckBoxWidget(BaseWidget):
     def __call__(self):
         """Render the widget to HTML."""
         value = self._getFormValue()
-        html = "<label for='%s'>%s" % (self.name, translate(self.context.title, context=self.request))
+        html = "<label for='{0}'>{1}".format(
+            self.name,
+            translate(self.context.title, context=self.request)
+        )
         if self.__required:
             # Use the numeric character reference here instead of &nbsp; to make
             # our xml-parsing tests happier.
-            html += " <span class='required' title='%s'>&#160;</span>" % (translate(_(u'title_required', default='Required'), context=self.request))
+            html += " <span class='required' title='{0}'>&#160;</span>".format(
+                translate(_(u'title_required', default='Required'), context=self.request)
+            )
         if self.context.description:
-            html += " <span class='formHelp'>%s</span>" % translate(self.context.description, context=self.request)
+            html += " <span class='formHelp'>{0}</span>".format(
+                translate(self.context.description, context=self.request)
+            )
         html += "</label>\n"
 
         if value == 'on':
@@ -38,7 +46,7 @@ class CheckBoxWidget(BaseWidget):
             kw = {}
         if self.disabled:
             kw['disabled'] = 'disabled'
-        return "%s  %s %s" % (
+        return '{0}  {1} {2}'.format(
             renderElement(self.tag,
                           type='hidden',
                           name=self.name + ".used",
@@ -54,7 +62,7 @@ class CheckBoxWidget(BaseWidget):
                           value="on",
                           **kw),
             html
-            )
+        )
 
 
 class DisabledCheckBoxWidget(CheckBoxWidget):

@@ -1,18 +1,22 @@
+# -*- coding: utf-8 -*-
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from five.formlib import formbase
-from zope.interface import implements
-from zope.component import getMultiAdapter, queryMultiAdapter
+from plone.app.form import PloneMessageFactory as _
+from plone.app.form.events import EditBegunEvent
+from plone.app.form.events import EditCancelledEvent
+from plone.app.form.events import EditSavedEvent
+from plone.app.form.interfaces import IEditForm
+from plone.app.form.interfaces import IPlonePageForm
+from plone.app.form.validators import null_validator
+from zope.component import getMultiAdapter
+from zope.component import queryMultiAdapter
 from zope.formlib import form
+from zope.interface import implements
 
 import zope.event
 import zope.lifecycleevent
 
-from Acquisition import aq_inner, aq_parent
-
-from plone.app.form import PloneMessageFactory as _
-from plone.app.form.interfaces import IPlonePageForm
-from plone.app.form.interfaces import IEditForm
-from plone.app.form.validators import null_validator
-from plone.app.form.events import EditBegunEvent, EditCancelledEvent, EditSavedEvent
 
 class AddForm(formbase.AddForm):
     """An add form with standard Save and Cancel buttons
@@ -49,7 +53,7 @@ class EditForm(formbase.EditForm):
         lock_info = queryMultiAdapter((self.context, self.request), name="plone_lock_info")
         if lock_info is not None and lock_info.is_locked_for_current_user():
             self.widgets = form.Widgets([], prefix=self.prefix)
-            self.form_name = None # hide border
+            self.form_name = None  # hide border
         return super(EditForm, self).render()
 
     @form.action(_(u"label_save", default="Save"),

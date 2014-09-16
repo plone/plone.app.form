@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 def update_only_validator(form, action):
     """Only validate an action when updating a form.
 

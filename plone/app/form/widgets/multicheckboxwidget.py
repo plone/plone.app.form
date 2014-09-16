@@ -1,5 +1,6 @@
-from zope.formlib.widget import renderElement
+# -*- coding: utf-8 -*-
 from zope.formlib.itemswidgets import MultiCheckBoxWidget as BaseWidget
+from zope.formlib.widget import renderElement
 
 
 class MultiCheckBoxWidget(BaseWidget):
@@ -8,10 +9,10 @@ class MultiCheckBoxWidget(BaseWidget):
 
     orientation = "vertical"
 
-    _joinButtonToMessageTemplate = u"%s %s"
+    _joinButtonToMessageTemplate = u'{0} {1}'
 
     def renderItem(self, index, text, value, name, cssClass):
-        id = '%s.%s' % (name, index)
+        id = '{0}.{1}'.format(name, index)
         elem = renderElement('input',
                              type="checkbox",
                              cssClass=cssClass,
@@ -20,13 +21,13 @@ class MultiCheckBoxWidget(BaseWidget):
                              value=value)
 
         label = renderElement('label',
-                              extra= u"for=%s" % id,
+                              extra=u'for={0}'.format(id),
                               contents=text)
 
-        return self._joinButtonToMessageTemplate %(elem, label)
+        return self._joinButtonToMessageTemplate.format(elem, label)
 
     def renderSelectedItem(self, index, text, value, name, cssClass):
-        id = '%s.%s' % (name, index)
+        id = '{0}.{1}'.format(name, index)
         elem = renderElement('input',
                              type="checkbox",
                              cssClass=cssClass,
@@ -36,7 +37,7 @@ class MultiCheckBoxWidget(BaseWidget):
                              checked="checked")
 
         label = renderElement('label',
-                              extra= u"for=%s" % id,
+                              extra=u'for={0}'.format(id),
                               contents=text)
 
-        return self._joinButtonToMessageTemplate %(elem, label)
+        return self._joinButtonToMessageTemplate.format(elem, label)

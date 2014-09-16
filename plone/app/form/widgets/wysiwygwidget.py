@@ -1,10 +1,9 @@
-from zope.formlib.textwidgets import TextWidget
-
+# -*- coding: utf-8 -*-
 from Acquisition import aq_parent
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
 from zope.component.hooks import getSite
+from zope.formlib.textwidgets import TextWidget
 
 
 class WYSIWYGWidget(TextWidget):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope.formlib.itemswidgets import DropdownWidget
 from zope.component import queryMultiAdapter
 
@@ -8,8 +9,11 @@ class LanguageDropdownChoiceWidget(DropdownWidget):
 
     def __init__(self, field, request):
         """Initialize the widget."""
-        super(LanguageDropdownChoiceWidget, self).__init__(field,
-            field.vocabulary, request)
+        super(LanguageDropdownChoiceWidget, self).__init__(
+            field,
+            field.vocabulary,
+            request
+        )
 
     def renderItemsWithValues(self, values):
         """Render the list of possible values, with those found in

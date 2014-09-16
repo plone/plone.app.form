@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from zope.formlib.sequencewidget import SequenceWidget as BaseWidget
+
 
 class SequenceWidget(BaseWidget):
     """Plone specific widget that is going to include originalValue attribute
@@ -14,10 +16,14 @@ class SequenceWidget(BaseWidget):
         # Not all content objects must necessarily support the attributes
         if self.context.context is not None and hasattr(self.context.context,
            self.context.__name__):
-            orig = ' originalValue="%d"' % len(self.context.get(
-                self.context.context))
-        return ('<input type="hidden" name="%s.count" value="%d"%s />' % (
-            self.name, count, orig))
+            orig = ' originalValue="{0}"'.format(
+                len(self.context.get(self.context.context))
+            )
+        return ('<input type="hidden" name="{0}.count" value="{1}"{2} />'.format(
+            self.name,
+            count,
+            orig)
+        )
 
 
 class TupleSequenceWidget(SequenceWidget):

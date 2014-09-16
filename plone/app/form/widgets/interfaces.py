@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from zope.interface import Interface
+
 
 class IDateComponents(Interface):
     """A view that provides some helper methods useful in date widgets.
@@ -12,4 +14,3 @@ class IDateComponents(Interface):
                minute_step=5):
         """Returns a dict with date information.
         """
-
