@@ -1,12 +1,9 @@
-from Products.PloneTestCase import PloneTestCase as ptc
-from Products.CMFCore.utils import getToolByName
-
-from zope.publisher.browser import TestRequest
-from zope.site.hooks import getSite
-
+# -*- coding: utf-8 -*-
+from plone.app.form.testing import INTEGRATION_TESTING
 from plone.app.form.widgets.wysiwygwidget import WYSIWYGWidget
 
-ptc.setupPloneSite()
+import unittest
+
 
 BODY = """<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
@@ -27,9 +24,17 @@ BODY = """<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
 """
 
 
-class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
+class WYSIWYGWidgetTestCase(unittest.TestCase):
     """Base class used for test cases
     """
+
+    layer = INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.request = self.layer['request']
+        self.pm = self.portal.portal_membership
+        self.skins = self.portal.portal_skins
 
     def test_right_macro(self):
         # fixes #8016
@@ -45,28 +50,21 @@ class WYSIWYGWidgetTestCase(ptc.PloneTestCase):
         from zope.pagetemplate.pagetemplatefile import PageTemplate
         template = PageTemplate()
         template.pt_edit(BODY, 'text/html')
-        site = getSite()
-        site.portal_skins.custom.cool_editor_wysiwyg_support = template
+
+        self.skins.custom.cool_editor_wysiwyg_support = template
 
         # The wysiwyg widget depends on the used editor.
         # Let's change it to `cool_editor`.
-        pm = getToolByName(self.portal, 'portal_membership')
+        pm = self.pm
         member = pm.getAuthenticatedMember()
         member.setMemberProperties({'wysiwyg_editor': 'cool_editor'})
 
-        w = WYSIWYGWidget(MyField(), TestRequest())
+        w = WYSIWYGWidget(MyField(), self.request)
         # The test is partially that this call does not give an error:
         html = w()
         # This is true for standard Plone as well:
-        self.assertTrue(
+        self.assertIn(
             '<textarea name="field.the field" rows="25" id="field.the field">'
-            'the value</textarea>' in html)
+            'the value</textarea>', html)
         # Only our cool editor has this:
-        self.assertTrue('Cool Editor Box' in html)
-
-
-def test_suite():
-    from unittest import TestSuite, makeSuite
-    suite = TestSuite()
-    suite.addTest(makeSuite(WYSIWYGWidgetTestCase))
-    return suite
+        self.assertIn('Cool Editor Box', html)
