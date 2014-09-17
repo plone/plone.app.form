@@ -4,7 +4,7 @@ Changelog
 2.3.1 (unreleased)
 ------------------
 
-- Remove Products.PloneTestCase dependency. This closes `#2689`_.
+- Remove Products.PloneTestCase dependency. This closes `#241`_.
   [ericof]
 
 
