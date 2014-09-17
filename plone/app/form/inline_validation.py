@@ -1,11 +1,11 @@
-import json
-
-from zope.formlib import form as formlib
-
+# -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from Products.Five import BrowserView
 from Products.Five.browser.decode import processInputs
 from Products.Five.browser.decode import setPageEncoding
+from zope.formlib import form as formlib
+
+import json
 
 
 class InlineValidationView(BrowserView):

@@ -1,12 +1,11 @@
+# -*- coding: utf-8 -*-
 __docformat__ = 'restructuredtext'
 
 from cgi import escape
-
-from zope.interface import implements
-from zope.i18n import translate
-
 from zope.formlib.interfaces import IWidgetInputError
 from zope.formlib.interfaces import IWidgetInputErrorView
+from zope.i18n import translate
+from zope.interface import implements
 
 
 class WidgetInputErrorView(object):
@@ -42,4 +41,4 @@ class WidgetInputErrorView(object):
         """
         message = self.context.doc()
         translated = translate(message, context=self.request, default=message)
-        return u'%s' % escape(translated)
+        return u'{0}'.format(escape(translated))

@@ -1,15 +1,18 @@
-from zope.interface import implements, Interface
-from zope.schema import Tuple, List, TextLine
-from zope.publisher.browser import TestRequest
-
-from zope.formlib.widgets import ObjectWidget
-from zope.formlib.interfaces import MissingInputError, WidgetInputError
+# -*- coding: utf-8 -*-
+from plone.app.form.widgets import ListSequenceWidget
+from plone.app.form.widgets import SequenceWidget
+from plone.app.form.widgets import TupleSequenceWidget
+from zope.formlib.interfaces import MissingInputError
+from zope.formlib.interfaces import WidgetInputError
+from zope.formlib.tests.test_sequencewidget import SequenceWidgetTest as BaseSequenceWidgetTest
 from zope.formlib.widget import CustomWidgetFactory
-from zope.formlib.tests.test_sequencewidget import SequenceWidgetTest as \
-    BaseSequenceWidgetTest
-
-from plone.app.form.widgets import SequenceWidget, TupleSequenceWidget, \
-    ListSequenceWidget
+from zope.formlib.widgets import ObjectWidget
+from zope.interface import implements
+from zope.interface import Interface
+from zope.publisher.browser import TestRequest
+from zope.schema import List
+from zope.schema import TextLine
+from zope.schema import Tuple
 
 
 class SequenceWidgetTest(BaseSequenceWidgetTest):
@@ -25,11 +28,13 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
     _WidgetFactory = TupleSequenceWidget
 
     def setUpContent(self, desc=u'', title=u'Foo Title'):
+
         class ITestContent(Interface):
             foo = self._FieldFactory(
-                    title=title,
-                    description=desc,
-                    )
+                title=title,
+                description=desc,
+            )
+
         class TestObject(object):
             implements(ITestContent)
             foo = ('one', 'two')
@@ -39,7 +44,10 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         self.request = TestRequest(HTTP_ACCEPT_LANGUAGE='pl')
         self.request.form['field.foo'] = u'Foo Value'
         self._widget = self._WidgetFactory(
-            self.field, self.field.value_type, self.request)
+            self.field,
+            self.field.value_type,
+            self.request
+        )
 
     def test_customWidgetFactory(self):
         """Verify that the widget can be constructed via the CustomWidgetFactory
@@ -47,7 +55,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         """
 
         value_type = TextLine(__name__=u'bar')
-        self.field = List( __name__=u'foo', value_type=value_type )
+        self.field = List(__name__=u'foo', value_type=value_type)
         request = TestRequest()
 
         # set up the custom widget factory and verify that it works
@@ -57,7 +65,9 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         assert widget.context.value_type is value_type
 
         # set up a variant that specifies the subwidget to use and verify it
-        class PollOption(object) : pass
+        class PollOption(object):
+            pass
+
         ow = CustomWidgetFactory(ObjectWidget, PollOption)
         sw = CustomWidgetFactory(ListSequenceWidget, subwidget=ow)
         widget = sw(self.field, request)
@@ -72,7 +82,9 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
                           value_type=TextLine(__name__=u'bar'))
         request = TestRequest()
 
-        class PollOption(object) : pass
+        class PollOption(object):
+            pass
+
         ow = CustomWidgetFactory(ObjectWidget, PollOption)
         widget = SequenceWidget(
             self.field, self.field.value_type, request, subwidget=ow)
@@ -141,8 +153,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         self.assertRaises(MissingInputError, widget.getInputValue)
         check_list = (
             'checkbox', 'field.foo.remove_0', 'input', 'field.foo.0.bar',
-                'existing',
-            'submit', 'submit', 'field.foo.add',
+            'existing', 'submit', 'submit', 'field.foo.add',
             'field.foo.count" value="1"',
         )
         self.verifyResult(widget(), check_list, inorder=True)
@@ -151,11 +162,8 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         self.assertRaises(MissingInputError, widget.getInputValue)
         check_list = (
             'checkbox', 'field.foo.remove_0', 'input', 'field.foo.0.bar',
-                'existing',
-            'checkbox', 'field.foo.remove_1', 'input', 'field.foo.1.bar',
-                'second',
-            'submit', 'submit', 'field.foo.add',
-            'field.foo.count" value="2"',
+            'existing', 'checkbox', 'field.foo.remove_1', 'input', 'field.foo.1.bar',
+            'second', 'submit', 'submit', 'field.foo.add', 'field.foo.count" value="2"',
         )
         self.verifyResult(widget(), check_list, inorder=True)
 
@@ -171,10 +179,8 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
         self.assertEqual(widget.getInputValue(), (u'second',))
         check_list = (
             'checkbox', 'field.foo.remove_0', 'input', 'field.foo.0.bar',
-                'existing',
-            'checkbox', 'field.foo.remove_1', 'input', 'field.foo.1.bar',
-                'second',
-            'submit', 'submit', 'field.foo.add',
+            'existing', 'checkbox', 'field.foo.remove_1', 'input', 'field.foo.1.bar',
+            'second', 'submit', 'submit', 'field.foo.add',
             'field.foo.count" value="2"',
         )
         self.verifyResult(widget(), check_list, inorder=True)
@@ -289,25 +295,26 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
     def test_presensemarker(self):
         request = TestRequest()
         widget = SequenceWidget(self.field, self.field.value_type, request)
-        self.assertEqual(widget._getPresenceMarker(2), '<input type="hidden" '
-            'name="%s.count" value="2" originalValue="2" />' % widget.name)
+        self.assertEqual(
+            widget._getPresenceMarker(2),
+            '<input type="hidden" '
+            'name="%s.count" value="2" originalValue="2" />' % widget.name
+        )
 
         # now pass object w/o foo attribute and check if it won't break
         class ITestContent(Interface):
             foo = self._FieldFactory(
-                    title=u'Foo',
-                    description=u'Foo Field',
-                    )
+                title=u'Foo',
+                description=u'Foo Field',
+            )
+
         class TestObject(object):
             implements(ITestContent)
 
         field = ITestContent['foo'].bind(TestObject())
         widget = SequenceWidget(field, field.value_type, request)
-        self.assertEqual(widget._getPresenceMarker(1), '<input type="hidden" '
-            'name="%s.count" value="1" />' % widget.name)
-
-def test_suite():
-    from unittest import TestSuite, makeSuite
-    suite = TestSuite()
-    suite.addTest(makeSuite(SequenceWidgetTest))
-    return suite
+        self.assertEqual(
+            widget._getPresenceMarker(1),
+            '<input type="hidden" '
+            'name="%s.count" value="1" />' % widget.name
+        )

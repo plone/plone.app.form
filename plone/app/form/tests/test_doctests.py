@@ -1,14 +1,10 @@
-import doctest
-import unittest
-
+# -*- coding: utf-8 -*-
 from zope.component import testing
 from zope.testing import cleanup
+from Zope2.App import zcml
 
-# BBB Zope 2.12
-try:
-    from Zope2.App import zcml
-except ImportError:
-    from Products.Five import zcml
+import doctest
+import unittest
 
 
 def setUp(test):
@@ -20,11 +16,7 @@ def setUp(test):
 
     zcml.load_config('configure.zcml', Products.Five)
     zcml.load_config('configure.zcml', five.formlib)
-    try:
-        zcml.load_config('permissions.zcml', Products.CMFCore)
-    except IOError:
-        # BBB CMF 2.2
-        pass
+    zcml.load_config('permissions.zcml', Products.CMFCore)
     zcml.load_config('configure.zcml', plone.app.form)
     zcml.load_config('configure.zcml', plone.memoize)
 
@@ -47,4 +39,4 @@ def test_suite():
             setUp=setUp,
             tearDown=tearDown,
             optionflags=optionflags),
-        ))
+    ))

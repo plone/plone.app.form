@@ -4,7 +4,8 @@ Changelog
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove Products.PloneTestCase dependency. This closes `#241`_.
+  [ericof]
 
 
 2.3.0 (2014-02-26)
@@ -420,3 +421,4 @@ Changelog
 - Initial package structure.
   [zopeskel]
 
+.. _`#241`: https://github.com/plone/Products.CMFPlone/issues/241

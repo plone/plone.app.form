@@ -1,13 +1,12 @@
+# -*- coding: utf-8 -*-
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.browser.interfaces import ITerms
 from zope.component import getMultiAdapter
-from zope.schema.interfaces import ValidationError
-
-from zope.formlib.interfaces import WidgetInputError
 from zope.formlib.interfaces import ISourceQueryView
 from zope.formlib.interfaces import IWidgetInputErrorView
+from zope.formlib.interfaces import WidgetInputError
 from zope.formlib.widget import SimpleInputWidget
-
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.schema.interfaces import ValidationError
 
 
 class UberSelectionWidget(SimpleInputWidget):
@@ -29,7 +28,7 @@ class UberSelectionWidget(SimpleInputWidget):
             token = self.request.form.get(self.name)
 
             if token is not None and token != '':
-                if not isinstance(token, basestring):
+                if not isinstance(token, basestring):  # noqa
                     token = token[-1]
                 try:
                     value = self.terms.getValue(str(token))
@@ -49,7 +48,7 @@ class UberSelectionWidget(SimpleInputWidget):
     def hidden(self):
         value = self._value()
         if value == self.context.missing_value:
-            return '' # Nothing to hide ;)
+            return ''  # Nothing to hide ;)
 
         try:
             term = self.terms.getTerm(value)
@@ -58,7 +57,10 @@ class UberSelectionWidget(SimpleInputWidget):
             # it as if it was missing and return nothing.
             return ''
 
-        return '<input type="hidden" name="%s" value="%s" />' % (self.name, term.token)
+        return '<input type="hidden" name="{0}" value="{1}" />'.format(
+            self.name,
+            term.token
+        )
 
     def error(self):
         if self._error:
@@ -95,7 +97,7 @@ class UberSelectionWidget(SimpleInputWidget):
         # value must be valid per the field constraints
         try:
             field.validate(value)
-        except ValidationError, err:
+        except ValidationError as err:
             self._error = WidgetInputError(field.__name__, self.label, err)
             raise self._error
 
@@ -110,6 +112,7 @@ class UberSelectionWidget(SimpleInputWidget):
             return True
 
         return False
+
 
 class UberMultiSelectionWidget(UberSelectionWidget):
     template = ViewPageTemplateFile('ubermultiselectionwidget.pt')
@@ -132,7 +135,7 @@ class UberMultiSelectionWidget(UberSelectionWidget):
                     try:
                         v = self.terms.getValue(str(token))
                     except LookupError:
-                        pass # skip invalid values
+                        pass  # skip invalid values
                     else:
                         value.append(v)
                 # only keep unique items

@@ -1,14 +1,18 @@
-import new
+# -*- coding: utf-8 -*-
 from Acquisition import aq_inner
+from Products.Five.browser.pagetemplatefile import BoundPageTemplate
 from zope import interface
 from zope.formlib import namedtemplate
-from Products.Five.browser.pagetemplatefile import BoundPageTemplate
+
+import new
+
 try:
     # chameleon-compatible page templates
     from five.pt.pagetemplate import ViewPageTemplateFile as ChameleonPageTemplateFile
     HAS_CHAMELEON = True
 except ImportError:
     HAS_CHAMELEON = False
+
 
 class NamedTemplateAdapter(object):
     """A named template adapter implementation that has the ability
@@ -23,7 +27,7 @@ class NamedTemplateAdapter(object):
         self.context = context
 
     @property
-    def macros (self):
+    def macros(self):
         return self.default_template.macros
 
     def __call__(self, *args, **kwargs):
@@ -36,6 +40,7 @@ class NamedTemplateAdapter(object):
         # a view, but we're accessing it from a NamedTemplateAdapter so we have to be sneaky and
         # make our own BoundPageTemplate rather than calling self.default_template directly.
         return BoundPageTemplate(self.__class__.__dict__['default_template'], view)(*args, **kwargs)
+
 
 def named_template_adapter(template):
     """Return a new named template adapter which defaults the to given
