@@ -11,6 +11,10 @@ Changelog
 2.3.0 (2014-02-26)
 ------------------
 
+- Remove DL's from portal message in templates.
+  https://github.com/plone/Products.CMFPlone/issues/153
+  [khink]
+
 - Move date_components_support view to Products.Archetypes.
   [davisagli]
 

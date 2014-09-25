@@ -2,13 +2,13 @@
     i18n:domain="plone"
     tal:attributes="class string:kssattr-formname-${view/__name__}">
 
-    <dl class="portalMessage error"
+    <div class="portalMessage error"
         tal:define="status view/status"
         tal:condition="status">
-        <dt i18n:translate="">
+        <strong i18n:translate="">
             Error
-        </dt>
-        <dd tal:content="status" />
+        </strong>
+        <span tal:replace="status" />
     </dl>
 
   <h1  i18n:translate=""
