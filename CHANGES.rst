@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.3.1 (unreleased)
+2.3.1 (2014-10-23)
 ------------------
 
 - Remove Products.PloneTestCase dependency. This closes `#241`_.
