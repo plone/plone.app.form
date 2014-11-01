@@ -24,21 +24,21 @@ class CheckBoxWidget(BaseWidget):
     def __call__(self):
         """Render the widget to HTML."""
         value = self._getFormValue()
-        html = "<label for='{0}'>{1}".format(
+        html = u"<label for='{0}'>{1}".format(
             self.name,
             translate(self.context.title, context=self.request)
         )
         if self.__required:
             # Use the numeric character reference here instead of &nbsp; to make
             # our xml-parsing tests happier.
-            html += " <span class='required' title='{0}'>&#160;</span>".format(
+            html += u" <span class='required' title='{0}'>&#160;</span>".format(
                 translate(_(u'title_required', default='Required'), context=self.request)
             )
         if self.context.description:
-            html += " <span class='formHelp'>{0}</span>".format(
+            html += u" <span class='formHelp'>{0}</span>".format(
                 translate(self.context.description, context=self.request)
             )
-        html += "</label>\n"
+        html += u"</label>\n"
 
         if value == 'on':
             kw = {'checked': 'checked'}
@@ -46,7 +46,7 @@ class CheckBoxWidget(BaseWidget):
             kw = {}
         if self.disabled:
             kw['disabled'] = 'disabled'
-        return '{0}  {1} {2}'.format(
+        return u'{0}  {1} {2}'.format(
             renderElement(self.tag,
                           type='hidden',
                           name=self.name + ".used",
