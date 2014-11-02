@@ -4,7 +4,8 @@ Changelog
 2.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix checkbox widget rendering so non-ASCII translations can be used.
+  [terapyon]
 
 
 2.3.1 (2014-10-23)
