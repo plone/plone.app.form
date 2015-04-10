@@ -9,7 +9,7 @@
             Error
         </strong>
         <span tal:replace="status" />
-    </dl>
+    </div>
 
   <h1  i18n:translate=""
        tal:condition="view/label"

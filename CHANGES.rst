@@ -4,6 +4,9 @@ Changelog
 2.3.2 (unreleased)
 ------------------
 
+- Fix wrong closing tag in subpageform.pt
+  [vincentfretin]
+
 - Fix checkbox widget rendering so non-ASCII translations can be used.
   [terapyon]
 
