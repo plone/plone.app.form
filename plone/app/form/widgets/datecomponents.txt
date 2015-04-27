@@ -165,12 +165,12 @@ The EN_us locale will not suffer of the issue while other (DE_de or IT_it) do.
   >>> import locale
   >>> default_locale = locale.getlocale()
   >>> testdate = DateTime.DateTime('2015/04/17 09:00:00')
-  >>> locale.setlocale(locale.LC_ALL, "en_US")
-  'en_US'
+  >>> locale.setlocale(locale.LC_ALL, "EN_us")
+  'EN_us'
   >>> view.result(testdate, use_ampm=True)['ampm']
   [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]
-  >>> locale.setlocale(locale.LC_ALL, "it_IT")
-  'it_IT'
+  >>> locale.setlocale(locale.LC_ALL, "IT_it")
+  'IT_it'
   >>> view.result(testdate, use_ampm=True)['ampm']
   [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]  
   >>> dummy = locale.setlocale(locale.LC_ALL, default_locale)
