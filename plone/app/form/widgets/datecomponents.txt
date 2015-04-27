@@ -160,17 +160,17 @@ test is run.
 
 Now testing if Python env localization will not affects the AM/PM behavior of the
 view (preventing regression of issue https://github.com/plone/plone.app.form/issues/8).
-The EN_us locale will not suffer of the issue while other (DE_de or IT_it) do.
+The en_US locale will not suffer of the issue while other (de_DE or it_IT) do.
 
   >>> import locale
   >>> default_locale = locale.getlocale()
   >>> testdate = DateTime.DateTime('2015/04/17 09:00:00')
-  >>> locale.setlocale(locale.LC_ALL, "EN_us")
-  'EN_us'
+  >>> locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+  'en_US.UTF-8'
   >>> view.result(testdate, use_ampm=True)['ampm']
   [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]
-  >>> locale.setlocale(locale.LC_ALL, "IT_it")
-  'IT_it'
+  >>> locale.setlocale(locale.LC_ALL, "it_IT.UTF-8")
+  'it_IT.UTF-8'
   >>> view.result(testdate, use_ampm=True)['ampm']
   [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]  
   >>> dummy = locale.setlocale(locale.LC_ALL, default_locale)
