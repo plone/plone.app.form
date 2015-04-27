@@ -4,9 +4,7 @@ Changelog
 2.2.5 (unreleased)
 ------------------
 
-- Preventing AM/PM issue when some locales are set.
-  This fix https://github.com/plone/plone.app.form/issues/8
-  [keul]
+- Nothing changed yet.
 
 
 2.2.4 (2014-01-27)

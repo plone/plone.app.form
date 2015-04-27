@@ -215,7 +215,7 @@ class DateComponents(BrowserView):
 
             for x in ('AM', 'PM'):
                 d={'id': x, 'value': x, 'selected': None}
-                if x==p.upper() and not default:
+                if x==p and not default:
                     d['selected']=1
                 ampm.append(d)
 
