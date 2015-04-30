@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.5 (unreleased)
+2.2.5 (2015-04-30)
 ------------------
 
 - Fix timezone tests.
