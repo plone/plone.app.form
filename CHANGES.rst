@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.3.2 (unreleased)
+2.3.2 (2015-05-04)
 ------------------
 
 - Fix wrong closing tag in subpageform.pt
