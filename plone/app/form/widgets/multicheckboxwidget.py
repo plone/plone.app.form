@@ -12,17 +12,16 @@ class MultiCheckBoxWidget(BaseWidget):
     
     def renderItem(self, index, text, value, name, cssClass):
         id = '%s.%s' % (name, index)
+
         elem = renderElement('input',
                              type="checkbox",
                              cssClass=cssClass,
                              name=name,
                              id=id,
-                             value=value)
-
+                             value=value.decode('utf-8'))
         label = renderElement('label',
                               extra= u"for=%s" % id,
                               contents=text)
-
         return self._joinButtonToMessageTemplate %(elem, label)
 
     def renderSelectedItem(self, index, text, value, name, cssClass):
@@ -32,9 +31,8 @@ class MultiCheckBoxWidget(BaseWidget):
                              cssClass=cssClass,
                              name=name,
                              id=id,
-                             value=value,
+                             value=value.decode('utf-8'),
                              checked="checked")
-
         label = renderElement('label',
                               extra= u"for=%s" % id,
                               contents=text)
