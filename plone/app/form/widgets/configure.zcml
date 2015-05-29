@@ -1,13 +1,8 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:five="http://namespaces.zope.org/five">
+    xmlns="http://namespaces.zope.org/zope">
 
-    <!-- use the FileUploadWidget from CMFDefault as the default
-         widget for the FileUpload field from that package;
-         the zcml in that package is excluded by CMFPlone -->
     <adapter
-        factory="Products.CMFDefault.formlib.widgets.FileUploadWidget"
+        factory=".fileupload.FileUploadWidget"
         permission="zope.Public"
         />
 
