@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from zope.interface import Interface
+from zope.schema.interfaces import IField
 
 
 class IDateComponents(Interface):
@@ -14,3 +15,9 @@ class IDateComponents(Interface):
                minute_step=5):
         """Returns a dict with date information.
         """
+
+class IFileUpload(IField):
+
+    """A field for file uploads.
+    """
+

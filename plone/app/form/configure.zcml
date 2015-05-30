@@ -42,12 +42,12 @@
       />
 
   <!-- Let Five's add views look pretty in CMF/Plone -->
-  <configure package="Products.CMFDefault.skin">
+  <configure package="Products.CMFPlone.browser">
 
       <browser:page
         name="five_template"
         for="zope.browser.interfaces.IAdding"
-        template="five_template.pt"
+        template="templates/five_template.pt"
         permission="zope2.View"
         />
 
