@@ -164,9 +164,9 @@ The en_US locale will not suffer of the issue while other (de_DE or it_IT) do.
 
   >>> import locale
   >>> default_locale = locale.getlocale()
-  >>> testdate = DateTime.DateTime('2015/04/17 09:00:00')
   >>> locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
   'en_US.UTF-8'
+  >>> testdate = DateTime.DateTime('2015/04/17 09:00:00')
   >>> view.result(testdate, use_ampm=True)['ampm']
   [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]
   >>> locale.setlocale(locale.LC_ALL, "it_IT.UTF-8")
