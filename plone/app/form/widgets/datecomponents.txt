@@ -172,7 +172,7 @@ The en_US locale will not suffer of the issue while other (de_DE or it_IT) do.
   >>> locale.setlocale(locale.LC_ALL, "it_IT.UTF-8")
   'it_IT.UTF-8'
   >>> view.result(testdate, use_ampm=True)['ampm']
-  [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]  
+  [{'selected': None, 'id': '--', 'value': 'AM'}, {'selected': 1, 'id': 'AM', 'value': 'AM'}, {'selected': None, 'id': 'PM', 'value': 'PM'}]
   >>> dummy = locale.setlocale(locale.LC_ALL, default_locale)
 
 un-monkey patch
