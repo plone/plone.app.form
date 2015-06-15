@@ -12,8 +12,14 @@ class InlineValidationView(BrowserView):
     """Validate a form and return the error message for a particular field as JSON.
     """
 
-    def __call__(self, fname):
+    def __call__(self, fname=None, fset=None):
+        # Note that fset (field set) is not used.  This is added so
+        # the function signature is the same as in plone.app.z3cform.
+        # This may avoid errors.
         res = {'errmsg': ''}
+
+        if fname is None:
+            return json.dumps(res)
 
         form = aq_inner(self.context)
         context = aq_inner(form.context)

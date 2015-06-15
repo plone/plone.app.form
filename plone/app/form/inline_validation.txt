@@ -94,4 +94,10 @@ And similarly, we will get an error if the field has an invalid value:
     >>> formlib_validate_input(fname=u'form.size')
     '{"errmsg": "<span class=\\"error\\">Invalid integer data</span>"}'
 
+If the field name (fname) is not provided by the client, the validation
+should return without issue:
+
+    >>> formlib_validate_input()
+    '{"errmsg": ""}'
+
     >>> del context, request

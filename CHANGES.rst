@@ -4,7 +4,9 @@ Changelog
 2.2.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Inline validation robustness if no field name is passed by client
+  request.  Same as in plone.app.z3cform.
+  [maurits]
 
 
 2.2.5 (2015-04-30)
