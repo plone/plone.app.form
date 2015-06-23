@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.6 (unreleased)
+2.2.6 (2015-06-23)
 ------------------
 
 - Inline validation robustness if no field name is passed by client
