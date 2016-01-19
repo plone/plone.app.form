@@ -4,7 +4,8 @@ Changelog
 2.2.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- More context for WYSIWYG editor
+  [gotcha]
 
 
 2.2.6 (2015-06-23)
