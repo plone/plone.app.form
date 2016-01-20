@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.7 (unreleased)
+2.2.7 (2016-01-20)
 ------------------
 
 - More context for WYSIWYG editor
