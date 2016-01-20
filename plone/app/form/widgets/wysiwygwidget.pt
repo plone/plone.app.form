@@ -7,7 +7,9 @@
      xml:lang="en"
      i18n:domain="plone">
 
-     <tal:editor define="context            nocall:options/form_context;
+     <tal:editor define="formlib_widget     nocall:view;
+                         formlib_field      nocall:context;
+                         context            nocall:options/form_context;
                          here               nocall:context;
                          portal_url         nocall:context/portal_url;
                          inputname          view/name;
