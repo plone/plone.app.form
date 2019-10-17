@@ -25,9 +25,9 @@ Then, we will create a simple test form and a context for it to operate on.
     ...     size = schema.Int(title=u"Size")
 
     >>> from plone.app.content.item import Item
-    >>> from zope.interface import implements
+    >>> from zope.interface import implementer
     >>> class Wibble(Item):
-    ...     implements(IWibble)
+    ...     implementer(IWibble)
     ...     title = u""
     ...     text = u""
     ...     size = 0

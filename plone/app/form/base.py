@@ -12,7 +12,7 @@ from plone.app.form.validators import null_validator
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.formlib import form
-from zope.interface import implements
+from zope.interface import implementer
 
 import zope.event
 import zope.lifecycleevent
@@ -22,7 +22,7 @@ class AddForm(formbase.AddForm):
     """An add form with standard Save and Cancel buttons
     """
 
-    implements(IPlonePageForm)
+    implementer(IPlonePageForm)
 
     @form.action(_(u"label_save", default=u"Save"),
                  condition=form.haveInputWidgets,
@@ -42,7 +42,7 @@ class EditForm(formbase.EditForm):
     """An edit form with standard Save and Cancel buttons
     """
 
-    implements(IPlonePageForm, IEditForm)
+    implementer(IPlonePageForm, IEditForm)
 
     def update(self):
         zope.event.notify(EditBegunEvent(self.context))

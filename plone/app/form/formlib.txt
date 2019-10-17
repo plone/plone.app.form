@@ -13,7 +13,7 @@ request, which seems to be no longer needed to have it work with Zope
   ...     var1 = schema.TextLine(title=u'var1')
   ...     var2 = schema.Bool(title=u'var2')
   >>> class Foo(object):
-  ...     interface.implements(IFoo)
+  ...     interface.implementer(IFoo)
   ...     var1 = u''
   ...     var2 = False
   >>> class BarForm(form.EditForm):

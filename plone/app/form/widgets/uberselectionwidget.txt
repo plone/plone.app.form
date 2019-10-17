@@ -5,7 +5,7 @@ First we need to prepare some things. For this we need some imports.
 
   >>> from zope.browser.interfaces import ITerms
   >>> from zope.component import provideAdapter, adapts
-  >>> from zope.interface import Interface, implements
+  >>> from zope.interface import Interface, implementer
   >>> from zope.schema import Choice, List
   >>> from zope.schema.interfaces import IIterableSource
   >>> from plone.app.vocabularies.catalog import SearchableTextSource
@@ -15,13 +15,13 @@ First we need to prepare some things. For this we need some imports.
 The source itself.
 
   >>> class SourceList(list):
-  ...     implements(IIterableSource)
+  ...     implementer(IIterableSource)
 
 An adapter to ITerms.
 
   >>> class ListTerms(object):
   ...
-  ...     implements(ITerms)
+  ...     implementer(ITerms)
   ...
   ...     def __init__(self, source, request):
   ...         pass # We don't actually need the source or the request :)
@@ -47,7 +47,7 @@ An adapter to ISourceQueryView to make the source searchable.
 
   >>> class ListQueryView:
   ...
-  ...     implements(ISourceQueryView)
+  ...     implementer(ISourceQueryView)
   ...     adapts(
   ...         SourceList,
   ...         IBrowserRequest,

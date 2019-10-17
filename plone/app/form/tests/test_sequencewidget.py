@@ -7,7 +7,7 @@ from zope.formlib.interfaces import WidgetInputError
 from zope.formlib.tests.test_sequencewidget import SequenceWidgetTest as BaseSequenceWidgetTest
 from zope.formlib.widget import CustomWidgetFactory
 from zope.formlib.widgets import ObjectWidget
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface import Interface
 from zope.publisher.browser import TestRequest
 from zope.schema import List
@@ -36,7 +36,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
             )
 
         class TestObject(object):
-            implements(ITestContent)
+            implementer(ITestContent)
             foo = ('one', 'two')
 
         self.content = TestObject()
@@ -309,7 +309,7 @@ class SequenceWidgetTest(BaseSequenceWidgetTest):
             )
 
         class TestObject(object):
-            implements(ITestContent)
+            implementer(ITestContent)
 
         field = ITestContent['foo'].bind(TestObject())
         widget = SequenceWidget(field, field.value_type, request)

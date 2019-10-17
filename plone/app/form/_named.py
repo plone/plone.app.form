@@ -4,8 +4,6 @@ from Products.Five.browser.pagetemplatefile import BoundPageTemplate
 from zope import interface
 from zope.formlib import namedtemplate
 
-import new
-
 try:
     # chameleon-compatible page templates
     from five.pt.pagetemplate import ViewPageTemplateFile as ChameleonPageTemplateFile
@@ -21,7 +19,7 @@ class NamedTemplateAdapter(object):
     in the traditional portal_skins style).
     """
 
-    interface.implements(namedtemplate.INamedTemplate)
+    interface.implementer(namedtemplate.INamedTemplate)
 
     def __init__(self, context):
         self.context = context
@@ -47,9 +45,9 @@ def named_template_adapter(template):
     template.
     """
 
-    new_class = new.classobj('GeneratedClass',
-                             (NamedTemplateAdapter,),
-                             {})
+    new_class = type('GeneratedClass',
+                     (NamedTemplateAdapter,),
+                     {})
     if HAS_CHAMELEON:
         template = ChameleonPageTemplateFile(template.filename)
     new_class.default_template = template

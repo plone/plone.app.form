@@ -5,12 +5,12 @@ from cgi import escape
 from zope.formlib.interfaces import IWidgetInputError
 from zope.formlib.interfaces import IWidgetInputErrorView
 from zope.i18n import translate
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class WidgetInputErrorView(object):
     """A widget error view that hardcodes no html"""
-    implements(IWidgetInputErrorView)
+    implementer(IWidgetInputErrorView)
 
     __used_for__ = IWidgetInputError
 
