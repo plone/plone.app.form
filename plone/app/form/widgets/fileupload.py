@@ -33,8 +33,8 @@ class FileUploadWidget(FileWidget):
         try:
             filename = input.filename.split('\\')[-1] # for IE
             input.filename = filename.strip().replace(' ','_')
-        except AttributeError, e:
-            raise ConversionError(zope_('Form input is not a file object'), e)
+        except AttributeError as err:
+            raise ConversionError(zope_('Form input is not a file object'), err)
         return input
 
     def hasInput(self):
