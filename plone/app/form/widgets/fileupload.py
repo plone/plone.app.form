@@ -17,14 +17,14 @@ from plone.app.form.widgets.interfaces import IFileUpload
 from zope.app.form.browser import FileWidget
 from zope.app.form.interfaces import ConversionError
 from zope.app.form.interfaces import IInputWidget
-from zope.interface import implementsOnly
+from zope.interface import implementer_only
 from zope.component import adapts
 from zope.publisher.interfaces.browser import IBrowserRequest
 
 
+@implementer_only(IInputWidget)
 class FileUploadWidget(FileWidget):
 
-    implementsOnly(IInputWidget)
     adapts(IFileUpload, IBrowserRequest)
 
     def _toFieldValue(self, input):
