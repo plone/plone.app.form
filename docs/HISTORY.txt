@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1.10 - Unreleased
-------------------
+1.1.10 (2020-10-27)
+-------------------
 
 - Lifted the ceiling for the maximum date from end of 2020 to 2050.
   See `issue 17 <https://github.com/plone/plone.app.form/issues/17>`_.
