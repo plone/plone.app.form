@@ -4,6 +4,11 @@ Changelog
 1.1.10 - Unreleased
 ------------------
 
+- Lifted the ceiling for the maximum date from end of 2020 to 2050.
+  See `issue 17 <https://github.com/plone/plone.app.form/issues/17>`_.
+  [iham]
+
+
 1.1.9 - 2010-09-19
 ------------------
 
@@ -19,7 +24,7 @@ Changelog
   configurable by a simple variable called `limit_results` on the widget.
   [hannosch]
 
-- Fixed return value of multi selection widget _value method. The template 
+- Fixed return value of multi selection widget _value method. The template
   tries to get len() of the value, but fails if the value is None. This allows
   to use multi selection widget in the portlets, for example.
   [naro]
@@ -70,7 +75,7 @@ plone.app.form - 1.1.0 Released April 20th, 2008
 
 plone.app.form - 1.1.0a1
 
-    - Improve KSS inline validation for complex widgets like the 
+    - Improve KSS inline validation for complex widgets like the
       UberSelectionwidget that require more than a single form value to
       validate.
       [optilude]
